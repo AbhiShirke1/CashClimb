@@ -3,7 +3,7 @@ import React from 'react';
 const Hero = () => {
   return (
     <>
-          <section class="main bg-[#050029] pt-[40px] bg-cover drop-shadow-sm ">
+          <section class="main bg-[#050029] pt-[85px] bg-cover drop-shadow-sm ">
                     <div class="conatiner w-full">
                               <div class="vision flex justify-center items-center ">
                                         <div class="left w-1/2 pl-[200px]">
