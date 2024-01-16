@@ -23,7 +23,7 @@ const Reasons = () => {
                                         <div class="float-left min-h-1 px-3 relative flex space-x-5 items-center " >
                                         { 
                                         data.map((items) =>(
-                                                  <div className='flex-col'>
+                                                  <div className='flex-col' key={items.id}>
                                                             <div class="feature-item bg-[#6952ff] px-4 py-6 items-center rounded-md w-[300px] h-[250px]" >
                                                                       <img src={items.img_link} class="pl-[105px] mb-2" alt=""/>
                                                                       <h3 class="text-center  font-Montserrat text-white mb-6 text-3xl font-extrabold pt-2 ">
