@@ -32,7 +32,7 @@ const Navbar = () => {
               <ul class="py-15 flex space-x-4 justify-around items-center">
                 {
                   nav_elements.map((nav_items)=>(
-                    <li class="px-4 py-6 font-Montserrat font-sans leading-5 text-left inline-block relative font-medium text-lg cursor-pointer " key={nav_items.id}>
+                    <li class="px-4 py-6 font-Montserrat  leading-5 text-left inline-block relative font-medium text-lg cursor-pointer " key={nav_items.id}>
                         <Link to={nav_items.to} >
                           {nav_items.item}  
                         </Link>
@@ -41,8 +41,8 @@ const Navbar = () => {
                 }  
               </ul>
               <div class="button  flex justify-around items-center space-x-2">
-                <button class="bg-[#6952ff] w-28 h-10  font-Montserrat font-sans text-base rounded-md font-medium leading-5">Signup</button>
-                <button class="bg-[#6952ff] w-28 h-10  font-Montserrat font-sans text-base rounded-md font-medium leading-5" >Login</button>
+                <button class="bg-[#6952ff] w-28 h-10  font-Montserrat text-base rounded-md font-medium leading-5">Signup</button>
+                <button class="bg-[#6952ff] w-28 h-10  font-Montserrat text-base rounded-md font-medium leading-5" >Login</button>
               </div>
         </nav>
     </>

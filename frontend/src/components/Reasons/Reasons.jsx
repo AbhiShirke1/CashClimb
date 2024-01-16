@@ -9,10 +9,10 @@ const Reasons = () => {
     <>
       <section class="bg-white py-20">
           <div class="features max-w-7xl flex flex-col items-center pb-0 pl-0 pr-0">
-                    <h2 class="text-center items-center mb-4 pl-[200px] font-Montserrat  font sans font-bold text-5xl leading-58">
+                    <h2 class="text-center items-center mb-4 pl-[200px] font-Montserrat font- text-5xl leading-58 font-black">
                               Why is fundraising so hard ?
                     </h2>
-                    <div class=" text-left pl-[200px] border-b-0  font-Montserrat font-sans flex justify-center items-center  font-normal">
+                    <div class=" text-left pl-[200px] border-b-0  font-Montserrat  flex justify-center items-center  font-normal">
                               <FcIdea class='space-x-4'/>
                               The biggest issue faced by founders when fundraising
                               <FcIdea />
@@ -26,16 +26,16 @@ const Reasons = () => {
                                                   <div className='flex-col'>
                                                             <div class="feature-item bg-[#6952ff] px-4 py-6 items-center rounded-md w-[300px] h-[250px]" >
                                                                       <img src={items.img_link} class="pl-[105px] mb-2" alt=""/>
-                                                                      <h3 class="text-center text-white mb-6 text-3xl font-bold pt-2 ">
+                                                                      <h3 class="text-center  font-Montserrat text-white mb-6 text-3xl font-extrabold pt-2 ">
                                                                                 {items.name}
                                                                       </h3>
-                                                                      <h3 class="text-center text-white text-lg font-normal font-Montserrat font-sans">
+                                                                      <h3 class="text-center  text-white text-lg font-light font-Montserrat ">
                                                                                 {items.text}
                                                                       </h3>
                                                             </div>
                                                             <div class=" bg-[#f23d61] mt-2 text-base font-medium text-center pt-2 pb-2 flex justify-center items-center space-x-2 rounded-md">
                                                                       <TiWarning class="fill-white"/>
-                                                                      <p class='text-white font-bold'>{items.warning}</p>
+                                                                      <p class='text-white  font-Montserrat font-normal'>{items.warning}</p>
                                                             </div>
 
                                                   </div>

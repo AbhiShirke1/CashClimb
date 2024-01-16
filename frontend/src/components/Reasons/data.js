@@ -2,7 +2,7 @@ const data = [
           { 
                     id: 1,
                     img_link:"https://assets-global.website-files.com/6218834c85e0406691f22826/6229d554711ffd74407ee447_Brand%20icon%20(15).svg",
-                    name: ' >60% time' ,
+                    name: ' > 60% time' ,
                     text:'Spent raising, not growing their business',
                     warning:'major distraction'
           },
