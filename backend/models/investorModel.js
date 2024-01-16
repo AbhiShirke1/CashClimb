@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const investorSchema = mongoose.Schema({
-    username: {
+    email: {
         type: String,
         unique: true,
         require: true
