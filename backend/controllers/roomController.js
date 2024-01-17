@@ -1,7 +1,6 @@
 const User = require('../models/userModel');
 const Room = require('../models/roomModel');
 
-
 const createRoom = async (req, res) => {
     const { active, name, date, time, base_amount } = req.body;
 
@@ -52,7 +51,27 @@ const createRoom = async (req, res) => {
 
 
 const registerRoom = async (req, res) => {
+    const id = req.params.id;
+    const {email} = req.body;
 
+    try {
+        const user = await Room.findById(id);
+        console.log(user);
+//check if user has already registered
+        if(user.active=='true'){
+            user.interested_investors.push(email);
+            const updatedUser = await user.save();
+
+            return res.josn(updatedUser);
+            // res.json("done");
+        }
+
+        else{
+            return res.josn("The room has expired");
+        }
+    } catch (error) {
+        res.json("Some error ocurred");
+    }
 }
 
 module.exports = { createRoom, registerRoom };

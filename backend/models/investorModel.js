@@ -14,6 +14,7 @@ const investorSchema = mongoose.Schema({
 
     company: {
         type: String,
+        unique: true
     },
 
     invested_companies: {
