@@ -1,0 +1,13 @@
+@media (max-width: 640px) {
+          .footer{
+                    display: flex;
+                    flex-direction: column;
+                    padding: 12px;
+          }
+
+          .footer_link1,.footer_link2,.footer_link3{
+                    margin-top: 20px;
+                    padding: 0;
+          }
+
+}
