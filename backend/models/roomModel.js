@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const roomSchema = mongoose.Schema({
     active: {
-        type: String,
+        type: Boolean,
     },
 
     company: {

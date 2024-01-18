@@ -56,21 +56,25 @@ const registerRoom = async (req, res) => {
 
     try {
         const user = await Room.findById(id);
-        console.log(user);
-//check if user has already registered
-        if(user.active=='true'){
+        
+        if(user.active){
+            let arr = user.interested_investors;
+            if(arr.includes(email)){
+                return res.json("You have already registed for the room");
+            }
             user.interested_investors.push(email);
-            const updatedUser = await user.save();
+            const updatedData = await user.save();
 
-            return res.josn(updatedUser);
-            // res.json("done");
+            return res.json(updatedData);
         }
 
         else{
-            return res.josn("The room has expired");
+            return res.json("Room is not active");
         }
-    } catch (error) {
-        res.json("Some error ocurred");
+        
+    }catch(error){
+        // console.log(error);
+        res.json(error)
     }
 }
 
