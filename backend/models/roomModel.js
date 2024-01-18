@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const roomSchema = mongoose.Schema({
+    active: {
+        type: Boolean,
+    },
+
     company: {
         type: String,
         unique: true
@@ -15,6 +19,10 @@ const roomSchema = mongoose.Schema({
     },
 
     start_time: {
+        type: String
+    },
+
+    start_date: {
         type: String
     },
 
