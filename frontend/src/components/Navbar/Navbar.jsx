@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import {FaBars,FaTimes} from 'react-icons/fa'
 import './navbar.css';
 
+
+const logo_url ="https://assets-global.website-files.com/6218834c85e0406691f22826/62305b0f3a3882d68cd64cdb_Favicon%20256x256%20(1).svg"
 const nav_elements = [{
   id: 1,
   item: "Home",
@@ -35,8 +37,10 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar h-20 w-full  bg-[#050029] text-white fixed z-10 flex justify-between items-center px-3">
-        <img src="https://assets-global.website-files.com/6218834c85e0406691f22826/62188451710db7031e56d674_Logo%20-%20DEFAULT%20(1).svg"  alt="logo" />
-        {/* <!-- <h3 className="text-white font-[Nunito,sans-serif] leading-5 font-bold tracking-wide text-2xl items-start">Funding Hero</h3> --> */}
+        <div className="flex justify-center items-center">
+        <img src={logo_url} className="w-12" alt="logo" />
+        <h3 className="text-white font-[Nunito,sans-serif] leading-5 font-bold tracking-wide text-2xl items-start">CashClimb</h3>
+        </div>
         <div className="flex justify-between">
         <ul className={click ? "nav_menu active flex flex-col text-3xl font-Montserrat" : "nav_menu py-15 flex space-x-4 justify-around items-center font-Montserrat font-medium text-lg "}>
           {
