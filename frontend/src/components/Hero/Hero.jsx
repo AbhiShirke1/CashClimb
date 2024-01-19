@@ -1,6 +1,8 @@
 import React from 'react';
 import './hero.css';
 
+const hero_img = "https://assets-global.website-files.com/6218834c85e0406691f22826/62188f41437c9fbc2e9feb94_Illustration.svg"
+
 const Hero = () => {
   return (
     <>
@@ -20,7 +22,7 @@ const Hero = () => {
 
             </div>
             <div className="right  w-full min-h-1 pl-[150px] ">
-              <img src="https://assets-global.website-files.com/6218834c85e0406691f22826/62188f41437c9fbc2e9feb94_Illustration.svg" 
+              <img src={hero_img}
               className="max-w-full align-middle" alt='hero' />
             </div>
           </div>
