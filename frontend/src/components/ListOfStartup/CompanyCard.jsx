@@ -2,6 +2,7 @@ import React,{ useState} from 'react';
 import company from './company_data';
 import { IoPeople } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
+import { FaInfoCircle } from "react-icons/fa";
 
 const CompanyCard = () => {
 const [readMore, setReadMore] = useState(false);
@@ -48,6 +49,7 @@ const [readMore, setReadMore] = useState(false);
                                                   }  { item.no_employess} Employees</span>
                                                   <button className="m-1 px-1.5 py-1.5 text-sm font-bold font-[Nunito,sans-serif] 
                                                    bg-[#FFECD6] text-[#092635]  rounded-md justify-center items-center flex ">
+                                                    <FaInfoCircle size={20} className='pr-1'/>
                                                     Know More
                                                   </button>
                                         </div>

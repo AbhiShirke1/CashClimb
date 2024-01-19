@@ -5,7 +5,7 @@ const FilterStartup = () => {
   const [loadMore,setLoadMore] = useState(false)
   return (
     <div>
-      <section className="w-[300px] mt-[100px] bg-[#EEF5FF]  mb-2 rounded-md border border-solid border-transparent p-4 ">
+      <section className="w-[300px] mt-10 bg-[#EEF5FF]  mb-2 rounded-md border border-solid border-transparent p-4 ">
           <div className='flex  flex-col justify-center items-center'>
                     <h3 className="text-[#050029] font-[Nunito,sans-serif] text-base p-4 font-bold">
                               Filter by Category

@@ -5,7 +5,7 @@ import CompanyCard from './CompanyCard';
 const StartupList = () => {
   return (
     <>
-      <section className="w-2/3 mt-20">
+      <section className="w-2/3 mt-10">
           <div className="flex justify-around items-center">
                     <h3 className="font-[Nunito,sans-serif] font-bold text-lg text-[#5a5e64]">
                               {company.length} Founders 
