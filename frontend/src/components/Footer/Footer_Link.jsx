@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './footer.css';
+import './Footer.css';
 
 const footer_link1 = ["About", "Teams", "Platform", "Financial"]
 const footer_link2 = ["Fundraising pricing", "Fundraising accelerator", "Parnters", "Referral Scheme"]

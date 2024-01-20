@@ -2,7 +2,7 @@ import React from 'react';
 import Footer_Link from './Footer_Link';
 import Footer_Form from './Footer_Form';
 import Footer_Icon from './Footer_Icon';
-import './footer.css';
+import './Footer.css';
 import { Link } from 'react-router-dom';
 import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";

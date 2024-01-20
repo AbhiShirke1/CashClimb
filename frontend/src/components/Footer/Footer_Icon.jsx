@@ -2,7 +2,7 @@ import React from 'react';
 import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
-import './footer.css';
+import './Footer.css';
 
 const social_icons = [{
           id: 1,
