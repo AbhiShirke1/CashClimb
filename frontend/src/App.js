@@ -19,7 +19,7 @@ function App() {
             {/* <Route index element={<Home />}/> */}
 
 
-          </Route>
+          {/*</Routes></Route> */}
           <Route path='/signup' element={<Signup/>}/>
 
         </Routes>
