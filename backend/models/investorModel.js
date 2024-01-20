@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const investorSchema = mongoose.Schema({
+    name: {
+        type: String
+    },
+
     email: {
         type: String,
         unique: true,

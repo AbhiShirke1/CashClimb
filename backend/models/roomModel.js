@@ -28,6 +28,10 @@ const roomSchema = mongoose.Schema({
 
     base_amount: {
         type: Number
+    },
+
+    base_percentage: {
+        type: Number
     }
 
 },
