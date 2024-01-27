@@ -20,14 +20,14 @@ const ListOfStartup = () => {
                       <FcIdea size={15} className="pr-"/>
                       For Investors
             </h3>
-            <h1 className="text-white font-[Nunito,sans-serif] text-[50px] px-10 text-left">Search for your Startup below</h1>
+            <h1 className="text-white font-[Nunito,sans-serif] font-bold text-[50px] px-10 text-left">Search for your Startup below</h1>
 
             <p className="text-[#9ca3af] font-[Nunito,sans-serif] text-base px-10 w-[800px] text-left">
                       Powered by the largest team of Analysts tracking  innovative compaines acrross 250M+
                       Technology Sectors 600+ Emerging Themes
             </p>
           </div>
-          <img src={search} className=" z-0 w-[400px] h-[300px] mt-[90px] ml-[200px] bg-blend-multiply" alt="" />
+          <img src={search} className="loading=lazy z-0 w-[400px] h-[300px] mt-[90px] ml-[200px] bg-blend-multiply" alt="" />
         </div>
         <SearchStartup className="z-4"/>
          
