@@ -33,6 +33,7 @@ const CompanySize = () => {
 
   const handleEditChange = () => setEditChange(!editChange)
 
+
   const handlesize  = (e) => {
     setSize(e.target.value)
 }

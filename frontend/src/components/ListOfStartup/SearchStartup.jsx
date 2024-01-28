@@ -16,8 +16,8 @@ const SearchStartup = () => {
 
   return (
     <>
-          <form onSubmit={handleSubmit} className=" flex justify-center items-center flex-row">
-                    <div  className="w-1/2 mb-4 flex flex-grow-2 border border-gray-300 rounded shadow-md">
+          <form onSubmit={handleSubmit} className=" flex ml-[40px] items-center flex-row  mt-[50px]">
+                    <div  className="w-[700px] mb-4 flex flex-grow-2 border border-gray-300 rounded shadow-md">
                               <input 
                               type="text" 
                               value={search}

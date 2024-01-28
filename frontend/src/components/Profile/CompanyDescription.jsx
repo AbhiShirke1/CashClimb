@@ -28,6 +28,7 @@ const CompanyDescription = () => {
   const handleChange = (e) => {
     setInputValue(e.target.value)
 }
+
 const handleFounders = (index, event) => {
   const updatedFounders = [...founders];
   updatedFounders[index] = event.target.value;
@@ -40,7 +41,6 @@ const handleAddFounder = () => {
     setNewFounder("");
   }
 };
-
 
 const handleInvestors = (index,event) => {
   const updatedInvestors = [...investors];
@@ -100,7 +100,7 @@ const handleDescription = (e) => {
                               {founder.map((founder, index) => (
                                 <div key={index} className='m-2 flex'>
                                   {editChange ? (
-                                    <p className=' bg-[#6952ff] p-2 text-white rounded-md'>{founder}</p>
+                                    <p className=' bg-[#6952ff] p-2 text-white rounded-sm'>{founder}</p>
                                     
                                   ) : (
                                     <input
@@ -135,7 +135,7 @@ const handleDescription = (e) => {
                               {investor.map((investor, index) => (
                                 <div key={index} className='m-2 flex'>
                                   {editChange ? (
-                                    <p className=' bg-[#1dc275] p-2 text-white  rounded-md'>{investor}</p>
+                                    <p className=' bg-[#1dc275] p-2 text-white  rounded-sm'>{investor}</p>
                                   
                                   ) : (
                                     <input
@@ -187,19 +187,20 @@ const handleDescription = (e) => {
                               {achieve.map((achieve, index) => (
                                 <div key={index} className='m-2 flex items center'>
                                   {editChange ? (
-                                    <p className=' flex items center p-2  rounded-md'> 
-                                    <GrAchievement className="fill-[#ffe51d] mr-2" size={15}/>
-                                    {achieve}
+                                    <p className=' flex items-center'> 
+                                      <GrAchievement className="mr-2 fill-black" size={15}/>
+                                      <span className=" p-2 rounded-sm bg-[#fcbb00] text-white">{achieve}</span>
+                                    
                                     </p>
                                   
                                   ) : (
                                     <div className='flex items-center'>
-                                    <GrAchievement className="fill-[#ffe51d] mr-2" size={15}/>
+                                    <GrAchievement className="mr-2" size={15}/>
                                     <input
                                     type="text"
                                     value={achieve}
                                     onChange={(event) => handleAchieve(index, event)}
-                                    className="w-[500px] border border-gray-200 focus:outline-none p-2 rounded-sm shadow-sm "
+                                    className="w-[500px] border bg-[#fcbb00] text-white border-gray-200 focus:outline-none p-2 rounded-sm shadow-sm "
                                   />
                                   </div>
                                   )}
@@ -208,12 +209,13 @@ const handleDescription = (e) => {
                               </div>
                               
                               {!editChange && (
-                                <div className=" flex space-x-4 m-2">
+                                <div className=" flex spacex-x-2 m-2 items-center">
+                                  <GrAchievement className="mr-2" size={15}/>
                                   <input
                                     type="text"
                                     value={newAchieve}
                                     onChange={(event) => setNewAchieve(event.target.value)}
-                                    className="border  border-gray-200 focus:outline-none p-2 rounded-md shadow-md"
+                                    className="border w-[500px] border-gray-200 focus:outline-none p-2 rounded-md shadow-md "
                                     placeholder="New Achievement"
                                   />
                                   <button  onClick={handleAddAchieve}><MdFormatListBulletedAdd size={20}/></button>
