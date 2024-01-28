@@ -189,7 +189,7 @@ const handleDescription = (e) => {
                                   {editChange ? (
                                     <p className=' flex items-center'> 
                                       <GrAchievement className="mr-2 fill-black" size={15}/>
-                                      <span className=" p-2 rounded-sm bg-[#fcbb00] text-white">{achieve}</span>
+                                      <span className=" p-2 rounded-sm border border-[#fcbb00] text-[#050029]">{achieve}</span>
                                     
                                     </p>
                                   
@@ -200,7 +200,7 @@ const handleDescription = (e) => {
                                     type="text"
                                     value={achieve}
                                     onChange={(event) => handleAchieve(index, event)}
-                                    className="w-[500px] border bg-[#fcbb00] text-white border-gray-200 focus:outline-none p-2 rounded-sm shadow-sm "
+                                    className="w-[500px] border border-[#fcbb00] text-[#050029] focus:outline-none p-2 rounded-sm shadow-sm "
                                   />
                                   </div>
                                   )}

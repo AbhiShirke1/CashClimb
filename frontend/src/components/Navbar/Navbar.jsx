@@ -44,8 +44,8 @@ const Navbar = () => {
           </h3>
         </div>
         
-        <ul className={click ? "nav_menu active flex flex-col text-3xl font-Montserrat font-black" 
-        : "nav_menu py-15 flex space-x-4 justify-around items-center font-Montserrat font-bold text-base "}>
+        <ul className={click ? "nav_menu active flex flex-col text-3xl font-[Nunito,sans-serif] font-black" 
+        : "nav_menu py-15 flex space-x-4 justify-around items-center font-[Nunito,sans-serif] font-bold text-base "}>
           {
             nav_elements.map((nav_items) => (
               <li className="nav_list px-4 py-6 leading-5 text-left inline-block relative  cursor-pointer " 
@@ -58,7 +58,7 @@ const Navbar = () => {
           }
         </ul>
 
-        <div className="button flex justify-between items-center space-x-4  font-Montserrat text-base font-medium text-white">
+        <div className="button flex justify-between items-center space-x-4  font-[Nunito,sans-serif] text-base font-medium text-white">
             <button className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5  hover:bg-[#513ae9]">Signup</button>
             <button className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5  hover:bg-[#513ae9]" >Login</button>
         </div>
