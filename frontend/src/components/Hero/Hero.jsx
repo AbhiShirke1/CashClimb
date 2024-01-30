@@ -6,7 +6,7 @@ const hero_img = "https://assets-global.website-files.com/6218834c85e0406691f228
 const Hero = () => {
   return (
     <>
-      <section className="main bg-[#050029] pt-[85px] bg-cover drop-shadow-sm w-full flex justify-center items-center">
+      <section className="main bg-[#050029]  bg-cover drop-shadow-sm w-full flex justify-center items-center">
         <div className="conatiner ">
           <div className="vision flex flex-row">
             <div className="left pl-[200px] mt-[100px]">

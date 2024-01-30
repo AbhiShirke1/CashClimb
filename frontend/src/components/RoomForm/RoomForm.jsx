@@ -48,7 +48,6 @@ const RoomForm = () => {
 
   return (
     <>
-    <Navbar/> 
       <div className="flex justify-center items-center font-[Nunito,sans-serif]">
       { roomCreated ?
               <RoomCard
@@ -59,7 +58,7 @@ const RoomForm = () => {
               endDate={endDate}
             />
       : 
-          <section className="w-[900px] h-[600px] mt-[135px] rounded-md flex flex-row ">
+          <section className="w-[900px] h-[600px] mt-10 rounded-md flex flex-row ">
                     <div className='p-2  bg-[#050029] w-1/2 rounded-l-md'>
                               <div className='flex items-center p-2'>
                                         <img src={logo_url}  className="w-[50px]" alt="" />

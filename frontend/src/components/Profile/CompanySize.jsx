@@ -48,7 +48,7 @@ const handlerevenue  = (e) => {
 }
 
   return (
-    <div className="w-[550px] ml-10 mt-10 rounded-md items-center ">
+    <div className="w-[500px] ml-[90px] mt-10 rounded-md items-center ">
         <div className=" flex flex-col justify-center bg-[#EEF5FF]
          text-[#050029] font-[Nunito,sans-serif] font-bold">
           <div className="flex justify-between p-4">
@@ -111,8 +111,32 @@ const handlerevenue  = (e) => {
                    
                 )}
           </div>
+          
+          <div>
+            <h3 className="flex text-left p-4">Business Category</h3>
+            <div className="flex justify-center">
+            {category.map((sector)=>(
+              <button className="mx-2 my-2 px-1.5 py-1.5 text-sm font-[Nunito,sans-serif] 
+              bg-[#092635] text-white  rounded-md justify-center items-center flex 
+              hover:bg-[#EEF5FF] hover:border border-black  hover:text-black" key={sector}>
+                  {sector} 
+              </button>
+            ))}
+            </div>
+          </div>
+          <button className="text-[#050029] m-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029]" onClick={handleEditChange}>
+          {editChange ? 'Edit Company Size' : 'Save'}
+          </button>
 
-          <div className="flex justify-between p-4">
+        </div>
+    </div>
+  )
+}
+
+export default CompanySize
+
+
+          {/* <div className="flex justify-between p-4">
             <h3 className="text-left">
               Social Media : 
             </h3>
@@ -127,26 +151,4 @@ const handlerevenue  = (e) => {
           </div>
           <button className="bg-[#050029] m-2 h-10 rounded-sm text-white text-[14px] font-normal">
             Visit CashClimb 
-          </button>
-          <button className="text-[#050029] m-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029]" onClick={handleEditChange}>
-          {editChange ? 'Edit Company Size' : 'Save'}
-          </button>
-
-          <div>
-            <h3 className="flex text-left p-4">Business Category</h3>
-            <div className="flex justify-center">
-            {category.map((sector)=>(
-              <button className="mx-2 my-2 px-1.5 py-1.5 text-sm font-[Nunito,sans-serif] 
-              bg-[#092635] text-white  rounded-md justify-center items-center flex 
-              hover:bg-[#EEF5FF] hover:border border-black  hover:text-black" key={sector}>
-                  {sector} 
-              </button>
-            ))}
-            </div>
-          </div>
-        </div>
-    </div>
-  )
-}
-
-export default CompanySize
+          </button> */}

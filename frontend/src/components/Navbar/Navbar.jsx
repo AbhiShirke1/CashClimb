@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar h-20 w-full  bg-[#050029] text-[#9ca3af] fixed z-10 flex justify-between items-center px-3">
+      <nav className="navbar h-20 w-full  bg-[#050029] text-[#9ca3af] sticky top-0 z-10 flex justify-between items-center px-3">
         <div className="flex justify-center items-center">
           <img src={logo_url} className="w-12" alt="logo" />
           <h3 className="text-white font-[Nunito,sans-serif] leading-5 font-black tracking-wide text-2xl items-start">

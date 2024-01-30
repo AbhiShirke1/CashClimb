@@ -6,10 +6,10 @@ import { FcIdea } from "react-icons/fc";
 const HeadingSection = () => {
   return (
     <>
-      <section className="bg-[#050029] h-[500px] rounded-br-[140px]">
+      <section className="bg-[#050029] h-[500px] rounded-br-[100px]">
         <div className='flex'>
           <div>
-            <h3 className="text-white font-Montserrat text-[12px] pt-[180px] px-10 flex items-center space-x-4 text-left">
+            <h3 className="text-white font-Montserrat text-[12px] mt-[100px] px-10 flex items-center space-x-4 text-left">
                       <FcIdea size={15} className="pr-"/>
                       For Investors
             </h3>
@@ -21,8 +21,9 @@ const HeadingSection = () => {
             </p>
             <SearchStartup className="z-4"/>
           </div>
-          <img src="https://assets-global.website-files.com/6218834c85e0406691f22826/621e559e0e534906eef41e3d_unsplash_sK0dKnDOcEM.svg" 
-          className="loading=lazy z-0 w-[400px] h-[300px] mt-[150px] ml-[200px] bg-blend-multiply" alt="" />
+
+          {/* <img src="https://assets-global.website-files.com/6218834c85e0406691f22826/621e559e0e534906eef41e3d_unsplash_sK0dKnDOcEM.svg" 
+          className="loading=lazy z-0 w-[400px] h-[300px] mt-[100px] ml-[100px] bg-blend-multiply" alt="" /> */}
         </div>
        
          

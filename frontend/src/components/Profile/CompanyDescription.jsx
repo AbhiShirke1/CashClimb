@@ -3,6 +3,7 @@ import { GrAchievement } from "react-icons/gr";
 import { MdFoundation,MdFormatListBulletedAdd  } from "react-icons/md";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { IoPersonAdd } from "react-icons/io5";
+import { FaUserEdit } from "react-icons/fa";
 
 
 const achievement = ["Online Fundraising platform where ideas meet's Innovation","Online Fundraising platform where ideas meet's Innovation",
@@ -12,8 +13,8 @@ const description = "Walmart is a multinational retail giant that operates a cha
 const founders = ["Siddharth Yadav","Sandeep Sinha","Abhishek Shirke","Aadi Vora"]
 const investors = ["Siddharth Yadav","Sandeep Sinha","Abhishek Shirke","Aadi Vora"]
 
-const CompanyDescription = () => {
-  const [editChange,setEditChange] = useState("true");
+const CompanyDescription = ( ) => {
+  const [editChange,setEditChange] = useState(true);
   const [inputSummary,setInputValue] = useState(summary)
   const [founder,setFounders] = useState(founders)
   const [investor,setInvestors] = useState(investors)
@@ -76,10 +77,14 @@ const handleDescription = (e) => {
 
   return (
     <>
-          <div className="w-2/3 ml-[100px] mt-10 flex justify-center z-3">
+          <div className="w-2/3 mt-10 flex justify-center">
             
                     <div className=" flex-col">
                               <div className="p-2 font-[Nunito,sans-serif]">
+                              {/* <button className="text-[#050029] ml-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029] w-[200px]"
+                                onClick={handleEditChange}>
+                                  {editChange ? 'Edit Profile' : 'Save'}
+                                </button> */}
                                         <h2 className=" font-bold text-[18px] py-1">Business Summary</h2>
                                         {editChange ? (
                                            <p >{inputSummary}</p>
@@ -94,8 +99,11 @@ const handleDescription = (e) => {
                                         )}
                               </div>
                               
-                            <div className=" flex flex-col p-2 font-[Nunito,sans-serif]">
-                              <h2 className="font-bold text-[18px] py-1 flex  items-center"><MdFoundation size={20}/>Founders</h2>
+                            <div className=" flex flex-col w-[500px] p-2 font-[Nunito,sans-serif]">
+                              <h2 className="font-bold text-[18px] py-1 flex  items-center">
+                                <MdFoundation size={20}/>
+                                Founders
+                              </h2>
                               <div className='flex flex-wrap'>
                               {founder.map((founder, index) => (
                                 <div key={index} className='m-2 flex'>
@@ -129,7 +137,7 @@ const handleDescription = (e) => {
                               )}
                             </div> 
   
-                            <div className=" flex flex-col p-2 font-[Nunito,sans-serif]">
+                            <div className=" flex flex-col w-[500px] p-2 font-[Nunito,sans-serif]">
                               <h2 className="font-bold text-[18px] py-1 flex items-center"><GiTakeMyMoney size={20}/>Investors</h2>
                               <div className='flex flex-wrap'>
                               {investor.map((investor, index) => (
@@ -168,68 +176,62 @@ const handleDescription = (e) => {
                                         <h2 className=" font-bold text-[18px] py-1">Description</h2>
                                         <p>
                                         {editChange ? (
-                                          <p className='w-[600px]'>{describe}</p>
+                                          <p className='w-[500px]'>{describe}</p>
 
                                           ) : (
                                             <textarea
                                             type="text"
                                             value={describe}
                                             onChange={handleDescription}
-                                            className="w-[600px] h-[150px] border border-gray-200 focus:outline-none p-2 rounded-md shadow-md "
+                                            className="w-[550px] h-[150px] border border-gray-200 focus:outline-none p-2 rounded-md shadow-md "
                                           />
                                         )}
                                         </p>
                               </div>
 
-                              <div className=" flex flex-col p-2 font-[Nunito,sans-serif]">
-                              <h2 className="font-bold text-[18px] py-1 flex items-center">Achivements</h2>
-                              <div className='flex flex-wrap'>
-                              {achieve.map((achieve, index) => (
-                                <div key={index} className='m-2 flex items center'>
-                                  {editChange ? (
-                                    <p className=' flex items-center'> 
-                                      <GrAchievement className="mr-2 fill-black" size={15}/>
-                                      <span className=" p-2 rounded-sm border border-[#fcbb00] text-[#050029]">{achieve}</span>
-                                    
-                                    </p>
-                                  
-                                  ) : (
-                                    <div className='flex items-center'>
+                              <div className=" flex flex-col p-2 font-[Nunito,sans-serif] w-[600px]">
+                                <h2 className="font-bold text-[18px] py-1 flex items-center">Achivements</h2>
+                                <div className='flex flex-wrap'>
+                                  {achieve.map((achieve, index) => (
+                                    <div key={index} className='m-2 flex items center'>
+                                      {editChange ? (
+                                        <p className=' flex items-center'> 
+                                          <GrAchievement className="mr-2 fill-black" size={15}/>
+                                          <span className=" p-2 rounded-sm border border-[#fcbb00] text-[#050029]">{achieve}</span>
+                                        
+                                        </p>
+                                      
+                                      ) : (
+                                        <div className='flex items-center'>
+                                            <GrAchievement className="mr-2" size={15}/>
+                                            <input
+                                            type="text"
+                                            value={achieve}
+                                            onChange={(event) => handleAchieve(index, event)}
+                                            className="w-[500px] border border-[#fcbb00] text-[#050029] focus:outline-none p-2 rounded-sm shadow-sm "
+                                          />
+                                        </div>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              
+                                {!editChange && (
+                                  <div className=" flex spacex-x-2 m-2 items-center">
                                     <GrAchievement className="mr-2" size={15}/>
                                     <input
-                                    type="text"
-                                    value={achieve}
-                                    onChange={(event) => handleAchieve(index, event)}
-                                    className="w-[500px] border border-[#fcbb00] text-[#050029] focus:outline-none p-2 rounded-sm shadow-sm "
-                                  />
+                                      type="text"
+                                      value={newAchieve}
+                                      onChange={(event) => setNewAchieve(event.target.value)}
+                                      className="border w-[500px] border-gray-200 focus:outline-none p-2 rounded-md shadow-md "
+                                      placeholder="New Achievement"
+                                    />
+                                    <button  onClick={handleAddAchieve}><MdFormatListBulletedAdd size={20}/></button>
                                   </div>
-                                  )}
-                                </div>
-                              ))}
-                              </div>
-                              
-                              {!editChange && (
-                                <div className=" flex spacex-x-2 m-2 items-center">
-                                  <GrAchievement className="mr-2" size={15}/>
-                                  <input
-                                    type="text"
-                                    value={newAchieve}
-                                    onChange={(event) => setNewAchieve(event.target.value)}
-                                    className="border w-[500px] border-gray-200 focus:outline-none p-2 rounded-md shadow-md "
-                                    placeholder="New Achievement"
-                                  />
-                                  <button  onClick={handleAddAchieve}><MdFormatListBulletedAdd size={20}/></button>
-                                </div>
-                              )}
+                                )}
                             </div> 
-
                     </div>
         </div>
-        <button className="text-[#050029] m-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029] w-[200px]"
-        onClick={handleEditChange}>
-           {editChange ? 'Edit Profile' : 'Save'}
-        </button>
-
     </>    
   )
 }

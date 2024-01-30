@@ -12,17 +12,7 @@ const RoomCard = ({companyName,ask,percentage,startDate,endDate}) => {
     <> 
     <div className='flex justify-center items-center'>
     {companyName || ask || percentage || startDate || endDate ?  
-          <div className='mt-[150px] w-[800px] flex flex-wrap space-x-10font-[Nunito,sans-serif] '>
-                    {/* <div className='flex flex-col px-5 py-4'>
-                    <h2 className='text-2xl text-white'>Founders Room :</h2>
-                    <div className='bg-[#EEF5FF] p-4 text-xl mt-10    '>
-                              <h3>Company Name :{companyName}</h3>
-                              <p> Ask : {ask}</p>
-                              <p>Percentage : {percentage}</p>
-                              <h3>Start Date : {startDate}</h3>
-                              <h3>End Date :{endDate}</h3>
-                    </div>
-                    </div> */}
+          <div className='mt-[100px] w-[800px] flex flex-wrap space-x-10font-[Nunito,sans-serif] '>
                     <div className="card w-[400px] shadow-md">
                               <div className="header">
                                         <span className="icon">
@@ -74,8 +64,8 @@ const RoomCard = ({companyName,ask,percentage,startDate,endDate}) => {
                     </div>
 
           </div>
-          : <div className='mt-[200px] '>
-          <Warning/>   
+          : <div className='mt-[100px] '>
+              <Warning/>   
           </div>
     }
       
