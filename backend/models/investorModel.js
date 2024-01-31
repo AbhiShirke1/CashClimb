@@ -16,6 +16,12 @@ const investorSchema = mongoose.Schema({
         require: true
     },
 
+    pic: {
+        type: String,
+        default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+
     company: {
         type: String,
         unique: true
@@ -26,7 +32,7 @@ const investorSchema = mongoose.Schema({
     },
 
     investing_category: {
-        type: String
+        type: [String]
     },
 
     favourites:[
@@ -36,18 +42,26 @@ const investorSchema = mongoose.Schema({
         }
     ],
 
-    invested_company_names: {
-        type: [String]
-    },
+    invested_data: [{
+        invested_company_names: {
+            type: String
+        },
 
-    amount_invested: {
-        type: [Number]
-    },
+        invested_amount: {
+            type: Number
+        },
 
-    auction_reg_companies: {
-        type: [String]
-    }
+        percentage: {
+            type: Number
+        }
+    }],
 
+    room_reg_companies: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Room"
+        }
+    ],
 },
 {timestamps: true});
 

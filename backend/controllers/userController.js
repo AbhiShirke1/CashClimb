@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
 
     if (founder && !investor) {
-        const { email, password } = req.body;
+        const { username, email, password, company, description, founders, domain, valuation, amount_raised, no_of_employee, ceo } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await User.create({
-                email, password
+                username, email, password, company, description, founders, domain, valuation, amount_raised, no_of_employee, ceo
             });
 
             if (user) {
@@ -37,10 +37,10 @@ const registerUser = async (req, res) => {
     }
 
     else if (investor && !founder) {
-        const { email, password } = req.body;
+        const { email, password, company, invested_companies, investing_category, favourites, invested_companies_names, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
-            res.status(400).json("Please enter all the fields"); 
+            res.status(400).json("Please enter all the fields");
         }
 
         if (password.length <= 5) {

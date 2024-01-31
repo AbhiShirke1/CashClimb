@@ -8,6 +8,7 @@ const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const postRoute = require('./routes/postRoute');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +34,7 @@ setInterval(()=>{
 },1000)
 
 app.use(express.json());
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

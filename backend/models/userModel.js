@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    name: {
+    username: {
         type: String
     },
     
@@ -22,7 +22,9 @@ const userSchema = mongoose.Schema({
     },
 
     pic:{
-        type: String
+        type: String,
+        default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
 
     founders: {
@@ -30,7 +32,7 @@ const userSchema = mongoose.Schema({
     },
 
     description: {
-        type: Number,
+        type: String,
     },
 
     domain: {
