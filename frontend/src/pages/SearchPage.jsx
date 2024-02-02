@@ -9,7 +9,7 @@ const SearchPage = () => {
     <>
       <Navbar/>
       <HeadingSection/>
-      <div className='flex justify-center '>
+      <div className='flex justify-center'>
           <FilterStartup/>
           <StartupList/>
       </div>

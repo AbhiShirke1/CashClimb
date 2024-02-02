@@ -59,8 +59,8 @@ const Navbar = () => {
         </ul>
 
         <div className="button flex justify-between items-center space-x-4  font-[Nunito,sans-serif] text-base font-medium text-white">
-            <button className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5  hover:bg-[#513ae9]">Signup</button>
-            <button className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5  hover:bg-[#513ae9]" >Login</button>
+            <Link  to='/signup' className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5 flex justify-center items-center hover:bg-[#513ae9]">Signup</Link>
+            <Link  to='/login' className="bg-[#6952ff] w-28 h-10  rounded-md  leading-5 flex justify-center items-center hover:bg-[#513ae9]" >Login</Link>
         </div>
        
 

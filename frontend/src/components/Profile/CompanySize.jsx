@@ -50,11 +50,11 @@ const handlerevenue  = (e) => {
   return (
     <div className="w-[500px] ml-[90px] mt-10 rounded-md items-center ">
         <div className=" flex flex-col justify-center bg-[#EEF5FF]
-         text-[#050029] font-[Nunito,sans-serif] font-bold">
+         text-[#050029] font-montserrat font-bold">
           <div className="flex justify-between p-4">
             <h3 className="text-left">Company Size : </h3>
             {editChange ? (
-              <h3 >{size} Member</h3>
+              <h3 className='text-gray-500'>{size} Member</h3>
 
                 ) : (
                   <input
@@ -70,7 +70,7 @@ const handlerevenue  = (e) => {
           <div className="flex justify-between p-4">
             <h3 className="text-left">Founded In : </h3>
             {editChange ? (
-               <h3 >{found}</h3>
+               <h3 className='text-gray-500'>{found}</h3>
 
                 ) : (
                   <input
@@ -85,7 +85,7 @@ const handlerevenue  = (e) => {
           <div className="flex justify-between p-4">
             <h3 className="text-left">Company Sector : </h3>
             {editChange ? (
-               <h3 >{stage} Sector</h3>
+               <h3 className='text-gray-500'>{stage} Sector</h3>
 
                 ) : (
                   <input
@@ -100,7 +100,7 @@ const handlerevenue  = (e) => {
           <div className="flex justify-between p-4">
             <h3 className="text-left">Revenue : </h3>
             {editChange ? (
-                  <h3 >Rs {revenue}</h3>
+                  <h3 className='text-gray-500'>Rs {revenue}</h3>
                 ) : (
                   <input
                   type="text"

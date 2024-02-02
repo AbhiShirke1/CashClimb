@@ -77,15 +77,15 @@ const handleDescription = (e) => {
 
   return (
     <>
-          <div className="w-2/3 mt-10 flex justify-center">
+          <div className="w-2/3 mt-10 flex justify-center font-montserrat">
             
                     <div className=" flex-col">
-                              <div className="p-2 font-[Nunito,sans-serif]">
-                              {/* <button className="text-[#050029] ml-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029] w-[200px]"
-                                onClick={handleEditChange}>
+                                <button className="text-[#050029] ml-[360px] h-10 rounded-sm  text-[14px] font-bold border border-[#050029] w-[200px]"
+                                  onClick={handleEditChange}>
                                   {editChange ? 'Edit Profile' : 'Save'}
-                                </button> */}
-                                        <h2 className=" font-bold text-[18px] py-1">Business Summary</h2>
+                                </button>
+                              <div className="p-2 font-montserrat">
+                                        {/* <h2 className=" font-bold text-[18px] py-1">Business Summary</h2>
                                         {editChange ? (
                                            <p >{inputSummary}</p>
 
@@ -96,10 +96,10 @@ const handleDescription = (e) => {
                                             onChange={handleChange}
                                             className="w-[600px] border border-gray-200 focus:outline-none p-2 rounded-md shadow-md"
                                           />
-                                        )}
+                                        )} */}
                               </div>
                               
-                            <div className=" flex flex-col w-[500px] p-2 font-[Nunito,sans-serif]">
+                            <div className=" flex flex-col w-[500px] p-2 font-montserrat">
                               <h2 className="font-bold text-[18px] py-1 flex  items-center">
                                 <MdFoundation size={20}/>
                                 Founders
@@ -137,7 +137,7 @@ const handleDescription = (e) => {
                               )}
                             </div> 
   
-                            <div className=" flex flex-col w-[500px] p-2 font-[Nunito,sans-serif]">
+                            <div className=" flex flex-col w-[500px] p-2 font-montserrat">
                               <h2 className="font-bold text-[18px] py-1 flex items-center"><GiTakeMyMoney size={20}/>Investors</h2>
                               <div className='flex flex-wrap'>
                               {investor.map((investor, index) => (
@@ -172,7 +172,7 @@ const handleDescription = (e) => {
                               )}
                             </div> 
 
-                            <div className="p-2 font-[Nunito,sans-serif]">
+                            <div className="p-2 font-montserrat">
                                         <h2 className=" font-bold text-[18px] py-1">Description</h2>
                                         <p>
                                         {editChange ? (
@@ -189,7 +189,7 @@ const handleDescription = (e) => {
                                         </p>
                               </div>
 
-                              <div className=" flex flex-col p-2 font-[Nunito,sans-serif] w-[600px]">
+                              <div className=" flex flex-col p-2 font-montserrat w-[600px]">
                                 <h2 className="font-bold text-[18px] py-1 flex items-center">Achivements</h2>
                                 <div className='flex flex-wrap'>
                                   {achieve.map((achieve, index) => (
@@ -236,4 +236,4 @@ const handleDescription = (e) => {
   )
 }
 
-export default CompanyDescription
+export default CompanyDescription;

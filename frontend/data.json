@@ -4,7 +4,23 @@
       "name": "Sandeep",
       "email": "sandeep@gmail.com",
       "password": "Sandeep123",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "562c",
+      "name": "siddharth",
+      "email": "siddharth@gmail.com",
+      "password": "Siddu0913@",
+      "role": "Investor",
+      "posts": []
+    },
+    {
+      "id": "c808",
+      "name": "Aadi ",
+      "email": "aadi@gmail.com",
+      "password": "Aadi123@",
+      "role": "Investor",
+      "posts": []
     }
   ],
   "plan": []

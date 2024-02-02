@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
-import background from './background.png';
+import background from './image/background.png';
 
 
 const  img_url = "https://assets-global.website-files.com/6218834c85e0406691f22826/62305b0f3a3882d68cd64cdb_Favicon%20256x256%20(1).svg"
@@ -35,7 +35,7 @@ const ProfileHeader = ({handleCompanyInfo,handleFinance,handlePost}) => {
 
   return (
   <>
-    <section className='flex mt-8 '>
+    <section className='flex mt-8 font-montserrat'>
     <div className="bg-white h-[400px]  w-[1080px] flex flex-col items-center rounded-md shadow-md">
       <div className=' w-full h-[200px]'>
         <img src= {background}
@@ -48,12 +48,12 @@ const ProfileHeader = ({handleCompanyInfo,handleFinance,handlePost}) => {
                     
                     <div className='flex flex-row  space-x-[50px] items-center p-4'>
                       <div className='pt-4'>
-                        <h2 className="text-[#050029] font-[Nunito,sans-serif] font-bold text-lg ">
+                        <h2 className="text-[#050029] font-montserrat font-bold text-2xl ">
                                   CashClimb
                         </h2>
-                        <p className='text-[#050029] font-[Nunito,sans-serif] text-sm '>Mumbai,Maharashtra</p>
+                        <p className='text-gray-500  text-sm '>Mumbai,Maharashtra</p>
                                 {editChange ? (
-                                  <p className='font-[Nunito,sans-serif] font-bold text-lg w-[600px]'>{inputSummary}</p>
+                                  <p className=' font-bold text-md w-[600px] mt-2 text-gray-700'>{inputSummary}</p>
                                   ) : (
                                       <input
                                       type="text"
@@ -80,13 +80,13 @@ const ProfileHeader = ({handleCompanyInfo,handleFinance,handlePost}) => {
                       </div>
                     </div>
           </div>
-          <div className='flex justify-between items-center w-full font-[Nunito,sans-serif] font-bold text-gray-400'>
+          <div className='flex justify-between items-center w-full  font-bold text-gray-400'>
             <button onClick={handleCompanyInfo}
-            className='p-2.5 hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px] border border-gray-300'>Company Information</button>
+            className='p-2.5 bg-white  hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px] '>Company Information</button>
             <button onClick={handleFinance}
-            className='p-2.5 hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px]  border border-gray-300'>Financial Status</button>
+            className='p-2.5 bg-white hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px]  '>Financial Status</button>
             <button onClick={ handlePost}
-            className='p-2.5 hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px]  border border-gray-300'>Posts</button>
+            className='p-2.5 bg-white hover:bg-[#E1F0DA] hover:text-gray-500 w-[400px]  '>Posts</button>
 
           </div>
     </div>
