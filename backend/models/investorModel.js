@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const investorSchema = mongoose.Schema({
+    approve_status: {
+        type: Boolean,
+        default: false
+    },
+    
     name: {
         type: String
     },

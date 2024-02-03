@@ -8,6 +8,7 @@ const http = require('http');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const postRoute = require('./routes/postRoute');
+const userRoute = require('./routes/userRoute');
 const fileUpload = require('express-fileupload');
 
 const app = express();
@@ -44,6 +45,7 @@ connectDB();
 app.use('/api/user', authRoute);
 app.use('/api/room', roomRoute);
 app.use('/api/post', postRoute);
+app.use('/api/user', userRoute);
     
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
