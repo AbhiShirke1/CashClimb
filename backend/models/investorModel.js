@@ -25,7 +25,7 @@ const investorSchema = mongoose.Schema({
         type: String
     },
 
-    favourites:[
+    favourites: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
@@ -45,7 +45,7 @@ const investorSchema = mongoose.Schema({
     }
 
 },
-{timestamps: true});
+    { timestamps: true });
 
 const InvestorModel = mongoose.model("Investor", investorSchema);
 module.exports = InvestorModel;

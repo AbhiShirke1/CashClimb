@@ -1,7 +1,7 @@
-const generateToken = require('../config/generateToken');
-const User = require('../models/userModel');
-const Investor = require('../models/investorModel');
-
+const generateToken = require("../config/generateToken");
+const User = require("../models/userModel");
+const Investor = require("../models/investorModel");
+const asyncHandler = require("express-async-handler");
 
 const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
@@ -24,23 +24,21 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await User.create({
-                email, password
+                email,
+                password,
             });
 
             if (user) {
                 res.status(201).json(user);
             }
-
         } catch (error) {
-            res.status(422).json(error)
+            res.status(422).json(error);
         }
-    }
-
-    else if (investor && !founder) {
+    } else if (investor && !founder) {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            res.status(400).json("Please enter all the fields"); 
+            res.status(400).json("Please enter all the fields");
         }
 
         if (password.length <= 5) {
@@ -53,21 +51,20 @@ const registerUser = async (req, res) => {
             return res.status(400).json("User already exists");
         }
 
-
         try {
             const user = await Investor.create({
-                email, password
+                email,
+                password,
             });
 
             if (user) {
                 res.status(201).json(user);
             }
-
         } catch (error) {
-            res.status(422).json(error)
+            res.status(422).json(error);
         }
     }
-}
+};
 
 const loginUser = async (req, res) => {
     const { founder, investor } = req.body;
@@ -76,7 +73,7 @@ const loginUser = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json("Please enter all the fields")
+            return res.status(400).json("Please enter all the fields");
         }
 
         try {
@@ -84,25 +81,20 @@ const loginUser = async (req, res) => {
 
             if (user) {
                 if (user.password === password) {
-                    res.status(201).json({ user, token: generateToken(user._id) });
-                }
-
-                else {
+                    res.status(201).json({
+                        user,
+                        token: generateToken(user._id),
+                    });
+                } else {
                     res.status(400).json("Invalid Email or Password");
                 }
-            }
-
-            else {
+            } else {
                 res.status(400).json("Invalid Email or Password");
             }
-
         } catch (error) {
             res.status(400).json("Some error ecourred");
         }
-
-    }
-
-    else if (investor && !founder) {
+    } else if (investor && !founder) {
         const { email, password } = req.body;
 
         if (!email || !password) {
@@ -114,23 +106,34 @@ const loginUser = async (req, res) => {
 
             if (user) {
                 if (user.password === password) {
-                    res.status(201).json({ user, token: generateToken(user._id) });
-                }
-
-                else {
+                    res.status(201).json({
+                        user,
+                        token: generateToken(user._id),
+                    });
+                } else {
                     res.status(400).json("Invalid Email or Password");
                 }
-            }
-
-            else {
+            } else {
                 res.status(400).json("Invalid Email or Password");
             }
-
         } catch (error) {
             res.status(400).json("Some error ecourred");
-
         }
     }
-}
+};
 
-module.exports = { registerUser, loginUser };
+const allUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search
+        ? {
+              $or: [
+                  { name: { $regex: req.query.search, $options: "i" } },
+                  { email: { $regex: req.query.search, $options: "i" } },
+              ],
+          }
+        : {};
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+});
+
+module.exports = { registerUser, loginUser, allUsers };

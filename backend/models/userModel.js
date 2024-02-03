@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
         unique: true
     },
 
-    pic:{
+    pic: {
         type: String
     },
 
@@ -48,10 +48,8 @@ const userSchema = mongoose.Schema({
     ceo: {
         type: String,
     }
-
-
 },
-{timestamps: true});
+    { timestamps: true });
 
 const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
