@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
 
     if (founder && !investor) {
-        const { email, password } = req.body;
+        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await User.create({
-                email, password
+                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links
             });
 
             if (user) {
@@ -37,10 +37,10 @@ const registerUser = async (req, res) => {
     }
 
     else if (investor && !founder) {
-        const { email, password } = req.body;
+        const { email, password, company, invested_companies, investing_category, favourites, invested_companies_names, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
-            res.status(400).json("Please enter all the fields"); 
+            res.status(400).json("Please enter all the fields");
         }
 
         if (password.length <= 5) {
@@ -70,49 +70,18 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-    const { founder, investor } = req.body;
+    const { email, password } = req.body;
 
-    if (founder && !investor) {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json("Please enter all the fields")
-        }
-
-        try {
-            const user = await User.findOne({ email });
-
-            if (user) {
-                if (user.password === password) {
-                    res.status(201).json({ user, token: generateToken(user._id) });
-                }
-
-                else {
-                    res.status(400).json("Invalid Email or Password");
-                }
-            }
-
-            else {
-                res.status(400).json("Invalid Email or Password");
-            }
-
-        } catch (error) {
-            res.status(400).json("Some error ecourred");
-        }
-
+    if (!email || !password) {
+        return res.status(400).json("Please enter all the fields")
     }
 
-    else if (investor && !founder) {
-        const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        const user2 = await Investor.findOne({ email });
 
-        if (!email || !password) {
-            return res.status(400).json("Please enter all the fields");
-        }
-
-        try {
-            const user = await Investor.findOne({ email });
-
-            if (user) {
+        if (user) {
+            if (user.approve_status) {
                 if (user.password === password) {
                     res.status(201).json({ user, token: generateToken(user._id) });
                 }
@@ -123,14 +92,65 @@ const loginUser = async (req, res) => {
             }
 
             else {
-                res.status(400).json("Invalid Email or Password");
+                res.json("Your profile is not approved yet");
+            }
+        }
+
+        else if (user2) {
+            if (user2.approve_status) {
+                if (user2.password === password) {
+                    res.status(201).json({ user2, token: generateToken(user2._id) });
+                }
+
+                else {
+                    res.status(400).json("Invalid Email or Password");
+                }
             }
 
-        } catch (error) {
-            res.status(400).json("Some error ecourred");
-
+            else {
+                res.json("Your profile is not approved yet");
+            }
         }
+
+        else {
+            res.status(400).json("Invalid Email or Password");
+        }
+
+    } catch (error) {
+        res.status(400).json("Some error ecourred");
     }
 }
 
-module.exports = { registerUser, loginUser };
+const getProfile = async (req, res) => {
+    const id = req.user._id;
+    try {
+        const user = await User.findOne({ _id: id });
+
+        if(user.approve_status){
+            return res.json(user);
+        }
+    } catch (error) {
+        res.json("Some error occured");
+    }
+}
+
+const editProfile = async (req, res) => {
+    const { full_name, location, website, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links } = req.body;
+
+    const id = req.user._id;
+
+    try {
+
+        const user = await User.updateOne({ _id: id }, {
+            $set: {
+                full_name, location, website, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links
+            }
+        });
+
+        res.json("Data updated successfully");
+    } catch (error) {
+        res.json("Some error occured");
+    }
+}
+
+module.exports = { registerUser, loginUser, getProfile, editProfile };

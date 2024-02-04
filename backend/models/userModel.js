@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
+    approve_status: {
+        type: Boolean,
+        default: false
+    },
+
     email: {
         type: String,
         unique: true,
@@ -12,21 +17,49 @@ const userSchema = mongoose.Schema({
         require: true
     },
 
+    full_name: {
+        type: String
+    },
+
     company: {
         type: String,
         unique: true
     },
 
     pic:{
+        type: String,
+        default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+    
+    cin: {
         type: String
     },
 
-    founders: {
-        type: [String],
+    location: {
+        type: String
     },
 
+    website: {
+        type: String
+    },
+
+    established_year: {
+        type: String
+    },
+
+    founders: [{
+        name:{
+            type: String
+        },
+
+        designation: {
+            type: String
+        }
+    }],
+
     description: {
-        type: Number,
+        type: String,
     },
 
     domain: {
@@ -34,22 +67,35 @@ const userSchema = mongoose.Schema({
     },
 
     valuation: {
-        type: Number,
+        type: String,
     },
 
-    amount_raised: {
-        type: Number,
-    },
+    funding: [{
+        funding_stage: {
+            type: String
+        },
+        
+        amount_raised:{
+            type: String
+        },
+
+        investor_name: {
+            type: String
+        },
+    }],
 
     no_of_employees: {
         type: Number,
     },
 
-    ceo: {
-        type: String,
+    //pitch
+    pitch_desc: {
+        type: String
+    },
+
+    links: {
+        tye: String
     }
-
-
 },
 {timestamps: true});
 

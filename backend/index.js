@@ -6,6 +6,10 @@ const authRoute = require('./routes/authRoute');
 const socketIo = require('socket.io');
 const http = require('http');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const postRoute = require('./routes/postRoute');
+const userRoute = require('./routes/userRoute');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 const server = http.createServer(app);
@@ -31,13 +35,17 @@ setInterval(()=>{
 },1000)
 
 app.use(express.json());
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 connectDB();
 
 app.use('/api/user', authRoute);
 app.use('/api/room', roomRoute);
-
+app.use('/api/post', postRoute);
+app.use('/api/user', userRoute);
     
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
