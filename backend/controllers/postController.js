@@ -7,9 +7,9 @@ const fileUpload = require('express-fileupload');
 const AWS = require('aws-sdk');
 // const fs = require('fs');
 
-const accessKeyId = 'AKIAQ3EGSQYXZGGBRAJG';
-const secretAccessKey = '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';
-const region = 'eu-north-1';
+// const accessKeyId = 'AKIAQ3EGSQYXZGGBRAJG';
+// const secretAccessKey = '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';
+// const region = 'eu-north-1';
 const bucketName = 'alt-f4';
 
 const s3 = new AWS.S3({
