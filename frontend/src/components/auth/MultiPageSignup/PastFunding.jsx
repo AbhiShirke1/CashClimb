@@ -1,54 +1,96 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FcIdea } from "react-icons/fc";
 import { PiNumberSquareFourDuotone } from "react-icons/pi";
+import { CgWebsite,CgNametag  } from "react-icons/cg";
+import { GrLicense } from "react-icons/gr";
+import { FaDollarSign } from "react-icons/fa6";
+import { useForm } from 'react-hook-form';
 
 
 const PastFunding = () => {
+  const [role, setRole] = useState("Founder");
+  const {
+    register,
+    handleSubmit,
+  } = useForm();
+
   return (
-    <div className='w-full   flex justify-center items-center '> 
-    <div className='w-[500px] '>
-      <h3 className='flex justify-center items-center font-montserrat font-semibold text-[30px] mt-[-100px]'>Past Funding</h3>
-      <form action="" className='flex flex-col p-10'>
-        <div className='flex flex-col mt-10 font-bold'>
-          {/* <label htmlFor="companyName" className='font-montserrat'>Company Name:</label> */}
+    <div className='w-full h-screen  flex '>
+    <div className='w-[50%] h-full'> 
+      <h2 className='flex justify-center items-center font-montserrat font-semibold text-[40px] mt-[100px]'>
+        Past Funding 
+      </h2>
+      <form action="" className='flex flex-col p-10 mt-10 justify-center items-center'>
+        <div className="flex justify-around w-[300px] m-2">
+            <div className='flex flex-col justify-center items-center'>
+              <label htmlFor="funds" className='font-montserrat font-semibold text-lg '>
+                  Have you raised funds?
+              </label>
+              <div className="flex space-x-2 p-2">
+                <input
+                  type="radio"
+                  name="funds"
+                  value="Yes"
+                  {...register("role", { defaultValue: "Yes" })}
+                  checked={role === "Yes"}
+                  onChange={() => setRole("Yes")}
+                />
+                <span>Yes</span>
+              </div>
+
+              <div className="flex space-x-2">
+                <input
+                  type="radio"
+                  name="funds"
+                  value="No"
+                  {...register("role", { defaultValue: "No" })}
+                  checked={role === "No"}
+                  onChange={() => setRole("No")}
+                />
+                <span>No</span>
+              </div>
+            </div>  
+        </div>
+        {
+         role == 'Yes' && (
+          <>
+        <div className='flex items-center font-bold relative m-2'>
+          <FaDollarSign  className='mt-4' size={25}/>
           <input
           type="text"
-          className=" border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
-          placeholder="Company Name"
+          className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
+          placeholder="Total Funds"
           />
         </div>
 
-        <div className='flex flex-col mt-10 '>
-          {/* <label htmlFor="companywebsite" className='font-montserrat'>Company Website:</label> */}
+        <div className='flex items-center font-bold relative m-2'>
+          <CgWebsite  className='mt-4' size={25}/>
           <input
           type="text"
-          className=" border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
-          placeholder="Company Website"
+          className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
+          placeholder="Investor Name"
           />
         </div>
-
-        <div className='flex flex-col mt-10 font-bold'>
-          {/* <label htmlFor="companywebsite" className='font-montserrat'>Company Website:</label> */}
-          <input
-          type="text"
-          className=" border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
-          placeholder="Tell us about what you're building"
-          />
-        </div>
+        </>
+      )}
       </form>
-     
-    </div> 
-    <div className='bg-[#050029] w-[500px] h-[600px] rounded-r-md flex justify-center items-center '>
+
+    </div>
+
+    <div className='bg-[#050029] w-[50%] h-full'>
       <div className='flex flex-col '>
-        <h2 className='flex justify-center items-center ] mt-[-100px] text-white text-2xl'>
-          Step <PiNumberSquareFourDuotone className='mr-2' size={40}/> 
+        <h2 className='flex justify-center items-center mt-[200px] text-white text-5xl font-semibold'>
+          Step <PiNumberSquareFourDuotone className='mr-2 mt-2' size={60}/> 
         </h2>
-        <h2 className='text-white font-montserrat font-semibold ml-[40px] p-2 mt-10 flex justify-center '>
-          <FcIdea size={25} className="mr-2"/>
-          Describe your previous funding round. <br />
+        <h2 className='text-white text-lg  font-montserrat font-semibold flex-wrap mt-10 flex justify-center '>
+          <div className='w-[500px] flex justify-center items-center'>
+          <FcIdea size={30} className="mr-2"/>
+            <h4>Describe your previous funding round. <br />
           If not raised any money Then, Choose NO.
+            </h4>
+          </div>
         </h2>
-      </div>
+      </div> 
     </div>
   </div>
   )
