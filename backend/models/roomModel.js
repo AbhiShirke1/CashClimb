@@ -7,17 +7,24 @@ const roomSchema = mongoose.Schema(
         },
 
         company: {
-            type: String,
-            unique: true,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         },
 
-        interested_investors: {
-            type: [String],
-        },
+        interested_investors: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Investor"
+            }
+        ],
 
-        fund: {
-            type: [Number],
-        },
+        // fund: {
+        //     type: [Number]
+        // },
+
+        // percentage: {
+        //     type: [Number]
+        // },
 
         start_time: {
             type: String,
@@ -28,11 +35,28 @@ const roomSchema = mongoose.Schema(
         },
 
         base_amount: {
-            type: Number,
+            type: Number
         },
+
+        base_percentage: {
+            type: Number
+        },
+
+        final_amount: {
+            type: Number
+        },
+
+        final_percent: {
+            type: Number
+        },
+
+        final_investor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Investor"
+        }
     },
-    { timestamps: true }
-);
+    { timestamps: true });
+
 
 const RoomModel = mongoose.model("Room", roomSchema);
 module.exports = RoomModel;
