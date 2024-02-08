@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
 
     if (founder && !investor) {
-        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links } = req.body;
+        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await User.create({
-                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links
+                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
 
             if (user) {
@@ -77,6 +77,10 @@ const loginUser = async (req, res) => {
     }
 
     try {
+        if(email==="admin" && password=="password"){
+            return res.json("admin");
+        }
+
         const user = await User.findOne({ email });
         const user2 = await Investor.findOne({ email });
 
@@ -153,4 +157,24 @@ const editProfile = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, getProfile, editProfile };
+const getAllFounders = async (req, res) => {
+    try {
+        const founders = await User.find({});
+
+        res.json(founders);
+    } catch (error) {
+        res.json("Unable to fetch founders");
+    }
+}
+
+const getAllInvestors = async (req, res) => {
+    try {
+        const founders = await User.find({});
+
+        res.json(founders);
+    } catch (error) {
+        res.json("Unable to fetch founders");
+    }
+}
+
+module.exports = { registerUser, loginUser, getProfile, editProfile, getAllFounders, getAllInvestors };

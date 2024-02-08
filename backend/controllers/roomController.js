@@ -79,4 +79,27 @@ const registerRoom = async (req, res) => {
     }
 }
 
-module.exports = { createRoom, registerRoom };
+const checkPermission = async(req, res)=>{
+    const id = req.params.id;
+    const ownId = req.user._id;
+
+    try {
+        const isRegistered = await Room.findById({_id: id});
+
+        if(isRegistered.interested_investors.includes(ownId)){
+            return res.status(200).send("allowed");
+        }
+
+        else{
+            return res.json("Not registered for the room");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+
+}
+
+
+
+
+module.exports = { createRoom, registerRoom, checkPermission };

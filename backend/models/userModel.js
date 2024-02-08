@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
     approve_status: {
         type: Boolean,
-        default: false
+        default: true
     },
 
     email: {
@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema({
     },
 
     full_name: {
+        type: String
+    },
+
+    summary: {
         type: String
     },
 
@@ -71,6 +75,11 @@ const userSchema = mongoose.Schema({
     },
 
     funding: [{
+        where: {
+            type: Boolean,
+            default: false
+        },
+
         funding_stage: {
             type: String
         },
@@ -94,7 +103,7 @@ const userSchema = mongoose.Schema({
     },
 
     links: {
-        tye: String
+        type: String
     }
 },
 {timestamps: true});
