@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const Message = require("../models/messageModel");
+const Investor = require('../models/investorModel');
 
 const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
@@ -10,35 +12,92 @@ const accessChat = asyncHandler(async (req, res) => {
         return res.sendStatus(400);
     }
 
-    var isChat = await Chat.find({
-        // isGroupChat: false,
-        $and: [
-            { users: { $elemMatch: { $eq: req.user._id } } },
-            { users: { $elemMatch: { $eq: userId } } },
-        ],
-    })
-        .populate("users", "-password")
-        .populate("latestMessage");
+    const user = await User.findOne({ _id: req.user._id });
+    const investor = await Investor.findOne({ _id: req.user._id });
 
-    isChat = await User.populate(isChat, {
-        path: "latestMessage.sender",
-        select: "email",
-    });
+    if (user) {
+        var isChat = await Chat.find({
+            // isGroupChat: false,
+            $and: [
+                // { users: { $elemMatch: { $eq: req.user._id } } },
+                // { users: { $elemMatch: { $eq: userId } } },
+                { user1: req.user._id },
+                { user2: userId },
+            ],
+        })
+            .populate("user1", "-password")
+            .populate("user2", "-password")
+            .populate({
+                path: "latestMessage",
+                populate: {
+                    path: "sender",
+                    select: "email"
+                }
+            });
+    }
+    else if (investor) {
+        var isChat = await Chat.find({
+            // isGroupChat: false,
+            $and: [
+                // { users: { $elemMatch: { $eq: req.user._id } } },
+                // { users: { $elemMatch: { $eq: userId } } },
+                { user1: userId },
+                { user2: req.user._id },
+            ],
+        })
+            .populate("user1", "-password")
+            .populate("user2", "-password")
+            .populate({
+                path: "latestMessage",
+                populate: {
+                    path: "sender",
+                    select: "email"
+                }
+            });
+    }
+
+    // .populate("latestMessage")
+    // .populate("latestmessage.sender", "email");
+
+    // isChat = await User.populate(isChat, {
+    //     path: "latestMessage.sender",
+    //     select: "email",
+    // });
 
     if (isChat.length > 0) {
         res.send(isChat[0]);
     } else {
-        var chatData = {
-            chatName: "sender",
-            isGroupChat: false,
-            users: [req.user._id, userId],
-        };
+
+        // const user = await User.findOne({ _id: req.user._id });
+        // const investor = await Investor.findOne({ _id: req.user._id });
+
+        if (user) {
+            var chatData = {
+                chatName: "sender",
+                user1: req.user._id,
+                user2: userId,
+                // isGroupChat: false,
+                // users: [req.user._id, userId],
+                // usersModel: "User"
+            };
+        }
+        else if (investor) {
+            var chatData = {
+                chatName: "sender",
+                user1: userId,
+                user2: req.user._id,
+                // isGroupChat: false,
+                // users: [req.user._id, userId],
+                // usersModel: "User"
+            };
+        }
+
 
         try {
             const createdChat = await Chat.create(chatData);
             const FullChat = await Chat.findOne({
                 _id: createdChat._id,
-            }).populate("users", "-password");
+            }).populate("user1", "-password").populate("user2", "-password");
             res.status(200).json(FullChat);
         } catch (error) {
             res.status(400);
@@ -48,22 +107,78 @@ const accessChat = asyncHandler(async (req, res) => {
 });
 
 const fetchChats = asyncHandler(async (req, res) => {
-    try {
-        Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
-            .populate("users", "-password")
-            .populate("groupAdmin", "-password")
-            .populate("latestMessage")
-            .sort({ updatedAt: -1 })
-            .then(async (results) => {
-                results = await User.populate(results, {
-                    path: "latestMessage.sender",
-                    select: "email",
+    const user = await User.findOne({ _id: req.user._id });
+    const investor = await Investor.findOne({ _id: req.user._id });
+
+    if (user) {
+        try {
+            // const keyword = req.query.search
+            //     ? {
+            //         $or: [
+            //             { user1: { $elemMatch: { $eq: req.user._id } } },
+            //             { user2: { $elemMatch: { $eq: req.user._id } } },
+            //         ],
+            //     }
+            //     : {};
+            Chat.find({ user1: req.user._id })
+                .populate("user1", "-password")
+                .populate("user2", "-password")
+                // .populate("groupAdmin", "-password")
+                .populate({
+                    path: "latestMessage",
+                    populate: {
+                        path: "sender",
+                        select: "email"
+                    }
+                })
+                // .populate("latestMessage.sender", "-password")
+                .sort({ updatedAt: -1 })
+                .then(async (results) => {
+                    // results = await User.populate(results, {
+                    //     path: "latestMessage.sender",
+                    //     select: "email",
+                    // });
+                    res.status(200).send(results);
                 });
-                res.status(200).send(results);
-            });
-    } catch (error) {
-        res.status(400);
-        throw new Error(error.message);
+        } catch (error) {
+            res.status(400);
+            throw new Error(error.message);
+        }
+    }
+    else if (investor) {
+        try {
+            // const keyword = req.query.search
+            //     ? {
+            //         $or: [
+            //             { user1: { $elemMatch: { $eq: req.user._id } } },
+            //             { user2: { $elemMatch: { $eq: req.user._id } } },
+            //         ],
+            //     }
+            //     : {};
+            Chat.find({ user2: req.user._id })
+                .populate("user1", "-password")
+                .populate("user2", "-password")
+                // .populate("groupAdmin", "-password")
+                .populate({
+                    path: "latestMessage",
+                    populate: {
+                        path: "sender",
+                        select: "email"
+                    }
+                })
+                // .populate("latestMessage.sender", "-password")
+                .sort({ updatedAt: -1 })
+                .then(async (results) => {
+                    // results = await User.populate(results, {
+                    //     path: "latestMessage.sender",
+                    //     select: "email",
+                    // });
+                    res.status(200).send(results);
+                });
+        } catch (error) {
+            res.status(400);
+            throw new Error(error.message);
+        }
     }
 });
 
@@ -186,8 +301,8 @@ const fetchChats = asyncHandler(async (req, res) => {
 module.exports = {
     accessChat,
     fetchChats,
-    createGroupChat,
-    renameGroup,
-    addToGroup,
-    removeFromGroup,
+    // createGroupChat,
+    // renameGroup,
+    // addToGroup,
+    // removeFromGroup,
 };

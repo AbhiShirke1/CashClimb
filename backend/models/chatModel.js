@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const User = require('./userModel');
+const Investor = require('./investorModel');
 
 const chatModel = mongoose.Schema(
     {
@@ -7,14 +9,24 @@ const chatModel = mongoose.Schema(
             trim: true
         },
         // isGroupChat: { type: Boolean, default: false },
-        users: [{
+        // users: [{
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     refPath: 'usersModel'
+        // }],
+        user1: {
             type: mongoose.Schema.Types.ObjectId,
-            refPath: 'usersModel'
-        }],
-        usersModel: {
-            type: String,
-            enum: ['User', 'Investor']
+            ref: 'User'
         },
+
+        user2: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Investor'
+        },
+
+        // usersModel: {
+        //     type: String,
+        //     enum: ['User', 'Investor']
+        // },
         latestMessage: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Message",

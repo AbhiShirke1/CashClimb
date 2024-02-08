@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
 
     if (founder && !investor) {
-        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links } = req.body;
+        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -23,10 +23,11 @@ const registerUser = async (req, res) => {
         }
 
         try {
+            // console.log("test");
             const user = await User.create({
-                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links
+                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
-
+            console.log("test");
             if (user) {
                 res.status(201).json(user);
             }
@@ -36,7 +37,7 @@ const registerUser = async (req, res) => {
     }
 
     else if (investor && !founder) {
-        const { email, password, company, invested_companies, investing_category, favourites, invested_companies_names, amount_invested, auction_reg_companies } = req.body;
+        const { name, email, password, company, invested_companies, investing_category, favourites, invested_data, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -54,8 +55,13 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await Investor.create({
+                name,
                 email,
                 password,
+                company,
+                invested_companies,
+                invested_data,
+                investing_category,
             });
 
             if (user) {
@@ -80,7 +86,7 @@ const loginUser = async (req, res) => {
 
         if (user) {
             if (user.approve_status) {
-                if (user.password === password) {
+                if (await user.matchPassword(password)) {
                     res.status(201).json({
                         user,
                         token: generateToken(user._id),
@@ -97,7 +103,7 @@ const loginUser = async (req, res) => {
 
         else if (user2) {
             if (user2.approve_status) {
-                if (user2.password === password) {
+                if (await user2.matchPassword(password)) {
                     res.status(201).json({ user2, token: generateToken(user2._id) });
                 }
 
@@ -152,4 +158,18 @@ const editProfile = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, getProfile, editProfile };
+const allUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search
+        ? {
+            $or: [
+                // { name: { $regex: req.query.search, $options: "i" } },
+                { email: { $regex: req.query.search, $options: "i" } },
+            ],
+        }
+        : {};
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+});
+
+module.exports = { registerUser, loginUser, getProfile, editProfile, allUsers };

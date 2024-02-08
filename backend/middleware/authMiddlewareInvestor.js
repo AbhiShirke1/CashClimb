@@ -13,7 +13,7 @@ const protectInvestor = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       //decodes token id
-      const decoded = jwt.verify(token, "thisisasecretkey");
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       req.user = await Investor.findById(decoded.id).select("-password");
 
