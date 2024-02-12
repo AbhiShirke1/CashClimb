@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState}from 'react';
 import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
@@ -24,15 +24,15 @@ const social_icons = [{
 ]
 
 
-const ProfileHeader = ( {editChange,setEditChange,handleEditChange}) => {
+
+const InvestorHeader = ( {editChange,setEditChange,handleEditChange}) => {
   const [inputSummary,setInputValue] = useState(summary);
 
   const handleChange = (e) => {
-    setInputValue(e.target.value)
-}
-
+    setInputValue(e.target.value);
+  }
   return (
-  <>
+    <>
     <section className='flex mt-8 font-montserrat mr-[30px]'>
     <div className="bg-white h-[650px]  w-[400px] flex justify-center items-center flex-col rounded-md shadow-xl">
           <div className="w-[150px] h-[150px] bg-[#ffff] shadow-xl rounded-full flex justify-center items-center flex-col p-2 m-2">
@@ -115,4 +115,4 @@ const ProfileHeader = ( {editChange,setEditChange,handleEditChange}) => {
   )
 }
 
-export default ProfileHeader;
+export default InvestorHeader;

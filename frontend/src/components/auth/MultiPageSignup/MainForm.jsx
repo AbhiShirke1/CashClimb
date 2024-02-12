@@ -9,7 +9,7 @@ const MainForm = () => {
   const [page,setPage] = useState(0);
   
 
-  const FormTitles = ["Signup","Compnaay Info","Reasons to Invest","Past Funding"];
+  const FormTitles = ["Signup","Company Info","Reasons to Invest","Past Funding"];
 
 
   return (

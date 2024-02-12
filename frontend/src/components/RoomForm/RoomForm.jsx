@@ -125,9 +125,9 @@ const RoomForm = () => {
                                   className='w-[300px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
                             </div> 
                             <div className='flex flex-col m-2'>
-                                  <label htmlFor="end" className='font-bold'>End Date :</label>
+                                  <label htmlFor="end" className='font-bold'>End Time :</label>
                                   <input 
-                                  type="date"  
+                                  type="time"  
                                   name="end"
                                   onChange={(e) =>setEndDate(e.target.value)} 
                                   className='w-[300px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>

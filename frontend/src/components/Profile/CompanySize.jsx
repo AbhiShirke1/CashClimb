@@ -1,22 +1,5 @@
 import React, { useState } from 'react';
-import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
-import { IoIosMail } from "react-icons/io";
 
-const social_icons = [{
-  id: 1,
-  icon: <FaFacebookSquare className="fill-[#050029]" size={20} />,
-}, {
-  id: 2,
-  icon: <AiFillInstagram className="fill-[#050029]" size={20} />,
-}, {
-  id: 3,
-  icon: <FaLinkedinIn className="fill-[#050029]" size={20} />,
-}, {
-  id: 4,
-  icon: < IoIosMail className="fill-[#050029]" size={20} />,
-}
-]
 const category = ["Fundaraising","Investment","Online Auction","Business"]
 const compnaysize = 800
 const foundedin = 2024
@@ -24,15 +7,11 @@ const companystage = "Public"
 const companyrevenue = 70000000
 
 
-const CompanySize = () => {
-  const [editChange,setEditChange] = useState("false");
+const CompanySize = ({editChange,setEditChange,handleEditChange}) => {
   const [size,setSize] = useState(compnaysize)
   const [found,setFounded] = useState(foundedin)
   const [stage,setStage] = useState(companystage)
   const [revenue,setRevenue] = useState(companyrevenue)
-
-  const handleEditChange = () => setEditChange(!editChange)
-
 
   const handlesize  = (e) => {
     setSize(e.target.value)
@@ -48,7 +27,7 @@ const handlerevenue  = (e) => {
 }
 
   return (
-    <div className="w-[500px] ml-[90px] mt-10 rounded-md items-center ">
+    <div className="w-[500px]  ">
         <div className=" flex flex-col justify-center bg-[#EEF5FF]
          text-[#050029] font-montserrat font-bold">
           <div className="flex justify-between p-4">
@@ -124,31 +103,9 @@ const handlerevenue  = (e) => {
             ))}
             </div>
           </div>
-          <button className="text-[#050029] m-2 h-10 rounded-sm  text-[14px] font-bold border border-[#050029]" onClick={handleEditChange}>
-          {editChange ? 'Edit Company Size' : 'Save'}
-          </button>
-
         </div>
     </div>
   )
 }
 
-export default CompanySize
-
-
-          {/* <div className="flex justify-between p-4">
-            <h3 className="text-left">
-              Social Media : 
-            </h3>
-            <div className='flex space-x-6 fill-[#e8e8e8]'>
-            {
-              social_icons.map((items) => (
-                <>{items.icon}</>
-
-              ))
-            }
-          </div>
-          </div>
-          <button className="bg-[#050029] m-2 h-10 rounded-sm text-white text-[14px] font-normal">
-            Visit CashClimb 
-          </button> */}
+export default CompanySize;
