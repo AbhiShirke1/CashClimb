@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { createPost, getPosts, testRoute } = require('../controllers/postController');
+const { createPost, getOwnPosts } = require('../controllers/postController');
 const { protect } = require('../middleware/authMiddleware');
 const AWS = require('aws-sdk');
 // const accessKeyId = 'AKIAQ3EGSQYXRHYNJDHB';
@@ -31,8 +31,8 @@ const AWS = require('aws-sdk');
 //   region,
 // });
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage });
 
 
 // router.post('/createPost', protect, upload.single('image'), createPost);
@@ -66,4 +66,7 @@ const upload = multer({ storage: storage });
 
 //   console.log(req.files.image.data);
 // })
+
+router.post('/create', protect, createPost);
+// router.get('/ownPosts', protect, getOwnPosts);
 module.exports = router;

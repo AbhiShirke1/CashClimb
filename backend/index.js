@@ -12,6 +12,7 @@ const userRoute = require('./routes/userRoute');
 const fileUpload = require('express-fileupload');
 const chatRoute = require('./routes/chatRoute');
 const messageRoute = require('./routes/messageRoute');
+const dealRoute = require('./routes/dealRoute');
 
 const app = express();
 const server = http.createServer(app);
@@ -50,6 +51,7 @@ app.use('/api/post', postRoute);
 app.use('/api/user', userRoute);
 app.use('/api/chat', chatRoute);
 app.use('/api/message', messageRoute);
+app.use('/api/deal', dealRoute);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

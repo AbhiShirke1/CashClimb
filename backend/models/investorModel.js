@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const investorSchema = mongoose.Schema({
     approve_status: {
         type: Boolean,
-        default: false
+        default: true
     },
 
     name: {
@@ -26,6 +26,14 @@ const investorSchema = mongoose.Schema({
         type: String,
         default:
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+
+    address: {
+        type: String
+    },
+
+    pan: {
+        type: String
     },
 
     company: {

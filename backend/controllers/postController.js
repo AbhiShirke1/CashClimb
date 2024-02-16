@@ -18,7 +18,7 @@ const AWS = require('aws-sdk');
 //     region,
 // });
 
-// // AWS.config.update({region: 'eu-north-1'})
+// AWS.config.update({region: 'eu-north-1'})
 // const upload = () => {
 //     multer({
 //         storage: multers3({
@@ -119,18 +119,35 @@ const AWS = require('aws-sdk');
 //     })
 // }
 
-// const getPosts = async (req, res) => {
+const createPost = async (req, res) => {
+    const { link, content } = req.body;
+    const user = req.user._id;
+
+    try {
+        const postContent = await Post.create({
+            creater: user, content, link
+        });
+
+        res.json(postContent);
+    } catch (error) {
+        res.json(error)
+    }
+}
+
+// const getOwnPosts = async (req, res) => {
+//     const user = req.user._id;
+
 //     try {
-//         const allPosts = await Post.find({});
+//         const allPosts = await Post.find({ creater: user });
 
-//         res.json(allPosts);
-//     } catch (error) {
-//         res.json("Some error ocurred");
-//     }
-// }
+//         //         res.json(allPosts);
+//         //     } catch (error) {
+//         //         res.json("Some error ocurred");
+//         //     }
+//         // }
 
-// const uploadImg = async (req, res) => {
+//         // const uploadImg = async (req, res) => {
 
-// }
+//         // }
 
-// module.exports = { createPost, getPosts, testRoute };
+module.exports = { createPost };

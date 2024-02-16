@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const userSchema = mongoose.Schema({
     approve_status: {
         type: Boolean,
-        default: false
+        default: true
     },
 
     email: {
@@ -19,6 +19,10 @@ const userSchema = mongoose.Schema({
     },
 
     full_name: {
+        type: String
+    },
+
+    summary: {
         type: String
     },
 
@@ -72,6 +76,11 @@ const userSchema = mongoose.Schema({
     },
 
     funding: [{
+        where: {
+            type: Boolean,
+            default: false
+        },
+
         funding_stage: {
             type: String
         },
@@ -90,12 +99,40 @@ const userSchema = mongoose.Schema({
     },
 
     //pitch
-    pitch_desc: {
-        type: String
+    pitch: {
+        pitch_title: {
+            type: String
+        },
+
+        pitch_link: {
+            type: String
+        },
+
+        pitch_desc: {
+            type: String
+        }
     },
 
-    links: {
-        type: String
+    // links: {
+    //     type: String
+    // },
+
+    finances: {
+        revenue: {
+            type: String
+        },
+
+        net_lp: {
+            type: String
+        },
+
+        debt: {
+            type: String
+        },
+
+        raised_money: {
+            type: String
+        }
     }
 },
     { timestamps: true });

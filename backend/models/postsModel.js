@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 
 const postsSchema = mongoose.Schema({
-    email: {
-        type: String,
-        required: true
-    },
+  //ref, link, content
 
-    desc: {
-        type: String
-    },
+  creater: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
 
-    image: {
-        data: Buffer,
-        contentType: String,
-    }
+  link: {
+    type: String
+  },
+
+  content: {
+    type: String
+  }
 
 },
     { timestamps: true });

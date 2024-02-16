@@ -19,7 +19,7 @@ const dealSchema = mongoose.Schema({
         type: Number
     }
 },
-{timestamps: true});
+    { timestamps: true });
 
 
 const DealModel = mongoose.model("Deal", dealSchema);
