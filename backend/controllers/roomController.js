@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const Room = require('../models/roomModel');
+const Investor = require('../models/investorModel');
 
 const createRoom = async (req, res) => {
     const { date, time, base_amount, base_percent } = req.body;
@@ -100,6 +101,74 @@ const checkPermission = async(req, res)=>{
 }
 
 
+//not tested
+const dealAccept = async(req, res)=>{
+    const {percent, amount, investorId, roomId} = req.body;
+    const founder = req.user._id;
+    const companyName = req.user.company;
+    try {
+        const room = await Room.findById({_id: roomId});
+
+        if(room.final_investor){
+            res.send("Deal is closed!!");
+        }
+
+        else{
+            const updateRoom = await Room.updateOne({
+                _id: roomId
+            }, {
+                $set: {
+                    final_amount: amount,
+                    final_percent: percent,
+                    final_investor: investorId
+                }
+            });
 
 
-module.exports = { createRoom, registerRoom, checkPermission };
+            const investorData = {
+                invested_company_names: companyName,
+                invested_amount: amount,
+                percentage: percent
+            };
+            const updateInvestor = await Investor.updateOne({
+                _id: investorId
+            }, {
+                $push:{
+                    invested_data: investorData
+                }
+            });
+
+
+            //investor name from investorId
+            const getInvestorName = await Investor.findOne({_id: investorId});
+
+            const userData = {
+                where: "CashClimb",
+                funding_stage: "-",
+                amount_raised: amount,
+                percentage: percent,
+                investor_name: getInvestorName.name
+            }
+            const updateUser = await User.updateOne({
+                _id: founder
+            }, { 
+            $push:{
+                funding: updateUser
+            }})
+
+            if(updateRoom && updateInvestor && updateUser){
+                return res.send("Deal accepted!");
+            }
+        }
+
+        res.send("Deal not accepted")
+    } catch (error) {
+        console.log(error);
+        res.send("Some error occured");
+    }
+}
+
+
+
+
+module.exports = { createRoom, registerRoom, checkPermission, dealAccept };

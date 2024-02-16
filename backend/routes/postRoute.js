@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { createPost, getOwnPosts } = require('../controllers/postController');
+const { createPost, getOwnPosts, getAllPosts } = require('../controllers/postController');
 const { protect } = require('../middleware/authMiddleware');
 const AWS = require('aws-sdk');
 // const accessKeyId = 'AKIAQ3EGSQYXRHYNJDHB';
@@ -69,4 +69,5 @@ const AWS = require('aws-sdk');
 
 router.post('/create', protect, createPost);
 router.get('/ownPosts', protect, getOwnPosts);
+router.get('/allPosts', protect, getAllPosts);
 module.exports = router;

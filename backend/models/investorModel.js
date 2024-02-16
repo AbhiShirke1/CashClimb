@@ -41,7 +41,7 @@ const investorSchema = mongoose.Schema({
     },
 
     invested_companies: {
-        type: Number
+        type: [Number]
     },
 
     investing_category: {

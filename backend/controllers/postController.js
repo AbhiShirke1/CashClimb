@@ -146,8 +146,15 @@ const getOwnPosts = async (req, res) => {
     }
 }
 
-const uploadImg = async (req, res) => {
+const getAllPosts = async (req, res) => {
+    try {
+        const allPosts = await Post.find({});
 
+        res.json(allPosts);
+    } catch (error) {
+        console.log(error);
+        res.json("Some error ocurred");
+    }    
 }
 
-module.exports = {  createPost, getOwnPosts };
+module.exports = {  createPost, getOwnPosts, getAllPosts };
