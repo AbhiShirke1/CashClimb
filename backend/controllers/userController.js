@@ -1,7 +1,7 @@
-const generateToken = require('../config/generateToken');
-const User = require('../models/userModel');
-const Investor = require('../models/investorModel');
-
+const generateToken = require("../config/generateToken");
+const User = require("../models/userModel");
+const Investor = require("../models/investorModel");
+const asyncHandler = require("express-async-handler");
 
 const registerUser = async (req, res) => {
     const { founder, investor } = req.body;
@@ -23,21 +23,21 @@ const registerUser = async (req, res) => {
         }
 
         try {
+            // console.log("test");
             const user = await User.create({
                 email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
-
+            console.log("test");
             if (user) {
                 res.status(201).json(user);
             }
-
         } catch (error) {
-            res.status(422).json(error)
+            res.status(422).json(error);
         }
     }
 
     else if (investor && !founder) {
-        const { email, password, company, invested_companies, investing_category, favourites, invested_companies_names, amount_invested, auction_reg_companies } = req.body;
+        const { name, email, password, company, invested_companies, investing_category, favourites, invested_data, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -53,21 +53,25 @@ const registerUser = async (req, res) => {
             return res.status(400).json("User already exists");
         }
 
-
         try {
             const user = await Investor.create({
-                email, password
+                name,
+                email,
+                password,
+                company,
+                invested_companies,
+                invested_data,
+                investing_category,
             });
 
             if (user) {
                 res.status(201).json(user);
             }
-
         } catch (error) {
-            res.status(422).json(error)
+            res.status(422).json(error);
         }
     }
-}
+};
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
@@ -77,7 +81,7 @@ const loginUser = async (req, res) => {
     }
 
     try {
-        if(email==="admin" && password=="password"){
+        if (email === "admin" && password == "password") {
             return res.json("admin");
         }
 
@@ -86,11 +90,12 @@ const loginUser = async (req, res) => {
 
         if (user) {
             if (user.approve_status) {
-                if (user.password === password) {
-                    res.status(201).json({ user, token: generateToken(user._id) });
-                }
-
-                else {
+                if (await user.matchPassword(password)) {
+                    res.status(201).json({
+                        user,
+                        token: generateToken(user._id),
+                    });
+                } else {
                     res.status(400).json("Invalid Email or Password");
                 }
             }
@@ -102,7 +107,7 @@ const loginUser = async (req, res) => {
 
         else if (user2) {
             if (user2.approve_status) {
-                if (user2.password === password) {
+                if (await user2.matchPassword(password)) {
                     res.status(201).json({ user2, token: generateToken(user2._id) });
                 }
 
@@ -130,7 +135,7 @@ const getProfile = async (req, res) => {
     try {
         const user = await User.findOne({ _id: id });
 
-        if(user.approve_status){
+        if (user.approve_status) {
             return res.json(user);
         }
     } catch (error) {
@@ -177,4 +182,18 @@ const getAllInvestors = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, getProfile, editProfile, getAllFounders, getAllInvestors };
+const allUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search
+        ? {
+            $or: [
+                // { name: { $regex: req.query.search, $options: "i" } },
+                { email: { $regex: req.query.search, $options: "i" } },
+            ],
+        }
+        : {};
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+});
+
+module.exports = { registerUser, loginUser, getProfile, editProfile, getAllFounders, getAllInvestors, allUsers };

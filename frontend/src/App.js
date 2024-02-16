@@ -1,18 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
 import {io} from 'socket.io-client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Navbar from './components/Navbar';
+
+import ListOfStartup from './components/ListOfStartup/ListOfStartup';
+
+import Navbar from './components/Navbar/Navbar';
+import Signup from './components/auth/Sigup/Signup';
+
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Navbar />} >
-            <Route index element={<Home />}/>
-          </Route>
+          <Route path='/' element={<Home/>} />
+          <Route path='/explore' element={<ListOfStartup/>} />
+            {/* <Route index element={<Home />}/> */}
+
+
+          {/*</Routes></Route> */}
+          <Route path='/signup' element={<Signup/>}/>
+
         </Routes>
       </BrowserRouter>
     </>

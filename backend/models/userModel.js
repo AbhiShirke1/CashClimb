@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 const userSchema = mongoose.Schema({
     approve_status: {
@@ -30,10 +31,10 @@ const userSchema = mongoose.Schema({
         unique: true
     },
 
-    pic:{
+    pic: {
         type: String,
         default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
 
     sales: {
@@ -67,7 +68,7 @@ const userSchema = mongoose.Schema({
     },
 
     founders: [{
-        name:{
+        name: {
             type: String
         },
 
@@ -116,15 +117,56 @@ const userSchema = mongoose.Schema({
     },
 
     //pitch
-    pitch_desc: {
-        type: String
+    pitch: {
+        pitch_title: {
+            type: String
+        },
+
+        pitch_link: {
+            type: String
+        },
+
+        pitch_desc: {
+            type: String
+        }
     },
 
-    links: {
-        type: String
+    // links: {
+    //     type: String
+    // },
+
+    finances: {
+        revenue: {
+            type: String
+        },
+
+        net_lp: {
+            type: String
+        },
+
+        debt: {
+            type: String
+        },
+
+        raised_money: {
+            type: String
+        }
     }
 },
-{timestamps: true});
+    { timestamps: true });
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.pre("save", async function (next) {
+    if (!this.isModified) {
+        next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
 
 const UserModel = mongoose.model("User", userSchema);
 module.exports = UserModel;
