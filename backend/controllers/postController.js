@@ -134,17 +134,17 @@ const createPost = async (req, res) => {
     }
 }
 
-// const getOwnPosts = async (req, res) => {
-//     const user = req.user._id;
+const getOwnPosts = async (req, res) => {
+    const user = req.user._id;
 
-//     try {
-//         const allPosts = await Post.find({ creater: user });
+    try {
+        const allPosts = await Post.find({ creater: user });
 
-//         //         res.json(allPosts);
-//         //     } catch (error) {
-//         //         res.json("Some error ocurred");
-//         //     }
-//         // }
+        res.json(allPosts);
+    } catch (error) {
+        res.json("Some error ocurred");
+    }
+}
 
 const getAllPosts = async (req, res) => {
     try {
@@ -154,7 +154,7 @@ const getAllPosts = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.json("Some error ocurred");
-    }    
+    }
 }
 
-module.exports = {  createPost, getOwnPosts, getAllPosts };
+module.exports = { createPost, getOwnPosts, getAllPosts };

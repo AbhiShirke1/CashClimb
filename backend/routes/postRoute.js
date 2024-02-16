@@ -68,10 +68,9 @@ const AWS = require('aws-sdk');
 // })
 
 router.post('/create', protect, createPost);
-<<<<<<< HEAD
 router.get('/ownPosts', protect, getOwnPosts);
 router.get('/allPosts', protect, getAllPosts);
-=======
+
 // router.get('/ownPosts', protect, getOwnPosts);
->>>>>>> aadi
+
 module.exports = router;
