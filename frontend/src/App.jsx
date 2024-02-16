@@ -17,6 +17,8 @@ import CompanyInfo from './components/auth/Signup/FounderSignup/CompanyInfo'
 import PastFunding from './components/auth/Signup/FounderSignup/PastFunding'
 import Profile from './pages/ProfilePage/Profile'
 import UpdatePage from './components/auth/Signup/Steps/UpdatePage'
+import Home from './pages/Home'
+import SearchPage from './pages/SearchPage'
 
 const App = () => {
   return (
@@ -25,13 +27,14 @@ const App = () => {
         <Routes>
             <Route path='/signup' element={<Signup/>}/>
             <Route path='/welcome/identity' element={<InvestorInfo/>}/>
+            <Route path='/explore' element={<SearchPage/>}/>
 
             <Route path='/welcome/income' element={<InvestorIncome/>}/>
             <Route path='/welcome/choices' element={<InvestorPreferences/>}/>
             <Route path='/welcome/createprofile' element={<PublicProfile/>}/>
             
             <Route path='/login' element={<Login/>}/>
-            <Route path='/' element={<Protected><Footer/></Protected>}/>
+            <Route path='/' element={<Protected><Home/></Protected>}/>
             <Route path='/home' element={<HomePage/>}/>
             {/* <Route path='/investor/profile' element={<ProfilePage/>}/> */}
             <Route path='/profile' element={<Profile/>}/>

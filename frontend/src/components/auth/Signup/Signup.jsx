@@ -35,7 +35,7 @@ function Signup() {
     email,
     password,
     cpassword,
-    role,
+    founder:"abc",
   };
   console.log(data);
   return (
@@ -109,6 +109,7 @@ function Signup() {
                   required: "name required",
                   maxLength: 20,
                 })}
+                name="full_name"
                 placeholder="Name"
                 onChange={(e) => {
                   setName(e.target.value);
@@ -168,6 +169,7 @@ function Signup() {
                     message: "email not valid",
                   },
                 })}
+                name="email"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -217,6 +219,7 @@ function Signup() {
 
               <input
                 type="password"
+                name="password"
                 className="  border-b-[2px] border-gray-400 focus:border-black  py-2 pl-8 pr-2 focus:outline-none w-[400px]"
                 placeholder="Password"
                 {...register("password", {
@@ -278,6 +281,7 @@ function Signup() {
                 type="password"
                 className=" border-b-[2px] border-gray-400 focus:border-black  py-2 pl-8 pr-2  focus:outline-none w-[400px]"
                 placeholder="Confirm Password"
+                name="cpassword"
                 {...register("confirmPassword", {
                   required: "confirm password required",
                   validate: (value, formValues) =>

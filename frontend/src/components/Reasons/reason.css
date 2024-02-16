@@ -1,0 +1,24 @@
+@media (max-width: 640px) {
+          
+          .features h2{
+                    font-size: 40px;
+                    padding: 0;       
+          }
+          .features .idea{
+                    font-size: 12px;
+                    padding: 0;
+                    margin: 0;       
+          }
+
+          .small-items{
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0;      
+                    margin-left: 0;
+          }
+          
+          .feature-item{
+                    margin-top: 10px;      
+
+          }
+}

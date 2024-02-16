@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookSquare, FaLinkedinIn } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { IoIosMail } from "react-icons/io";
@@ -35,18 +35,18 @@ const social_icons = [
 const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
   const [inputSummary, setInputValue] = useState(summary);
   const dispatch = useDispatch();
+  const[userData,setUserData]=useState(JSON.parse(localStorage.getItem('user')));
 
-  
-  const user = useSelector(selectLoggedInUser);
-  console.log(user);
+  console.log(userData);
+
   const handleChange = (e) => {
     setInputSummary(e.target.value);
   };
-  const [inputWebsite, setInputWebsite] = useState(user[0].website);
+  const [inputWebsite, setInputWebsite] = useState("");
   //   const [csize, setCsize] = useState(user[0]?.csize);
   const handleSave = async () => {
     const updatedUser = {
-      ...user[0],
+      ...userData,
       summary: inputSummary,
       website: inputWebsite, // Add website field
       // Add other fields as needed
@@ -57,6 +57,17 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
 
     // If the API call is successful, you can handle the state or navigation logic here
   };
+
+  // useEffect(() => {
+  //   const updated= JSON.parse(localStorage.getItem('user'));
+  //   setUserData(updated);
+  // },[]);
+  // useEffect(()=>{
+  //   if(userData)
+  //   {
+  //     setUserData(userData)
+  //   }
+  // },[userData]);
   return (
     <>
       <section className="flex mt-8 font-montserrat mr-[30px]">
@@ -67,7 +78,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
 
           <div>
             <h2 className="text-[#050029] font-montserrat font-semibold text-2xl p-2 flex items-center ">
-              {user[0].cname}
+              {/* {user.user.cname} */}
               <HiBadgeCheck className="ml-[10px]" fill="blue" />
             </h2>
           </div>
@@ -112,7 +123,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
               </h2>
               {editChange ? (
                 <span className="text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-                  {user[0].website}
+                  {userData.website}
                 </span>
               ) : (
                 <input

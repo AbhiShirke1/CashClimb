@@ -82,7 +82,7 @@ const CompanyDescription = ({ editChange, setEditChange, handleEditChange }) => 
             </h2>
             <p>
               {editChange ? (
-                <p className='w-[600px] m-2  text-[#303030]'>{user[0]?.summary}</p>
+                <p className='w-[600px] m-2  text-[#303030]'></p>
 
               ) : (
                 <textarea
