@@ -13,7 +13,6 @@ const InvestorProfilePage = () => {
         <section className="flex justify-center  space-x-10  ">
             <InvestorHeader editChange= {editChange} setEditChange= {setEditChange}  handleEditChange= {handleEditChange} />
             <div className='flex justify-center items-center flex-col'>
-                {/* <ToogleSection  handleCompanyInfo={handleCompanyInfo} handleFinance={handleFinance} handlePost={handlePost}/> */}
                 <InvestorDescription  editChange= {editChange} setEditChange= {setEditChange}  handleEditChange= {handleEditChange}/>
             </div>
 

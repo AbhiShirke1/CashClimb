@@ -59,10 +59,10 @@ const Post = () => {
       </div>
 
       
-      <div className="flex flex-row flex-wrap justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="p-4 flex space-x-4 ">
-            <div className=" w-[350px]  h-[500px] rounded-md shadow-xl">
+            <div className=" w-[650px]  h-[650px] rounded-md shadow-xl">
               <div className="flex flex-row items-center justify-between">
                 <div className="flex items-center">
                   <div className="w-10 h-10 shadow-lg rounded-full flex-none m-4">
@@ -81,7 +81,7 @@ const Post = () => {
               </p>
               <div className="flex justify-center items-center">
                 <img src="https://images.pexels.com/photos/279480/pexels-photo-279480.jpeg?auto=compress&cs=tinysrgb&w=600"
-                className="h-[300px] w-[300px]" alt="post" />
+                className="h-[500px] w-full p-4" alt="post" />
               </div>
 
             </div>
