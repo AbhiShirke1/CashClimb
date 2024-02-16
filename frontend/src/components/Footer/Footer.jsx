@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <>
+    <div><Link to='/profile'>LINK</Link></div>
       <div id="features" class="relative py-[80px] bg-white">
         <div class=" items-start pb-[45px] flex flex-col max-w-[1240px] mx-auto font-montserrat">
           <img
