@@ -14,7 +14,7 @@ const CompanyInfo = ({page}) => {
     console.log(regInfo);
 
     const[cin,setCin]=useState("");
-    const[cname,setCname]=useState("");
+    const[company,setCompany]=useState("");
     const[website,setWebsite]=useState("");
     const[summary,setSummary]=useState("");
 
@@ -23,7 +23,7 @@ const CompanyInfo = ({page}) => {
     };
 
     const handleCnameChange = (e) => {
-      setCname(e.target.value);
+      setCompany(e.target.value);
     };
 
     const handleWebsiteChange = (e) => {
@@ -37,7 +37,7 @@ const CompanyInfo = ({page}) => {
     const data={
       ...regInfo,
       cin,
-      cname,
+      company,
       website,
       summary,
     }
@@ -56,6 +56,7 @@ const CompanyInfo = ({page}) => {
             type="text"
             className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
             placeholder="Company CIN Number"
+            name='cin'
             value={cin}
             onChange={handleCinChange}
             />
@@ -67,7 +68,8 @@ const CompanyInfo = ({page}) => {
             type="text"
             className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
             placeholder="Company Name"
-            value={cname}
+            name='company'
+            value={company}
             onChange={handleCnameChange}
             />
           </div>
@@ -79,6 +81,7 @@ const CompanyInfo = ({page}) => {
             type="text"
             className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
             placeholder="Company Website"
+            name='website'
             value={website}
             onChange={handleWebsiteChange}
             />
@@ -91,6 +94,7 @@ const CompanyInfo = ({page}) => {
             type="text"
             className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
             placeholder="Summary"
+            name='summary'
             value={summary}
             onChange={handleSummaryChange}
             />

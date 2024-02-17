@@ -1,47 +1,69 @@
 export function createUser(userData) {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:8000/api/user/register', {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            headers: { 'content-type': 'application/json' }
-        });
-        const data = await response.json();
-        resolve({ data });
-    }
-    );
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch('http://localhost:8000/api/user/register', {
+                method: 'POST',
+                body: JSON.stringify(userData),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await response.json();
+            resolve({ data });
+        } catch (error) {
+            reject({ error });
+        }
+    });
 }
-export function checkUser(loginInfo) {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:8000/api/user/login', {
-            method: 'POST',
-            body: JSON.stringify(loginInfo),
-            headers: { 'content-type': 'application/json' }
-        });
-        const data = await response.json();
-        console.log(data)
-        localStorage.setItem("user", JSON.stringify(data));
 
-        resolve({ data });
-    }
-    );
+export function checkUser(loginInfo) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch('http://localhost:8000/api/user/login', {
+                method: 'POST',
+                body: JSON.stringify(loginInfo),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem("user", JSON.stringify(data));
+                resolve({ data });
+            } else {
+                reject({ message: data.message || 'Login failed' });
+            }
+        } catch (error) {
+            reject({ error });
+        }
+    });
 }
 
 export function updateUser(update) {
-    return new Promise(async (resolve) => {
-        const response = await fetch('http://localhost:8000/api/user/profile', {
-            method: 'PUT',
-            body: JSON.stringify(update),
-            headers: {
-                'content-type': 'application/json', 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`,
-            }
-        });
-        const data = await response.json();
-        localStorage.setItem("user", JSON.stringify(data));
+    return new Promise(async (resolve, reject) => {
+        try {
+            const token = JSON.parse(localStorage.getItem('user')).token;
 
-        resolve({ data });
-    }
-    );
+            const response = await fetch('http://localhost:8000/api/user/profile', {
+                method: 'PUT',
+                body: JSON.stringify(update),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem("user", JSON.stringify(data));
+                resolve({ data });
+            } else {
+                reject({ message: data.message || 'Update failed' });
+            }
+        } catch (error) {
+            reject({ error });
+        }
+    });
 }
+
 
 // export function checkUser(loginInfo) {
 //     return new Promise(async (resolve, reject) => {

@@ -35,7 +35,12 @@ const social_icons = [
 const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
   const [inputSummary, setInputValue] = useState(summary);
   const dispatch = useDispatch();
-  const[userData,setUserData]=useState(JSON.parse(localStorage.getItem('user')));
+  const [userData, setUserData] = useState(() => {
+    // Initialize the state with data from localStorage or an empty object
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    return storedUser || {};
+  });
+
 
   console.log(userData);
 
@@ -43,25 +48,21 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
     setInputSummary(e.target.value);
   };
   const [inputWebsite, setInputWebsite] = useState("");
-  //   const [csize, setCsize] = useState(user[0]?.csize);
   const handleSave = async () => {
     const updatedUser = {
       ...userData,
       summary: inputSummary,
-      website: inputWebsite, // Add website field
-      // Add other fields as needed
+      website: inputWebsite, 
     };
     setEditChange(!editChange);
 
     await dispatch(updateUserAsync(updatedUser));
 
-    // If the API call is successful, you can handle the state or navigation logic here
   };
-
-  // useEffect(() => {
-  //   const updated= JSON.parse(localStorage.getItem('user'));
-  //   setUserData(updated);
-  // },[]);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUserData(storedUser || {});
+  }, []);
   // useEffect(()=>{
   //   if(userData)
   //   {
@@ -123,7 +124,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
               </h2>
               {editChange ? (
                 <span className="text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-                  {userData.website}
+                  {userData.user.website}
                 </span>
               ) : (
                 <input

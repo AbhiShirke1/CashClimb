@@ -4,7 +4,7 @@ import { selectLoggedInUser } from './authSlice'
 import { Navigate } from 'react-router-dom';
 
 const Protected = ({children}) => {
-    const user= useSelector(selectLoggedInUser);
+    const user=localStorage.getItem('user');
     if(!user)
     {
         return <Navigate to='/login' replace={true}></Navigate>
