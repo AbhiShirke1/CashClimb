@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { checkUserAsync, selectError, selectLoggedInUser } from "../authSlice";
 import { useForm } from "react-hook-form";
-import myImg from "../MultiPageSignup/signup.svg";
-
-
+import myImg from "../Signup/signup.svg";
 const Login = () => {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -156,7 +154,7 @@ const Login = () => {
                 </Link>{" "}
               </p>
               <button className=" w-[70%] rounded-[30px] text-white bg-[#194fffdd] m-auto p-4  whitespace-nowrap">
-                Login
+                Signup
               </button>
             </form>
           </div>

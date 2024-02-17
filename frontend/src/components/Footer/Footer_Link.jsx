@@ -13,7 +13,7 @@ const Footer_Link = () => {
               <ul >
                 {
                   footer_link1.map((items) => (
-                    <li className='pb-2'>
+                    <li className='pb-2' key={items}>
                       <Link to="/about" className="pb-2 font-Montserrat">
                         {items}
                       </Link>

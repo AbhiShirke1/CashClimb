@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import Reasons from '../components/Reasons/Reasons';
@@ -12,16 +12,16 @@ import Steps from '../components/Steps/Steps';
 const Home = () => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Hero />
       <Reasons />
       <Features />
-      <Pillars/>
+      <Pillars />
       <Help/>
       <Steps/>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,37 +1,61 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const roomSchema = mongoose.Schema({
-    active: {
-        type: Boolean,
+const roomSchema = mongoose.Schema(
+    {
+        active: {
+            type: Boolean,
+        },
+
+        company: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+
+        interested_investors: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Investor"
+            }
+        ],
+
+        // fund: {
+        //     type: [Number]
+        // },
+
+        // percentage: {
+        //     type: [Number]
+        // },
+
+        start_time: {
+            type: String,
+        },
+
+        start_date: {
+            type: String,
+        },
+
+        base_amount: {
+            type: Number
+        },
+
+        base_percentage: {
+            type: Number
+        },
+
+        final_amount: {
+            type: Number
+        },
+
+        final_percent: {
+            type: Number
+        },
+
+        final_investor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Investor"
+        }
     },
-
-    company: {
-        type: String,
-        unique: true
-    },
-
-    interested_investors: {
-        type: [String]
-    },
-
-    fund: {
-        type: [Number]
-    },
-
-    start_time: {
-        type: String
-    },
-
-    start_date: {
-        type: String
-    },
-
-    base_amount: {
-        type: Number
-    }
-
-},
-{timestamps: true});
+    { timestamps: true });
 
 
 const RoomModel = mongoose.model("Room", roomSchema);

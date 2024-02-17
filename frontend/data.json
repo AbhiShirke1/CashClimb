@@ -3,24 +3,153 @@
     {
       "name": "Sandeep",
       "email": "sandeep@gmail.com",
-      "password": "Sandeep123",
-      "id": "1"
+      "password": "Sandeep1002",
+      "role": "Investor",
+      "id": 1
     },
     {
-      "id": "562c",
-      "name": "siddharth",
-      "email": "siddharth@gmail.com",
-      "password": "Siddu0913@",
+      "name": "Sandeep",
+      "email": "bye@gmail.com",
+      "password": "Sandeep#123",
       "role": "Investor",
-      "posts": []
+      "id": 2
     },
     {
-      "id": "c808",
-      "name": "Aadi ",
-      "email": "aadi@gmail.com",
-      "password": "Aadi123@",
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "password": "Rahul#123",
       "role": "Investor",
-      "posts": []
+      "posts": [
+        {
+          "imgUrl": "hifahifa",
+          "id": 1
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "Sandeep",
+      "email": "sandeep@gmail.com",
+      "password": "Sande345",
+      "cpassword": "Sande345",
+      "legalName": "Sandeep",
+      "phoneNumber": "23131",
+      "location": "hhh",
+      "panNumber": "32131",
+      "companyValue": "700000",
+      "annualSalary": "45000",
+      "isAccreditedInvestor": true,
+      "domains": {
+        "0": "Telecommunications",
+        "1": "Transportation"
+      },
+      "url": "",
+      "profileImage": "wallpaperdhoni (1).jpg",
+      "bio": "daadaada",
+      "posts": [],
+      "id": 4
+    },
+    {
+      "name": "Sandeep",
+      "email": "sandeep@gmail.com",
+      "password": "Sandeep45",
+      "cpassword": "Sandeep45",
+      "legalName": "Sandeep",
+      "phoneNumber": "3233",
+      "location": "dada",
+      "panNumber": "231",
+      "companyValue": "1400000",
+      "annualSalary": "75000",
+      "isAccreditedInvestor": true,
+      "domains": {
+        "0": "Transportation",
+        "1": "Entertainment"
+      },
+      "url": "",
+      "profileImage": "wallpaperdhoni (1).jpg",
+      "bio": "4weqeqe",
+      "posts": [],
+      "id": 5
+    },
+    {
+      "name": "Sandeep",
+      "email": "sandeep@gmail.com",
+      "password": "Sandeep35",
+      "cpassword": "Sandeep35",
+      "role": "Investor",
+      "legalName": "Sandeep",
+      "phoneNumber": "231313",
+      "location": "sadad",
+      "panNumber": "213313",
+      "companyValue": "1000000",
+      "annualSalary": "90000",
+      "isAccreditedInvestor": true,
+      "domains": {
+        "0": "Transportation",
+        "1": "Entertainment"
+      },
+      "url": "",
+      "profileImage": "wallpaperdhoni (1).jpg",
+      "bio": "21313",
+      "posts": [],
+      "id": 6
+    },
+    {
+      "name": "Sandeep Sinha",
+      "email": "sandeep@gmail.com",
+      "password": "Sandeep345",
+      "cpassword": "Sandeep345",
+      "role": "Founder",
+      "cin": "312321123",
+      "cname": "Saa",
+      "website": "adada",
+      "summary": "adadadad",
+      "funds": "",
+      "investorName": "",
+      "fieldsValue": [
+        "dadad",
+        "ffff",
+        "dddd",
+        "ffff"
+      ],
+      "posts": [],
+      "id": 7
+    },
+    {
+      "name": "Sandeep Sinha",
+      "email": "sandeep@gmail.com",
+      "password": "Sandeep345",
+      "cpassword": "Sandeep345",
+      "role": "Founder",
+      "cin": "312321123",
+      "cname": "Saa",
+      "website": "adada",
+      "summary": "adadadad",
+      "funds": "",
+      "investorName": "",
+      "fieldsValue": [],
+      "posts": [],
+      "id": 8
+    },
+    {
+      "name": "Rahuldddd",
+      "email": "rahulbhai@gmail.com",
+      "password": "Rahul#234",
+      "cpassword": "Rahul#234",
+      "role": "Founder",
+      "cin": "56778899000",
+      "cname": "Fudgy",
+      "website": "www.fudgy.com",
+      "summary": "Online Fundraising platform where ideas meet's Innovation",
+      "funds": "",
+      "investorName": "",
+      "fieldsValue": [
+        " Fudgy offers a unique dessert experience, blending decadence with innovation, setting it apart in a competitive market.",
+        "Positioned to capitalize on the expanding demand for high-quality, indulgent treats, Fudgy taps into the lucrative dessert industry.",
+        "With a commitment to premium ingredients, Fudgy has the potential to become a recognized brand, supported by positive customer feedback and a scalable business model"
+      ],
+      "posts": [],
+      "id": 9
     }
   ],
   "plan": []
