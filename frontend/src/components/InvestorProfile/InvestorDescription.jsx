@@ -74,25 +74,17 @@ const InvestorDescription = () => {
                       <span className='font-semibold text-sm'>Invested Amount : </span>
                       <span className='text-[#1dc275] font-bold'> ₹90278254</span>
                     </div>
-                    <div>
+                    <div className='flex space-x-4'>
                       <span className='font-semibold text-sm'>Percentage : </span>
                       <span className='text-[#1dc275] font-bold'>20%</span>
                     </div>
-                    
                   </div>
-
                 </div>
               </div>
             ))}
           </div>
-
-
-
-
         </div>
-
       </div>
-
     </div>
   )
 }
