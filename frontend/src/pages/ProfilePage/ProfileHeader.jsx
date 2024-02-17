@@ -33,42 +33,39 @@ const social_icons = [
 ];
 
 const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
-  const [inputSummary, setInputValue] = useState(summary);
+  const [inputSummary, setInputValue] = useState(JSON.parse(localStorage.getItem('user')).description);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
+  const [inputWebsite, setInputWebsite] = useState(JSON.parse(localStorage.getItem('user')).website);
+  const [eyear, setEyear] = useState(JSON.parse(localStorage.getItem('user')).established_year);
+  const [csize, setCsize] = useState(JSON.parse(localStorage.getItem('user')).no_of_employees);
+  console.log(eyear)
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState(() => {
-    // Initialize the state with data from localStorage or an empty object
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    return storedUser || {};
-  });
-
-
   console.log(userData);
 
   const handleChange = (e) => {
-    setInputSummary(e.target.value);
+    setInputValue(e.target.value);
   };
-  const [inputWebsite, setInputWebsite] = useState("");
+  
+
   const handleSave = async () => {
     const updatedUser = {
       ...userData,
-      summary: inputSummary,
-      website: inputWebsite, 
+      description: inputSummary,
+      website: inputWebsite,
+      established_year:eyear,
+      no_of_employees:csize,
     };
     setEditChange(!editChange);
-
     await dispatch(updateUserAsync(updatedUser));
-
+    setUserData(updatedUser); 
   };
+
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    setUserData(storedUser || {});
+    const updated= JSON.parse(localStorage.getItem('user'));
+    setUserData(updated);
   }, []);
-  // useEffect(()=>{
-  //   if(userData)
-  //   {
-  //     setUserData(userData)
-  //   }
-  // },[userData]);
+
+
   return (
     <>
       <section className="flex mt-8 font-montserrat mr-[30px]">
@@ -79,8 +76,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
 
           <div>
             <h2 className="text-[#050029] font-montserrat font-semibold text-2xl p-2 flex items-center ">
-              {/* {user.user.cname} */}
-              <HiBadgeCheck className="ml-[10px]" fill="blue" />
+              {userData.company}<HiBadgeCheck className="ml-[10px]" fill="blue" />
             </h2>
           </div>
           <div className=" flex justify-start flex-col w-[300px]">
@@ -95,7 +91,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
               <p>
                 {editChange ? (
                   <p className=" font-semibold text-sm  mt-2 text-[#575757]">
-                    {inputSummary}
+                    {userData.description}
                   </p>
                 ) : (
                   <input
@@ -123,8 +119,9 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
                 Visit Site :
               </h2>
               {editChange ? (
+        
                 <span className="text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-                  {userData.user.website}
+                  {userData.website}
                 </span>
               ) : (
                 <input
@@ -135,31 +132,49 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
                 />
               )}
             </div>
-            {/* <div className="flex flex-row justify-start items-center  mb-4">
+            <div className="flex flex-row justify-start items-center  mb-4">
               <div className="w-[4px] bg-[#bf62d9] h-[20px] rounded-full"></div>
               <h2 className="text-[#131212eb] font-montserrat font-bold text-sm p-2 flex ">
-                Company Size :
+                Company Size : 
               </h2>
-              {!editChange ? (
-                <input
-                  type="text"
-                  value={csize}
-                  onChange={(e) => setCsize(e.target.value)}
-                  className="text-[#575757] font-semibold text-sm border border-gray-200 focus:outline-none p-2 rounded-md shadow-md"
-                />
-              ) : (
-                <span className="text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-                  {user[0]?.csize}
-                </span>
-              )}
-            </div> */}
+              <span className="text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
+              {editChange ? (
+                  <p className=" font-semibold text-sm  mt-2 text-[#575757]">
+                    {userData.no_of_employees}
+                  </p>
+                ) : (
+                  <input
+                    type="number"
+                    name="no_of_employees"
+                    value={csize}
+                    onChange={(e) => setCsize(e.target.value)}
+                    className="w-[380px] border border-gray-200 focus:outline-none p-2 
+                  rounded-md shadow-md"
+                  />
+                )}
+              </span>
+            </div>
             <div className="flex flex-row justify-start items-center  mb-4">
               <div className="w-[4px] bg-[#bf62d9] h-[20px] rounded-full"></div>
               <h2 className="text-[#131212eb] font-montserrat font-bold text-sm p-2 flex ">
                 Founded In :
               </h2>
+
               <span className="text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-                2024
+              {editChange ? (
+                  <p className=" font-semibold text-sm  mt-2 text-[#575757]">
+                    {userData.established_year}
+                  </p>
+                ) : (
+                  <input
+                    type="text"
+                    name="established_year"
+                    value={eyear}
+                    onChange={(e) => setEyear(e.target.value)}
+                    className="w-[180px] border border-gray-200 focus:outline-none p-2 
+                  rounded-md shadow-md"
+                  />
+                )}
               </span>
             </div>
 

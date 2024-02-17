@@ -35,7 +35,7 @@ const [readMore, setReadMore] = useState(false);
                                         {
                                                   item.category.map((sector)=>(
                                                             <span className=" m-1 px-1.5 py-1.5 text-sm font-[Nunito,sans-serif] 
-                                                            bg-[#092635] text-white  rounded-md justify-center items-center flex">
+                                                            bg-[#092635] text-white  rounded-md justify-center items-center flex" key={sector}>
                                                             {sector} 
                                                             </span>
                                                   ))

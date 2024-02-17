@@ -19,6 +19,8 @@ import Profile from './pages/ProfilePage/Profile'
 import UpdatePage from './components/auth/Signup/Steps/UpdatePage'
 import Home from './pages/Home'
 import SearchPage from './pages/SearchPage'
+import InvestorProfilePage from './pages/InvestorProfilePage'
+import Rooms from './pages/Rooms'
 
 const App = () => {
   return (
@@ -44,6 +46,8 @@ const App = () => {
             <Route path='/welcome/reasons' element={<ReasonsToInvest/>}/>
             <Route path='/welcome/info' element={<CompanyInfo/>}/>
             <Route path='/welcome/pastfunding' element={<PastFunding/>}/>
+            <Route path='/rooms' element={<Rooms/>}/>
+            <Route path='/investorprofile' element={<InvestorProfilePage/>} />
             {/* <Route path='/step3' element={<MainForm/>}/> */}
             {/* <Route path='/step1' element={<StepOnePage/>}/> */}
             {/* <Route path='/investor/updates' element={<UpdatePage/>}/> */}

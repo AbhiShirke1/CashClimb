@@ -106,4 +106,4 @@ const Pillars = () => {
   )
 }
 
-export default Pillars
+export default Pillars;

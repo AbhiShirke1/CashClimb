@@ -25,7 +25,7 @@ const Footer_Icon = () => {
           <div className='flex space-x-6 fill-[#e8e8e8]'>
             {
               social_icons.map((items) => (
-                <>{items.icon}</>
+                <span key={items.id}>{items.icon}</span>
 
               ))
             }
