@@ -144,7 +144,7 @@ const getProfile = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
-    const { full_name, location, website, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links } = req.body;
+    const { full_name, location, website, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links, established_year } = req.body;
 
     const id = req.user._id;
 
@@ -152,7 +152,7 @@ const editProfile = async (req, res) => {
 
         const user = await User.updateOne({ _id: id }, {
             $set: {
-                full_name, location, website, founders, description, domain, valuation, funding, no_of_employee, pitch_desc, links
+                full_name, location, website, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links, established_year
             }
         });
 
