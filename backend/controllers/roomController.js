@@ -46,6 +46,25 @@ const createRoom = async (req, res) => {
         res.json("There should be gap");
     }
 };
+const createRoom2 = async (req, res) => {
+    const { money, percent } = req.body;
+    const id = req.user._id;
+
+    try {
+        const newRoom = await Room.create({
+            active: true,
+            company: id,
+            base_amount: money,
+            base_percentage: percent
+        });
+
+        res.status(200).json(newRoom);
+
+
+    } catch (error) {
+        res.json(error)
+    }
+};
 
 const registerRoom = async (req, res) => {
     const id = req.params.id;
@@ -164,4 +183,4 @@ const dealAccept = async(req, res)=>{
 
 
 
-module.exports = { createRoom, registerRoom, checkPermission, dealAccept };
+module.exports = { createRoom, registerRoom, checkPermission, dealAccept ,createRoom2};

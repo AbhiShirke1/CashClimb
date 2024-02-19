@@ -33,50 +33,64 @@ const social_icons = [
 ];
 
 const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
-  const [inputSummary, setInputValue] = useState(JSON.parse(localStorage.getItem('user')).description);
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('user')));
-  const [inputWebsite, setInputWebsite] = useState(JSON.parse(localStorage.getItem('user')).website);
-  const [eyear, setEyear] = useState(JSON.parse(localStorage.getItem('user')).established_year);
-  const [csize, setCsize] = useState(JSON.parse(localStorage.getItem('user')).no_of_employees);
-  console.log(eyear)
+  const [inputSummary, setInputValue] = useState(
+    JSON.parse(localStorage.getItem("user")).description
+  );
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
+  const [inputWebsite, setInputWebsite] = useState(
+    JSON.parse(localStorage.getItem("user")).website
+  );
+  const [eyear, setEyear] = useState(
+    JSON.parse(localStorage.getItem("user")).established_year
+  );
+  const [csize, setCsize] = useState(
+    JSON.parse(localStorage.getItem("user")).no_of_employees
+  );
+  console.log(eyear);
   const dispatch = useDispatch();
   console.log(userData);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
-  
 
   const handleSave = async () => {
     const updatedUser = {
       ...userData,
       description: inputSummary,
       website: inputWebsite,
-      established_year:eyear,
-      no_of_employees:csize,
+      established_year: eyear,
+      no_of_employees: csize,
+      pic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3UEhcHLRhkLeuIOdUzQT982hNPBlzxcpVXQKD6Ozfl0-aJDiDPYE4bmO07N793Oz9IZM&usqp=CAU",
     };
     setEditChange(!editChange);
     await dispatch(updateUserAsync(updatedUser));
-    setUserData(updatedUser); 
+    setUserData(updatedUser);
   };
 
   useEffect(() => {
-    const updated= JSON.parse(localStorage.getItem('user'));
+    const updated = JSON.parse(localStorage.getItem("user"));
     setUserData(updated);
   }, []);
-
 
   return (
     <>
       <section className="flex mt-8 font-montserrat mr-[30px]">
         <div className="bg-white h-[650px]  w-[400px] flex justify-center items-center flex-col rounded-md shadow-xl">
           <div className="w-[150px] h-[150px] bg-[#ffff] shadow-xl rounded-full flex justify-center items-center flex-col p-2 m-2">
-            <img src={img_url} alt="company_logo" className="w-[400px] " />
+            <img
+              src={userData.pic}
+              alt="company_logo"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
 
           <div>
             <h2 className="text-[#050029] font-montserrat font-semibold text-2xl p-2 flex items-center ">
-              {userData.company}<HiBadgeCheck className="ml-[10px]" fill="blue" />
+              {userData.company}
+              <HiBadgeCheck className="ml-[10px]" fill="blue" />
             </h2>
           </div>
           <div className=" flex justify-start flex-col w-[300px]">
@@ -90,7 +104,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
 
               <p>
                 {editChange ? (
-                  <p className=" font-semibold text-sm  mt-2 text-[#575757]">
+                  <p className=" font-semibold text-sm   text-[#575757]">
                     {userData.description}
                   </p>
                 ) : (
@@ -98,7 +112,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
                     type="text"
                     value={inputSummary}
                     onChange={handleChange}
-                    className="w-[380px] border border-gray-200 focus:outline-none p-2 
+                    className="w-[300px] border border-gray-200 focus:outline-none p-2 
                   rounded-md shadow-md"
                   />
                 )}
@@ -113,13 +127,12 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
               </div>
             </div>
 
-            <div className="flex flex-row justify-start items-center mb-4">
+            <div className="flex flex-row justify-start items-center mt-2">
               <TbWorldWww />
               <h2 className="text-[#131212eb] font-montserrat font-bold text-sm p-2 flex ">
                 Visit Site :
               </h2>
               {editChange ? (
-        
                 <span className="text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
                   {userData.website}
                 </span>
@@ -128,18 +141,18 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
                   type="text"
                   value={inputWebsite}
                   onChange={(e) => setInputWebsite(e.target.value)}
-                  className="text-[#575757] font-semibold text-sm border border-gray-200 focus:outline-none p-2 rounded-md shadow-md"
+                  className="text-[#575757] mt-2 font-semibold text-sm border border-gray-200 focus:outline-none p-2 rounded-md shadow-md"
                 />
               )}
             </div>
-            <div className="flex flex-row justify-start items-center  mb-4">
+            <div className="flex flex-row justify-start items-center  ">
               <div className="w-[4px] bg-[#bf62d9] h-[20px] rounded-full"></div>
-              <h2 className="text-[#131212eb] font-montserrat font-bold text-sm p-2 flex ">
-                Company Size : 
+              <h2 className="text-[#131212eb] font-montserrat font-bold text-sm p-2 flex whitespace-nowrap">
+                Company Size :
               </h2>
               <span className="text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-              {editChange ? (
-                  <p className=" font-semibold text-sm  mt-2 text-[#575757]">
+                {editChange ? (
+                  <p className=" font-semibold text-sm   text-[#575757]">
                     {userData.no_of_employees}
                   </p>
                 ) : (
@@ -148,7 +161,7 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
                     name="no_of_employees"
                     value={csize}
                     onChange={(e) => setCsize(e.target.value)}
-                    className="w-[380px] border border-gray-200 focus:outline-none p-2 
+                    className="w-[170px] border border-gray-200 focus:outline-none p-2 
                   rounded-md shadow-md"
                   />
                 )}
@@ -161,8 +174,8 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
               </h2>
 
               <span className="text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer">
-              {editChange ? (
-                  <p className=" font-semibold text-sm  mt-2 text-[#575757]">
+                {editChange ? (
+                  <p className=" font-semibold text-sm text-[#575757]">
                     {userData.established_year}
                   </p>
                 ) : (

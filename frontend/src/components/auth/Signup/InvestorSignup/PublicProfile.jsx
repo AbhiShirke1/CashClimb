@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import myImg from "../signup-Photoroom.png-Photoroom__1_-removebg-preview (1).png";
 import { PiHandWavingFill } from "react-icons/pi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUserAsync } from "../../authSlice";
 import { useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ const PublicProfile = ({ onNextPage, setPage }) => {
   const handleBioChange = (e) => {
     setBio(e.target.value);
   };
-
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
@@ -63,6 +63,7 @@ const PublicProfile = ({ onNextPage, setPage }) => {
                 posts: [], // Assuming 'posts' is part of createUserAsync payload
               })
             );
+            navigate('/');
             console.log(dataToSubmit);
           })}
           className="w-full max-w-2xl mx-auto space-y-2"

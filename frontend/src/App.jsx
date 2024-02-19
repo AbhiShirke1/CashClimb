@@ -36,7 +36,7 @@ const App = () => {
             <Route path='/welcome/createprofile' element={<PublicProfile/>}/>
             
             <Route path='/login' element={<Login/>}/>
-            <Route path='/' element={<Protected><Home/></Protected>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='/home' element={<HomePage/>}/>
             {/* <Route path='/investor/profile' element={<ProfilePage/>}/> */}
             <Route path='/profile' element={<Profile/>}/>

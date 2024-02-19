@@ -33,24 +33,22 @@ const userSchema = mongoose.Schema({
 
     pic: {
         type: String,
-        default:
-            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
 
     sales: {
         month: {
-            type: Number
+            type: String
         },
 
         year: {
-            type: Number
+            type: String
         },
 
         profit: {
-            type: Number
+            type: String
         }
     },
-    
+
     cin: {
         type: String
     },
@@ -98,8 +96,8 @@ const userSchema = mongoose.Schema({
         funding_stage: {
             type: String
         },
-        
-        amount_raised:{
+
+        amount_raised: {
             type: String
         },
 

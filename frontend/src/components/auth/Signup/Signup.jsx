@@ -2,13 +2,13 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserAsync, selectLoggedInUser } from "../authSlice";
 import { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import myImg from "./signup-Photoroom.png-Photoroom__1_-removebg-preview (1).png";
 import { PiHandWavingFill } from "react-icons/pi";
 
 function Signup() {
   const [role, setRole] = useState("Founder");
-  const [name, setName] = useState("");
+  const [full_name, setFull_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
@@ -26,40 +26,42 @@ function Signup() {
   } = useForm();
   // useEffect(() => {
   //   setShowTick(!errors.name);
-  // }, [errors.name]);
+  // }, [errors.name])
+  const navigate = useNavigate();
+  // const handleClick= () => {
+  //   const path = role === "Founder" ? "/welcome/info" : "/welcome/identity";
+  //   navigate.push({
+  //     pathname: path,
+  //     state: { regInfo: data }
+  //   });
+  // }
 
   // const user = useSelector(selectLoggedInUser);
 
   const data = {
-    name,
+    full_name,
     email,
     password,
     cpassword,
-    founder:"abc",
+    role,
   };
   console.log(data);
+
+  const onSubmit = (data) => {
+    const path = role === "Founder" ? "/welcome/info" : "/welcome/identity";
+    navigate(path, { state: data });
+  };
   return (
     <>
       {/* {user && <Navigate to="/"></Navigate>} */}
-      <div className="w-full h-screen  flex mb-[20px]">
+      <div className="w-full h-screen  flex">
         <div className="w-[50%] h-full">
           <h2 className="flex justify-center items-center font-montserrat font-semibold text-4xl mt-[100px]">
             Signup
           </h2>
           <form
             noValidate
-            // onSubmit={handleSubmit((data) => {
-            //   dispatch(
-            //     createUserAsync({
-            //       name: data.name,
-            //       email: data.email,
-            //       password: data.password,
-            //       role: data.role,
-            //       posts: [],
-            //     })
-            //   );
-            //   console.log(data);
-            // })}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col justify-center font-montserrat mt-10 items-center text-xl space-y-8"
           >
             <div className="flex justify-around w-[300px] m-2">
@@ -105,19 +107,19 @@ function Signup() {
               <input
                 type="text"
                 className=" border-b-[2px] border-gray-400 focus:border-black py-2 pl-8 pr-2 focus:outline-none w-[400px]"
-                {...register("name", {
-                  required: "name required",
+                {...register("full_name", {
+                  required:"name required",
                   maxLength: 20,
                 })}
                 name="full_name"
                 placeholder="Name"
                 onChange={(e) => {
-                  setName(e.target.value);
+                  setFull_name(e.target.value);
                 }}
               />
             </div>
             {errors.name && (
-              <div className="absolute left-[29rem] top-[8.5rem] ">
+              <div className="absolute left-[35rem] top-[15rem] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -176,7 +178,7 @@ function Signup() {
               />
             </div>
             {errors.email && (
-              <div className="absolute left-[29rem] top-[13rem]  ">
+              <div className="absolute left-[35rem] top-[19.5rem]  ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -238,7 +240,7 @@ function Signup() {
               />
             </div>
             {errors.password && (
-              <div className="absolute left-[29rem] top-[18rem] ">
+              <div className="absolute left-[35rem] top-[24.5rem] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -293,7 +295,7 @@ function Signup() {
               />
             </div>
             {errors.confirmPassword && (
-              <div className="absolute left-[29rem] top-[23rem] ">
+              <div className="absolute left-[35rem] top-[29rem] ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -326,12 +328,18 @@ function Signup() {
                 Login
               </Link>
             </p>
-            <Link
+            {/* <Link
               to={role === "Founder" ? "/welcome/info" : "/welcome/identity"}
               state={{ regInfo: data }}
             >
               Submit
-            </Link>
+            </Link> */}
+            <button
+              type="submit"
+              className="border-2 bg-blue-600 p-2 w-[20%] mt-7"
+            >
+              Next
+            </button>
           </form>
         </div>
 

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../components/auth/authSlice";
 
 const Pitch = () => {
-  const user = useSelector(selectLoggedInUser);
+  // const user = useSelector(selectLoggedInUser);
   return (
     <div className="w-[800px] font-montserrat">
       <div className="ml-12">
@@ -33,14 +33,14 @@ const Pitch = () => {
             <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
             Reasons
           </h2>
-          <ul className="list-disc ">
-            {user[0].fieldsValue.map((reason, index) => (
+          {/* <ul className="list-disc ">
+            {fieldsValue.map((reason, index) => (
               <li key={index} className="flex items-center space-y-3 m-2">
                 <PiNumberSquareFourDuotone size={20}/>
                 <span className="text-sm font-semibold mx-2">{reason}</span>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
     </div>

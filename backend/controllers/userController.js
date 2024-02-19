@@ -4,9 +4,9 @@ const Investor = require("../models/investorModel");
 const asyncHandler = require("express-async-handler");
 
 const registerUser = async (req, res) => {
-    const { founder, investor } = req.body;
+    const { role } = req.body;
 
-    if (founder && !investor) {
+    if (role === "Founder") {
         const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
 
         if (!email || !password) {
@@ -27,16 +27,20 @@ const registerUser = async (req, res) => {
             const user = await User.create({
                 email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
-            console.log("test");
+            // console.log("test");
             if (user) {
-                res.status(201).json(user);
+                const sendData = {
+                    user: user,
+                    role: role
+                }
+                res.status(201).send(sendData);
             }
         } catch (error) {
             res.status(422).json(error);
         }
     }
 
-    else if (investor && !founder) {
+    else if (role === "Investor") {
         const { name, email, password, company, invested_companies, investing_category, favourites, invested_data, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
@@ -65,7 +69,11 @@ const registerUser = async (req, res) => {
             });
 
             if (user) {
-                res.status(201).json(user);
+                const sendData = {
+                    user: user,
+                    role: role
+                }
+                res.status(201).send(sendData);
             }
         } catch (error) {
             res.status(422).json(error);
@@ -93,6 +101,7 @@ const loginUser = async (req, res) => {
                 if (await user.matchPassword(password)) {
                     res.status(201).json({
                         user,
+                        role:"Founder",
                         token: generateToken(user._id),
                     });
                 } else {
@@ -108,7 +117,7 @@ const loginUser = async (req, res) => {
         else if (user2) {
             if (user2.approve_status) {
                 if (await user2.matchPassword(password)) {
-                    res.status(201).json({ user2, token: generateToken(user2._id) });
+                    res.status(201).json({ user:user2,role:"Investor", token: generateToken(user2._id) });
                 }
 
                 else {
@@ -144,7 +153,7 @@ const getProfile = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
-    const { full_name, location, website, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links,established_year,summary } = req.body;
+    const { full_name, location, website, founders, description, domain,pic, sales,valuation, finances, funding, no_of_employees, pitch_desc, links, established_year, summary } = req.body;
 
     const id = req.user._id;
 
@@ -152,7 +161,7 @@ const editProfile = async (req, res) => {
 
         const update = await User.updateOne({ _id: id }, {
             $set: {
-                full_name, location, website, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links,established_year,summary
+                full_name, location, website, founders, description, finances,pic, domain,sales, valuation, funding, no_of_employees, pitch_desc, links, established_year, summary
             }
         });
         const user = await User.findOne({ _id: id });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Rooms from '../../pages/Rooms';
 import RoomCard from '../RoomCard/RoomCard';
@@ -32,12 +32,33 @@ const icon = [
 
 const RoomForm = () => {
 
-  const [companyName,setCompanyName] = useState("");
+  const [companyName,setCompanyName] = useState(JSON.parse(localStorage.getItem('user')).company);
   const [ask,setAsk] = useState("");
   const [percentage,setPercentage] = useState("");
   const [startDate,setStartDate] = useState("");
   const [endDate,setEndDate] = useState("");
   const [roomCreated,setRoomCreated] = useState(false)
+  
+const handleSubmit =async(e)=>
+{
+  e.preventDefault();
+  const data={
+    active:true,
+    money:ask,
+    percent:percentage,
+  }
+  const response=await fetch("http://localhost:8000/api/room/createRoom",
+  {
+    method:"POST",
+    body: JSON.stringify(data),
+    headers: {
+        'content-type': 'application/json', 'authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+    }
+  })
+  const responseData=await response.json();
+  console.log(responseData)
+  setRoomCreated(!roomCreated)
+}
   
   const handleForm = (e)  => { 
     e.preventDefault();
@@ -58,7 +79,7 @@ const RoomForm = () => {
               endDate={endDate}
             />
       : 
-          <section className="w-[900px] h-[600px] mt-10 rounded-md flex flex-row ">
+          <section className="w-[900px] h-[600px] mt-10 rounded-md flex flex-row font-montserrat">
                     <div className='p-2  bg-[#050029] w-1/2 rounded-l-md'>
                               <div className='flex items-center p-2'>
                                         <img src={logo_url}  className="w-[50px]" alt="" />
@@ -86,22 +107,18 @@ const RoomForm = () => {
                             ))}
                             </div>
 
-                          <form onSubmit={handleForm} className='mt-2 p-2 flex flex-col justify-center items-center' >
-                            <div className='flex  flex-col m-2'>
-                              <label htmlFor="name" className='font-bold'>Company Name:</label>
-                              <input 
-                              type="text" 
-                              name="name"  
-                              placeholder="Your Company Name" 
-                              onChange={(e) =>setCompanyName(e.target.value)} 
-                              className='w-[300px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
+                          <form onSubmit={handleSubmit} className='mt-2 p-2 flex flex-col justify-center items-center' >
+                            <div className='flex font-bold space-x-2 m-2 text-xl'>
+                             <p className='font-bold  '>Company Name :</p>
+                             <span className=''>{companyName}</span>
                             </div>
                             <div className='flex  flex-row space-x-4 m-2'>
                               <div className='flex flex-col'>
                                 <label htmlFor="name" className='font-bold'>Ask in (Rs):</label>
                                 <input 
                                 type="text" 
-                                name="name"  
+                                name="base_amount"  
+                                value={ask}
                                 placeholder="Eg: Rs 2 Cr"  
                                 onChange={(e) =>setAsk(e.target.value)} 
                                 className='w-[170px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
@@ -110,28 +127,13 @@ const RoomForm = () => {
                                 <label htmlFor="name" className='font-bold'>Percentage (%) :</label>
                                 <input 
                                 type="text" 
-                                name="name"  
+                                name="base_percentage"  
+                                value={percentage}
                                 placeholder="Eg: 2%"  
                                 onChange={(e) =>setPercentage(e.target.value)} 
                                 className='w-[100px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
                               </div>
                             </div>
-                            <div className='flex flex-col m-2'>
-                                  <label htmlFor="start" className='font-bold'>Start Date :</label>
-                                  <input 
-                                  type="date" 
-                                  name="start"
-                                  onChange={(e) =>setStartDate(e.target.value)} 
-                                  className='w-[300px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
-                            </div> 
-                            <div className='flex flex-col m-2'>
-                                  <label htmlFor="end" className='font-bold'>End Time :</label>
-                                  <input 
-                                  type="time"  
-                                  name="end"
-                                  onChange={(e) =>setEndDate(e.target.value)} 
-                                  className='w-[300px] mt-2 border-gray-200 focus:outline-none p-2 rounded-md shadow-md '/>
-                            </div> 
                             <button className='flex justify-center items-center mt-6 bg-[#6952ff] p-2 font-bold text-white' >
                               Create Room
                             </button>

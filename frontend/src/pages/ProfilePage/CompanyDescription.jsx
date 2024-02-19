@@ -3,8 +3,13 @@ import { GrAchievement } from "react-icons/gr";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { IoPersonAdd } from "react-icons/io5";
 import { TbUserSquareRounded, TbUserPentagon } from "react-icons/tb";
-import { useSelector } from "react-redux";
-import { selectLoggedInUser, updateUserAsync } from "../../components/auth/authSlice";
+import { FaPencilAlt } from "react-icons/fa";
+import {
+  selectLoggedInUser,
+  updateUserAsync,
+} from "../../components/auth/authSlice";
+import { HiPencil } from "react-icons/hi";
+import { useDispatch } from "react-redux";
 
 const achievement = [
   "Online Fundraising platform where ideas meet's Innovation",
@@ -28,32 +33,49 @@ const investors = [
 ];
 const category = ["Fundaraising", "Investment", "Online Auction", "Business"];
 
-const CompanyDescription = ({
-  editChange,
-  setEditChange,
-  handleEditChange,
-}) => {
-  const [founder, setFounders] = useState(founders);
+const CompanyDescription = ({}) => {
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
+  const [founder, setFounders] = useState(JSON.parse(localStorage.getItem("user")).founders);
   const [investor, setInvestors] = useState(investors);
   const [describe, setDescription] = useState(
     JSON.parse(localStorage.getItem("user")).summary
   );
   const [achieve, setAchieve] = useState(achievement);
+  const [founderName, setFounderName] = useState("");
+  const [founderDesignation, setFounderDesignation] = useState("");
   const [newFounder, setNewFounder] = useState("");
   const [newInvestor, setNewInvestor] = useState("");
   const [newAchieve, setNewAchieve] = useState("");
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
+  const [editChange, setEditChange] = useState("");
+  const dispatch = useDispatch();
+  const [editDescribe, setEditDescribe] = useState(true);
+  const [editFounder, setEditFounder] = useState(true);
+  const [editAchievement, setEditAchievement] = useState(true);
 
   const handleSave = async () => {
     const updatedUser = {
       ...userData,
       summary: describe,
     };
-    setEditChange(!editChange);
+    setEditDescribe(!editDescribe);
     await dispatch(updateUserAsync(updatedUser));
     setUserData(updatedUser);
+  };
+  const handleFounderSave = async () => {
+    const newFounder = { name: founderName, designation: founderDesignation };
+
+    const updatedUser = {
+      ...userData,
+      founders: [...userData.founders, newFounder], // Add the new founder to the existing array
+    };
+    setEditFounder(!editFounder);
+    await dispatch(updateUserAsync(updatedUser));
+    console.log(updatedUser)
+    setUserData(updatedUser);
+    setFounderName("");
+    setFounderDesignation("");
   };
 
   useEffect(() => {
@@ -99,25 +121,42 @@ const CompanyDescription = ({
       setNewAchieve("");
     }
   };
-
   const handleDescription = (e) => {
     setDescription(e.target.value);
+  };
+  const handleEditDescribe = (e) => {
+    setEditDescribe(!editDescribe);
+  };
+  const handleEditFounder = (e) => {
+    setEditFounder(!editFounder);
+  };
+
+  const handleEditAchievement = (e) => {
+    setEditAchievement(!editAchievement);
   };
 
   return (
     <>
       <div className="w-[800px] mt-10 flex justify-center items-center font-montserrat">
         <div className="w-full flex-col ml-12">
-          <div className="p-4 font-montserrat">
-            <h2 className=" font-bold text-[18px] flex items-center">
-              <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
-              Description
-            </h2>
+          <div className="p-4 font-montserrat ">
+            <div className="flex space-x-3">
+              <h2 className=" font-bold text-[18px] flex items-center">
+                <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
+                Description
+              </h2>
+              <div className="mt-[0.17rem]">
+                <HiPencil
+                  size={20}
+                  className=" text-green-500"
+                  onClick={editDescribe ? handleEditDescribe : handleSave}
+                />
+              </div>
+            </div>
+
             <p>
-              {editChange ? (
-                <p className="w-[600px] m-2  text-[#303030]">
-                  {userData.summary}
-                </p>
+              {editDescribe ? (
+                <p className="w-[600px] m-2  text-[#303030]">{describe}</p>
               ) : (
                 <textarea
                   type="text"
@@ -131,46 +170,72 @@ const CompanyDescription = ({
           </div>
 
           <div className=" flex flex-col w-[600px] p-2 font-montserrat">
-            <h2 className="font-bold text-[18px] py-1 flex  items-center">
-              <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
-              Founders
-            </h2>
+            <div className="flex space-x-3">
+              <h2 className="font-bold text-[18px] py-1 flex  items-center">
+                <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
+                Founders
+              </h2>
+              <div className="mt-1">
+                <HiPencil
+                  size={20}
+                  className=" text-green-500"
+                  onClick={handleEditFounder}
+                />
+              </div>
+            </div>
             <div className="flex flex-wrap">
-              {founder.map((founder, index) => (
+              {userData.founders.map((founder, index) => (
                 <div key={index} className="m-2 flex">
-                  {editChange ? (
+                  {editFounder ? (
                     <div className=" flex flex-row shadow-md w-[270px] h-[100px] justify-center items-center">
                       <TbUserSquareRounded size={25} className="mr-5" />
                       <p className=" font-semibold p-2 text-black rounded-sm flex flex-col justify-start">
-                        {founder}
+                        {founder.name}
                         <span className="text-base font-semibold flex justify-start text-[#575757] ">
-                          CEO,CMO,CFO
+                          {founder.designation}
                         </span>
                       </p>
                     </div>
                   ) : (
-                    <input
-                      type="text"
-                      value={founder}
-                      onChange={(event) => handleFounders(index, event)}
-                      className=" border border-gray-200 focus:outline-none p-2 font-semibold  text-black rounded-sm flex flex-col justify-starte"
-                    />
+                    <div className="flex border-2 border-black">
+                      <input
+                        type="text"
+                        value={founder.name}
+                        onChange={(event) => handleFounders(index, event)}
+                        className=" border border-gray-200 focus:outline-none p-2 font-semibold  text-black rounded-sm flex flex-col justify-starte"
+                      />
+                    </div>
                   )}
                 </div>
               ))}
             </div>
 
-            {!editChange && (
-              <div className=" flex space-x-4 m-2">
+            {!editFounder && (
+              <div className=" flex flex-col m-2 space-y-4 border-2 border-black p-2 rounded-lg">
+                <h2 className="text-blue-700 font-bold mx-1">
+                  Add a new founder
+                </h2>
                 <input
                   type="text"
-                  value={newFounder}
-                  onChange={(event) => setNewFounder(event.target.value)}
+                  value={founderName}
+                  onChange={(event) => setFounderName(event.target.value)}
                   className="border  border-gray-200 focus:outline-none p-2 rounded-sm shadow-md  "
                   placeholder="New Founder"
                 />
-                <button onClick={handleAddFounder}>
-                  <IoPersonAdd size={20} />
+                <input
+                  type="text"
+                  value={founderDesignation}
+                  onChange={(event) =>
+                    setFounderDesignation(event.target.value)
+                  }
+                  className="border  border-gray-200 focus:outline-none p-2 rounded-sm shadow-md  "
+                  placeholder="Designation"
+                />
+                <button onClick={handleFounderSave} className="p-2 ">
+                  <IoPersonAdd
+                    size={20}
+                    className="border-2 border-white shadow-md rounded-full "
+                  />
                 </button>
               </div>
             )}
@@ -223,12 +288,17 @@ const CompanyDescription = ({
           <div className=" flex flex-col p-2 font-montserrat w-[600px] mt-2 mb-2">
             <h2 className="font-bold text-[18px] py-1 flex items-center">
               <div className="w-[4px] bg-[#fcbb00] h-[20px] rounded-full mr-4"></div>
-              Achivements
-            </h2>
+              Achievements
+            </h2>{" "}
+            {/* <HiPencil
+              size={20}
+              className=" text-green-500"
+              onClick={handleEditAchievement}
+            /> */}
             <div className="flex flex-wrap">
               {achieve.map((achieve, index) => (
                 <div key={index} className="m-2 flex items center">
-                  {editChange ? (
+                  {editAchievement ? (
                     <p className=" flex items-center">
                       <GrAchievement className="mr-2 fill-black" size={15} />
                       <span className=" p-2 rounded-sm  text-[#050029]">
@@ -249,8 +319,7 @@ const CompanyDescription = ({
                 </div>
               ))}
             </div>
-
-            {!editChange && (
+            {!editAchievement && (
               <div className=" flex spacex-x-2 m-2 items-center">
                 <GrAchievement className="mr-2" size={15} />
                 <input

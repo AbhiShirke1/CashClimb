@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const postsSchema = mongoose.Schema({
   //ref, link, content
 
-  creater: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },

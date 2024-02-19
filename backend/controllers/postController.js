@@ -125,7 +125,7 @@ const createPost = async (req, res) => {
 
     try {
         const postContent = await Post.create({
-            creater: user, content, link
+            creator: user, content, link
         });
 
         res.json(postContent);
@@ -138,7 +138,7 @@ const getOwnPosts = async (req, res) => {
     const user = req.user._id;
 
     try {
-        const allPosts = await Post.find({ creater: user });
+        const allPosts = await Post.find({ creator: user });
 
         res.json(allPosts);
     } catch (error) {

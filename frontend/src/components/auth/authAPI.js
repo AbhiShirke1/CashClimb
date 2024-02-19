@@ -62,6 +62,7 @@ export function checkUser(loginInfo) {
         // if (data.)
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token",JSON.stringify(data.token));
+        localStorage.setItem("role",JSON.stringify(data.role));
         resolve({ data });
     }
     );

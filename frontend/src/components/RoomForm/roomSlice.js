@@ -1,16 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createPost } from './postAPI';
+import { createRoom } from './roomAPI';
 
 const initialState = {
-  createdPost: null,
+  createdRoom: null,
   status: 'idle',
   error: null,
 };
 
-export const createPostAsync = createAsyncThunk(
-  'post/createPost',
+export const createRoomAsync = createAsyncThunk(
+  'room/createRoom',
   async (userData) => {
-    const response = await createPost(userData);
+    const response = await createRoom(userData);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -19,8 +19,8 @@ export const createPostAsync = createAsyncThunk(
 
 
 
-export const postSlice = createSlice({
-  name: 'post',
+export const roomSlice = createSlice({
+  name: 'room',
   initialState,
   reducers: {
     increment: (state) => {
@@ -29,15 +29,15 @@ export const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createPostAsync.pending, (state) => {
+      .addCase(createRoomAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(createPostAsync.fulfilled, (state, action) => {
+      .addCase(createRoomAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.createdPost = action.payload;
+        state.createdRoom = action.payload;
       })
   },
 });
 
 
-export default postSlice.reducer;
+export default roomSlice.reducer;

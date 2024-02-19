@@ -7,7 +7,6 @@ import Navbar from "../../components/Navbar/Navbar";
 import Post from "./Post";
 import Pitch from "./Pitch";
 
-
 const Profile = () => {
   const [editChange, setEditChange] = useState(true);
   const [companyInfo, setCompanyInfo] = useState(true);
@@ -60,11 +59,7 @@ const Profile = () => {
               handlePost={handlePost}
               handlePitch={handlePitch}
             />
-            <CompanyDescription
-              editChange={editChange}
-              setEditChange={setEditChange}
-              handleEditChange={handleEditChange}
-            />
+            <CompanyDescription />
             {/* <CompanySize  editChange= {editChange} setEditChange= {setEditChange}  handleEditChange= {handleEditChange} /> */}
           </div>
         )}
@@ -76,11 +71,7 @@ const Profile = () => {
               handlePost={handlePost}
               handlePitch={handlePitch}
             />
-            <Finance
-              editChange={editChange}
-              setEditChange={setEditChange}
-              handleEditChange={handleEditChange}
-            />
+            <Finance />
           </div>
         )}
         {postPage && (
@@ -92,7 +83,6 @@ const Profile = () => {
               handlePitch={handlePitch}
             />
             <Post />
-
           </div>
         )}
         {pitchPage && (
@@ -104,7 +94,6 @@ const Profile = () => {
               handlePitch={handlePitch}
             />
             <Pitch />
-
           </div>
         )}
       </section>

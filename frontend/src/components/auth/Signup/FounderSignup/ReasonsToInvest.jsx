@@ -1,123 +1,166 @@
 import React, { useState } from "react";
-import { FcIdea } from "react-icons/fc";
-import { PiNumberSquareThreeDuotone } from "react-icons/pi";
-import { GrLicense } from "react-icons/gr";
-import { SiReason } from "react-icons/si";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { FcIdea } from "react-icons/fc";
+import myImg from "../signup-Photoroom.png-Photoroom__1_-removebg-preview (1).png";
+
+import { PiHandWavingFill, PiNumberSquareFourDuotone } from "react-icons/pi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createUserAsync } from "../../authSlice";
 
 const ReasonsToInvest = () => {
-  const [inputFields, setInputFields] = useState([{ id: 1, value: "" }]);
-  const [fieldsValue, setFieldsValue] = useState([]);
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
-  console.log(fieldsValue);
-  const handleAddField = (e) => {
-    e.preventDefault();
-    const newInputFields = [
-      ...inputFields,
-      { id: inputFields.length + 1, value: "" },
-    ];
-    setInputFields(newInputFields);
-  };
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const handleChange = (id, event) => {
-    const newInputFields = inputFields.map((field) =>
-      field.id === id ? { ...field, value: event.target.value } : field
-    );
-    setInputFields(newInputFields);
+  const { register, handleSubmit } = useForm();
 
-    const newFieldsValue = newInputFields.map((field) => field.value);
-    setFieldsValue(newFieldsValue);
+  const investmentDomains = [
+    "Technology",
+    "Finance",
+    "Healthcare",
+    "Retail",
+    "Manufacturing",
+    "Energy",
+    "Telecommunications",
+    "Transportation",
+    "Real Estate",
+    "Hospitality",
+    "Entertainment",
+    "Education",
+    "Agriculture",
+    "Automotive",
+    "Biotechnology",
+    "Media",
+    "Construction",
+    "Pharmaceuticals",
+    "Environmental Services",
+    "Consulting",
+    "Insurance",
+    "Food and Beverage",
+    "Fashion",
+    "Legal Services",
+    "Fitness and Wellness",
+    "Travel",
+    "E-commerce",
+    "Human Resources",
+    "Renewable Energy",
+    "Social Services",
+  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  console.log(state);
+
+  const [loadMore, setLoadMore] = useState(false);
+  const [selectedDomains, setSelectedDomains] = useState([]);
+
+  console.log(selectedDomains);
+  const domain = {
+    ...selectedDomains,
+  };
+  console.log(domain);
+  const handleButtonClick = (sector) => {
+    // Check if the sector is already selected
+    const isSelected = selectedDomains.includes(sector);
+
+    // Update the selectedDomains state based on the current selection
+    if (isSelected) {
+      setSelectedDomains(
+        selectedDomains.filter((selectedSector) => selectedSector !== sector)
+      );
+    } else {
+      setSelectedDomains([...selectedDomains, sector]);
+    }
   };
 
-  const location = useLocation();
-  const { secondData } = location.state;
-  console.log(secondData);
-
-  const dataToSubmit = {
-    ...secondData,
-    fieldsValue,
+  const data = {
+    ...state,
+    // domain:[domain],
   };
-  console.log(dataToSubmit)
+  console.log(data);
+
   return (
-    <div className="w-full h-screen  flex font-montserrat">
-      <div className="w-[50%] h-full">
-        <h2 className="flex justify-center items-center  font-semibold text-[45px] mt-[100px]">
-          Reason to Invest
-        </h2>
-        <div className="flex mt-20 justify-center items-center  flex-col">
-          <h2 className="font-semibold text-gray-700 text-md w-[400px]  place-content-center">
-            Tell Investors why they should invest in you?
-          </h2>
-          <p className="font-semibold text-gray-700 text-sm">
-            Eg: 1.) Team credentials &nbsp; 2.) Market potential &nbsp; 3.)
-            Product or service uniqueness. etc..
-          </p>
-        </div>
-        <form
-          className="flex flex-col p-10 mt-10 justify-center items-center"
-          onSubmit={handleSubmit(() => {
-            dispatch(
-              createUserAsync({
-                ...dataToSubmit,
-                posts: [], // Assuming 'posts' is part of createUserAsync payload
-              })
-            );
-            navigate('/');
-            console.log(dataToSubmit);
-          })}
-        >
-          {inputFields.map((field) => (
-            <div
-              key={field.id}
-              className="flex items-center font-bold relative m-2"
-            >
-              <SiReason className="mt-4" size={25} />
-              <input
-                type="text"
-                value={field.value}
-                onChange={(e) => handleChange(field.id, e)}
-                className="w-[400px] border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
-                placeholder="Reasons"
-              />
-            </div>
-          ))}
-          <button
-            onClick={handleAddField}
-            className="mt-10 border border-[#050029] border-1 p-1 font-semibold"
+    <>
+      {" "}
+      <div className="flex w-full justify-between h-screen font-montserrat">
+        <div className="w-[50%] items-center mt-[20px] flex flex-col space-y-6 ">
+          <h2 className="text-3xl font-bold">Your Domain</h2>
+          <form
+            className="grid md:grid-cols-3 grid-cols-2 gap-4 font-semibold"
+            onSubmit={handleSubmit(() => {
+              dispatch(
+                createUserAsync({
+                  ...data,
+                  posts: [], // Assuming 'posts' is part of createUserAsync payload
+                })
+              );
+              navigate("/");
+              console.log(data);
+            })}
           >
-            Add Highlight
-          </button>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-
-      <div className="bg-[#050029] w-[50%] h-full">
-        <div className="flex flex-col ">
-          <h2 className="flex justify-center items-center mt-[200px] text-white text-5xl font-semibold">
-            Step <PiNumberSquareThreeDuotone className="mr-2 mt-2" size={60} />
-          </h2>
-          <h2 className="text-white text-lg  font-semibold flex-wrap mt-10 flex justify-center ">
-            <div className="w-[500px] flex justify-center items-center">
-              <FcIdea size={30} className="mr-2" />
-              <h4>
-                Top reasons to invest in your company. <br />
-                Tell us that you're proud of like traction,team credentials or
-                other accomplishments.
-              </h4>
-            </div>
-          </h2>
+            {loadMore
+              ? investmentDomains.map((sector) => (
+                  <button
+                    className={`m-1 p-1 text-[15px]  shadow-md border-[1px] border-gray-400 justify-center items-center flex whitespace-nowrap
+                  ${
+                    selectedDomains.includes(sector)
+                      ? "bg-[#EEF5FF] border-black text-black"
+                      : "hover:bg-[#EEF5FF] hover:border border-black hover:text-black"
+                  }`}
+                    key={sector}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleButtonClick(sector);
+                    }}
+                  >
+                    {sector}
+                  </button>
+                ))
+              : investmentDomains.slice(0, 11).map((sector) => (
+                  <button
+                    className={`m-1 p-2 text-[18px] shadow-md border-[1px] border-gray-400 justify-center items-center flex whitespace-nowrap
+                  ${
+                    selectedDomains.includes(sector)
+                      ? "bg-[#EEF5FF] border-black text-black"
+                      : "hover:bg-[#EEF5FF] hover:border border-black hover:text-black"
+                  }`}
+                    key={sector}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleButtonClick(sector);
+                    }}
+                  >
+                    {sector}
+                  </button>
+                ))}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setLoadMore(!loadMore);
+              }}
+              className="ml-3 text-blue-500"
+            >
+              {loadMore ? "...show less" : "...load more"}
+            </button>
+            <button type="submit" className="border-2 bg-blue-600 p-2 ">
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="bg-[#050029] w-[50%] h-full">
+          <div className="flex flex-col justify-center items-center mt-20 text-white font-montserrat text-xl font-semibold">
+            <h2 className="flex justify-center items-center text-4xl">
+              <PiHandWavingFill className="mr-2 fill-yellow-500" size={0} />
+              Welcome to CashClimb
+            </h2>
+            <p className="text-sm font-normal mt-2">
+              Where ideas meet's innovation
+            </p>
+          </div>
+          <img
+            src={myImg}
+            className=" h-[50%] w-[80%] mx-auto rounded-md mt-20"
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
