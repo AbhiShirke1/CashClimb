@@ -4,9 +4,9 @@ const Investor = require("../models/investorModel");
 const asyncHandler = require("express-async-handler");
 
 const registerUser = async (req, res) => {
-    const { founder, investor } = req.body;
+    const { role } = req.body;
 
-    if (founder && !investor) {
+    if (role === "Founder") {
         const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
 
         if (!email || !password) {
@@ -27,16 +27,20 @@ const registerUser = async (req, res) => {
             const user = await User.create({
                 email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
-            console.log("test");
+            // console.log("test");
             if (user) {
-                res.status(201).json(user);
+                const sendData = {
+                    user: user,
+                    role: role
+                }
+                res.status(201).send(sendData);
             }
         } catch (error) {
             res.status(422).json(error);
         }
     }
 
-    else if (investor && !founder) {
+    else if (role === "Investor") {
         const { name, email, password, company, invested_companies, investing_category, favourites, invested_data, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
@@ -65,7 +69,11 @@ const registerUser = async (req, res) => {
             });
 
             if (user) {
-                res.status(201).json(user);
+                const sendData = {
+                    user: user,
+                    role: role
+                }
+                res.status(201).send(sendData);
             }
         } catch (error) {
             res.status(422).json(error);

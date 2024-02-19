@@ -35,19 +35,19 @@ const roomSchema = mongoose.Schema(
         },
 
         base_amount: {
-            type: Number
+            type: String
         },
 
         base_percentage: {
-            type: Number
+            type: String
         },
 
         final_amount: {
-            type: Number
+            type: String
         },
 
         final_percent: {
-            type: Number
+            type: String
         },
 
         final_investor: {

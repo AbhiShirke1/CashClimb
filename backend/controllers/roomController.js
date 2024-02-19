@@ -47,6 +47,26 @@ const createRoom = async (req, res) => {
     }
 };
 
+const createRoom2 = async (req, res) => {
+    const { money, percent } = req.body;
+    const id = req.user._id;
+
+    try {
+        const newRoom = await Room.create({
+            active: true,
+            company: id,
+            base_amount: money,
+            base_percentage: percent
+        });
+
+        res.status(200).json(newRoom);
+
+
+    } catch (error) {
+        res.json("Some error ocurred")
+    }
+};
+
 const registerRoom = async (req, res) => {
     const id = req.params.id;
     // const {email} = req.body;
@@ -98,4 +118,4 @@ const checkPermission = async (req, res) => {
 
 
 
-module.exports = { createRoom, registerRoom, checkPermission };
+module.exports = { createRoom, registerRoom, checkPermission, createRoom2 };
