@@ -1,13 +1,22 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FcIdea } from "react-icons/fc";
 import { PiNumberSquareThreeDuotone } from "react-icons/pi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const InvestorIncome = () => {
   const [companyValue, setCompanyValue] = useState(0);
   const location = useLocation();
-  const {info}=location.state;
-  console.log(info)
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const { state } = useLocation();
+  console.log(state);
   const handleCompanyValueChange = (e) => {
     setCompanyValue(e.target.value);
   };
@@ -27,8 +36,6 @@ const InvestorIncome = () => {
     setAnnualSalary(e.target.value);
   };
 
-
-
   const formatSalary = (salary) => {
     if (salary < 50000) {
       return `$${salary}`;
@@ -42,20 +49,24 @@ const InvestorIncome = () => {
       return `$${(salary / 1000).toFixed(0)}K+`;
     }
   };
+//  const [isAccreditedInvestor, setIsAccreditedInvestor] = useState(false);
 
-  const [isAccreditedInvestor, setIsAccreditedInvestor] = useState(false);
+  // const handleAccreditedInvestorChange = () => {
+  //   setIsAccreditedInvestor(!isAccreditedInvestor);
+  // };
 
-  const handleAccreditedInvestorChange = () => {
-    setIsAccreditedInvestor(!isAccreditedInvestor);
+  const navigate=useNavigate();
+  const data = {
+    ...state,
+    prefered_amount:companyValue,
+    annual_income:annualSalary,
   };
-    const investorIncome={
-      ...info,
-      companyValue,
-      annualSalary,
-      isAccreditedInvestor,
+  console.log(data);
+  const onSubmit = () => {
+    const path = "/welcome/choices";
+    navigate(path, { state: { ...data } });
+  };
 
-    };
-    console.log(investorIncome)
   return (
     <>
       <div className="w-full h-screen flex font-montserrat mb-[20px]">
@@ -66,13 +77,18 @@ const InvestorIncome = () => {
           <h3 className="text-[20px] font-montserrat whitespace-nowrap">
             The law limits how much you can invest in each year{" "}
           </h3>
-          <form action="" className="flex flex-col p-10">
+          <form
+            action=""
+            className="flex flex-col p-10"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="flex flex-col mt-10 font-bold">
-              <label htmlFor="">What is your net worth?</label>
+              <label htmlFor="">How much do you plan to invest?</label>
               <input
                 type="range"
                 min="0"
                 max="5000000"
+                name="prefered_amount"
                 step="100000"
                 value={companyValue}
                 onChange={handleCompanyValueChange}
@@ -81,33 +97,43 @@ const InvestorIncome = () => {
               <div className="mt-3">{formatValue(companyValue)}</div>
             </div>
             <div className="flex flex-col mt-10 font-bold">
-                <label htmlFor="">What is your annual income?</label>
+              <label htmlFor="">What is your annual income?</label>
               <input
                 type="range"
                 min="0"
                 max="300000"
                 step="5000"
+                name="annual_income"
                 value={annualSalary}
                 onChange={handleSalaryChange}
                 className="border-b-[2px] border-gray-400 focus:border-black mt-5 py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
               />
-              <div className="mt-3">
-            {formatSalary(annualSalary)}
-              </div>
+              <div className="mt-3">{formatSalary(annualSalary)}</div>
             </div>
-            <div className="flex flex-col mt-10 font-bold">
-      <label className="flex items-center space-x-1">
-        <input
-          type="checkbox"
-          checked={isAccreditedInvestor}
-          onChange={handleAccreditedInvestorChange}
-          className="mr-2 "
-        />
-        Are you an    
-        <Link to='https://www.indiainfoline.com/knowledge-center/share-market/what-Is-an-accredited-investor' className="underline hover:bg-orange-300 " > accredited investor?</Link>
-      </label>
-    </div>
-    <Link to='/welcome/choices' state={{income:investorIncome}}>Submit</Link>
+            {/* <div className="flex flex-col mt-10 font-bold">
+              <label className="flex items-center space-x-1">
+                <input
+                  type="checkbox"
+                  checked={isAccreditedInvestor}
+                  onChange={handleAccreditedInvestorChange}
+                  className="mr-2 "
+                />
+                Are you an
+                <Link
+                  to="https://www.indiainfoline.com/knowledge-center/share-market/what-Is-an-accredited-investor"
+                  className="underline hover:bg-orange-300 "
+                >
+                  {" "}
+                  accredited investor?
+                </Link>
+              </label>
+            </div> */}
+            <button
+              type="submit"
+              className="border-2 bg-blue-600 p-2 w-[20%] mt-7"
+            >
+              Next
+            </button>
           </form>
         </div>
         <div className="bg-[#050029] h-full w-[50%] ">

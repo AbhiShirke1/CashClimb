@@ -27,6 +27,11 @@ const social_icons = [{
 
 const InvestorHeader = ( {editChange,setEditChange,handleEditChange}) => {
   const [inputSummary,setInputValue] = useState(summary);
+  const [username,setUsername]=useState(JSON.parse(localStorage.getItem('user')).full_name);
+  const [location,setLocation]=useState(JSON.parse(localStorage.getItem('user')).address);
+  console.log(location)
+  const [cname,setCname]=useState(JSON.parse(localStorage.getItem('user')).company);
+  const [userImg,setUserImg]=useState(JSON.parse(localStorage.getItem('user')).pic);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -34,81 +39,45 @@ const InvestorHeader = ( {editChange,setEditChange,handleEditChange}) => {
   return (
     <>
     <section className='flex mt-8 font-montserrat mr-[30px]'>
-    <div className="bg-white h-[650px]  w-[400px] flex justify-center items-center flex-col rounded-md shadow-xl">
-          <div className="w-[150px] h-[150px] bg-[#ffff] shadow-xl rounded-full flex justify-center items-center flex-col p-2 m-2">
-            <img src={img_url} alt="company_logo" className='w-[400px] ' />
+    <div className="bg-white h-[400px]  w-[300px] flex justify-center items-center flex-col rounded-md shadow-xl">
+    <div className="w-[150px] h-[150px] bg-[#ffff] shadow-xl rounded-full flex justify-center items-center flex-col p-2 m-2">
+            <img
+              src={userImg}
+              alt="company_logo"
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
 
           <div>
             <h2 className="text-[#050029] font-montserrat font-semibold text-2xl p-2 flex items-center ">
-              CashClimb
+              {username}
               <HiBadgeCheck className='ml-[10px]' fill='blue'/>
             </h2>
+            <div className="flex flex-row justify-start items-center  ">
+              <div className="w-[4px] bg-[#bf62d9] h-[20px] rounded-full"></div>
+              <h2 className="text-[#131212eb]  font-montserrat font-bold text-sm p-2 flex whitespace-nowrap">
+                Company Name : 
+              </h2>
+              <span>{cname}</span>
+              
+            </div>
+            <div className="flex flex-row justify-start items-center  ">
+              <div className="w-[4px] bg-[#bf62d9] h-[20px] rounded-full"></div>
+              <h2 className="text-[#131212eb]  font-montserrat font-bold text-sm p-2 flex whitespace-nowrap">
+                Location : 
+              </h2>
+              <span>{location}</span>
+              
+            </div>
+            
           </div>
-          <div className=' flex justify-start flex-col w-[300px]'>
-            <div className='flex flex-col justify-start items-center '>
-                <div className='flex justify-start items-center ml-[-240px]'>
-                  <div className='w-[4px] bg-[#bf62d9] h-[20px] rounded-full'></div>
-                  <h2 className='text-[#131212eb] font-montserrat font-bold text-md p-2 flex '>
-                    Bio :
-                  </h2>
-                </div>
-
-                <p>
-                {editChange ? (
-                  <p className=' font-semibold text-sm  mt-2 text-[#575757]'>{inputSummary}</p>
-                  ) : (
-                  <input
-                  type="text"
-                  value={inputSummary}
-                  onChange={handleChange}
-                  className="w-[380px] border border-gray-200 focus:outline-none p-2 
-                  rounded-md shadow-md"
-                  />
-                )}
-                </p>
-            </div>
-            <div className='flex flex-row justify-start items-center mt-5'>
-              <div className='w-[4px] bg-[#bf62d9] h-[20px] rounded-full'></div>
-                <div className='flex space-x-6 fill-[#e8e8e8]  items-center justify-center ml-4 cursor-pointer'>
-                  {
-                    social_icons.map((items) => (
-                    <>{items.icon}</>
-                    ))
-                  }
-                </div>
-            </div>
-
-            <div className='flex flex-row justify-start items-center mt-5 mb-4'>
-              <TbWorldWww />
-              <h2 className='text-[#131212eb] font-montserrat font-bold text-sm p-2 flex '>
-                Visit Site :
-              </h2>
-              <span className='text-[#3578ed] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer'>https://cashclimb.com</span>
-            </div>
-
-            <div className='flex flex-row justify-start items-center  mb-4'>
-              <div className='w-[4px] bg-[#bf62d9] h-[20px] rounded-full'></div>
-              <h2 className='text-[#131212eb] font-montserrat font-bold text-sm p-2 flex '>
-                Company size :
-              </h2>
-              <span className='text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer'>800</span>
-            </div>
-
-            <div className='flex flex-row justify-start items-center  mb-4'>
-              <div className='w-[4px] bg-[#bf62d9] h-[20px] rounded-full'></div>
-              <h2 className='text-[#131212eb] font-montserrat font-bold text-sm p-2 flex '>
-                Founded In :
-              </h2>
-              <span className='text-[#575757] font-semibold text-sm hover:text-[#b5ccf3] cursor-pointer'>2024</span>
-            </div>
 
 
             <button className="text-white h-10 rounded-sm  text-[14px] font-bold bg-[#6952ff] w-[200px]"
               onClick={handleEditChange}>
               {editChange ? 'Edit Profile' : 'Save'}
             </button>
-          </div>
+  
     </div>             
     </section>
   </>

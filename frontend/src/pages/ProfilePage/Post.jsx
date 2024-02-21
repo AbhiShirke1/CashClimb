@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../components/auth/authSlice";
 import { IoMdAddCircle } from "react-icons/io";
-import { createPostAsync } from "./postSlice";
+import { createPostAsync, setPosts } from "./postSlice";
 import { useForm } from "react-hook-form";
-
+import { getOwnPosts } from "./postAPI";
+import moment from "moment";
 const img_url =
   "https://assets-global.website-files.com/6218834c85e0406691f22826/62305b0f3a3882d68cd64cdb_Favicon%20256x256%20(1).svg";
 const desc =
@@ -13,13 +14,38 @@ const desc =
 const Post = () => {
   const [readMore, setReadMore] = useState(false);
   const [activeForm, setActiveForm] = useState(false);
+  const [imgLink, setImgLink] = useState("");
+
   const [content, setContent] = useState("");
+  const [logo, setLogo] = useState(
+    JSON.parse(localStorage.getItem("user")).pic
+  );
   const [creator, setCreator] = useState(
     JSON.parse(localStorage.getItem("user"))._id
   );
-  const [imgLink, setImgLink] = useState("");
-  const handleImageUpload=(pics)=>
-  {
+  // const [posts, setPosts] = useState([]);
+  // console.log(posts);
+
+  const dispatch = useDispatch();
+  const [filename, setFilename] = useState("");
+
+  const posts = useSelector((state) => state.post.posts);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await getOwnPosts();
+        dispatch(setPosts(response.data));
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [content, imgLink]);
+
+  console.log(posts);
+  const handleImageUpload = (pics) => {
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -36,8 +62,8 @@ const Post = () => {
         .catch((err) => {
           console.log(err);
         });
-      }
-  }
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -48,13 +74,30 @@ const Post = () => {
   const handleCreatePost = () => {
     setActiveForm(!activeForm);
   };
+  const formatTimestamp = (timestamp) => {
+    const now = moment();
+    const postTime = moment(timestamp);
+
+    const hoursAgo = now.diff(postTime, "hours");
+    const minutesAgo = now.diff(postTime, "minutes");
+
+    if (hoursAgo >= 24) {
+      return postTime.format("MMM D, YYYY [at] h:mm A"); // Format for more than 24 hours
+    } else if (hoursAgo > 0) {
+      return `${hoursAgo}h ago`;
+    } else if (minutesAgo > 0) {
+      return `${minutesAgo}m ago`;
+    } else {
+      return "Just now";
+    }
+  };
 
   const newPost = {
     link: imgLink,
     content,
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   return (
     <div className="w-[800px] font-montserrat">
       <main className="flex w-full sticky top-0 h-full min-h-screen flex-col ml-6">
@@ -69,6 +112,7 @@ const Post = () => {
                       ...newPost,
                     })
                   );
+                  setContent("");
                   // navigate('/');
                 })}
               >
@@ -77,9 +121,9 @@ const Post = () => {
                     type="text"
                     name="content"
                     value={content}
-                    onChange={(e)=>setContent(e.target.value)}
+                    onChange={(e) => setContent(e.target.value)}
                     placeholder="Describe your Post"
-                    className="shadow-xl focus:outline-none p-2 font-semibold h-[100px] w-[500px]"
+                    className="shadow-xl focus:outline-none p-2 border-2 border-black-600 font-semibold h-[100px] w-[500px]"
                   />
                   <br />
                 </div>
@@ -104,7 +148,17 @@ const Post = () => {
                       />
                     </svg>
                   </label>
-                  <input id="file-upload" type="file" className="hidden"  onChange={(e)=>handleImageUpload(e.target.files[0])} />
+                  <input
+                    id="file-upload"
+                    type="file"
+                    className="hidden"
+                    onChange={(e) =>{ 
+                      handleImageUpload(e.target.files[0]);
+                      // setFilename(e.target.files[0])
+                    }}
+                  />
+                  {/* <p>{filename}</p> */}
+
                   <button className="bg-[#1f1f1f] p-2 text-white rounded-md">
                     Submit
                   </button>
@@ -124,27 +178,29 @@ const Post = () => {
           )}
         </div>
 
-        {/* <div className="flex flex-row flex-wrap justify-center items-center">
-          {Array.from.map(() => (
-            <div key={i} className="p-4 flex space-x-4 ">
+        <div className="flex flex-row flex-wrap justify-center items-center">
+          {posts.map((post) => (
+            <div key={post.creator} className="p-4 flex space-x-4 ">
               <div className=" w-[350px]  h-[500px] rounded-md shadow-xl">
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex items-center">
                     <div className="w-10 h-10 shadow-lg rounded-full flex-none m-4">
                       <img
-                        src={img_url}
+                        src={logo}
                         alt="company_logo"
                         className="w-[400px] "
                       />
                     </div>
-                    <h2 className="font-semibold">Siddharth Yadav</h2>
+                    <h2 className="font-semibold"></h2>
                   </div>
                   <span className="m-4 text-sm font-semibold text-[#575757]">
-                    16 hrs ago
+                    {formatTimestamp(post.createdAt)}
                   </span>
                 </div>
                 <p className="text-[#262626] text-sm m-4">
-                  {readMore ? desc : `${desc.substring(0, 150)}  `}
+                  {readMore
+                    ? `${post.content}`
+                    : `${post.content.substring(0, 150)}  `}
                   <button
                     onClick={() => setReadMore(!readMore)}
                     className=" ml-3 text-blue-500"
@@ -154,7 +210,7 @@ const Post = () => {
                 </p>
                 <div className="flex justify-center items-center">
                   <img
-                    src="https://images.pexels.com/photos/279480/pexels-photo-279480.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    src={post.link}
                     className="h-[300px] w-[300px]"
                     alt="post"
                   />
@@ -162,7 +218,7 @@ const Post = () => {
               </div>
             </div>
           ))}
-        </div> */}
+        </div>
       </main>
     </div>
   );

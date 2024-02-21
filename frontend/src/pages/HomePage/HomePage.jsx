@@ -1,4 +1,6 @@
 import React from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import Filter from './Filter';
 import { BsDot, BsSearch, BsThreeDots, BsTwitterX } from "react-icons/bs";
 import { AiOutlineHome } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -9,6 +11,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { CgMoreVerticalO } from "react-icons/cg";
 
 import MainComponent from "../ProfilePage/MainComponent";
+import TrendingPage from "./TrendingPage";
 
 const NAVIGATION_ITEMS = [
   {
@@ -48,11 +51,10 @@ const NAVIGATION_ITEMS = [
 ];
 const HomePage = () => {
   return (
-    <div className="h-full flex justify-center items-center relative bg-[#050029] text-white ">
-      <div className=" h-full flex relative mx-[300px]">
-        {/* left sidebar */}
-        {/* <LeftSidebar /> */}
-        {/*timeline*/}
+    <div className="h-full flex justify-center relative bg-white text-white flex-col">
+       <Navbar/>
+      <div className=" h-full flex justify-center relative ml-10 space-x-10">
+        <Filter/>
         <MainComponent />
       </div>
     </div>

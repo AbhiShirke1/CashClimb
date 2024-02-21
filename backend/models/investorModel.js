@@ -6,8 +6,20 @@ const investorSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
+    linkedin:{
+        type:String
+    },
+    annual_income:
+    {
+        types:String
+    },
+    prefered_amount:
+    {
+        type:String
+    },
 
-    name: {
+
+    full_name: {
         type: String
     },
 

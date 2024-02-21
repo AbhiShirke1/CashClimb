@@ -12,20 +12,12 @@ const nav_elements = [{
   to: "/",
 }, {
   id: 2,
-  item: "Update",
-  to: "/profile/update",
-}, {
-  id: 3,
-  item: "Explore Founders",
-  to: "/explore",
-}, {
-  id: 4,
   item: "Profile",
   to: "/profile",
 }, {
-  id: 5,
+  id: 3,
   item: "Investment Room",
-  to: "/investment",
+  to: "/rooms",
 }
 ]
 
@@ -33,12 +25,8 @@ const nav_elements2 = [{
   id: 1,
   item: "Home",
   to: "/",
-}, {
-  id: 2,
-  item: "Update",
-  to: "/profile/update",
 },  {
-  id: 5,
+  id: 2,
   item: "Explore Posts",
   to: "/home",
 },

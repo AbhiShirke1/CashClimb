@@ -1,25 +1,31 @@
 import React, { useState } from "react";
 import { CgWebsite, CgNametag } from "react-icons/cg";
 import { FcIdea } from "react-icons/fc";
-import { PiNumberSquareTwoDuotone } from "react-icons/pi";
+import { PiNumberSquareTwoDuotone, PiUserRectangleBold } from "react-icons/pi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { IoCall } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const InvestorInfo = ({ formData, setFormData }) => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [legalName, setLegalName] = useState("");
   const [location, setLocation] = useState("");
   const [panNumber, setPanNumber] = useState("");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const loc = useLocation();
-  const {regInfo} = loc.state;
-  console.log(regInfo)
+  const {state}= useLocation();
+  console.log(state)
   
-  const handlePhoneNumberChange = (e) => {
-    setPhoneNumber(e.target.value);
+  const handleCompanyNameChange = (e) => {
+    setCompanyName(e.target.value);
   };
   const handleLegalNameChange = (e) => {
     setLegalName(e.target.value);
@@ -30,17 +36,20 @@ const InvestorInfo = ({ formData, setFormData }) => {
   const handlePanNumberChange = (e) => {
     setPanNumber(e.target.value);
   };
-
-    const investorInfo = {
-      ...regInfo,
-      legalName,
-      phoneNumber,
-      location,
-      panNumber,
+   const navigate=useNavigate();
+    const data = {
+      ...state,
+      company:companyName,
+      address:location,
+      pan:panNumber,
     };
     // Update formData state in the parent component
     // setFormData((prevData) => ({ ...prevData, investorInfo }));
-    console.log(investorInfo);
+    console.log(data);
+    const onSubmit = () => {
+      const path = "/welcome/income";
+      navigate(path, { state: { ...data } });
+    };
 
   return (
     <>
@@ -51,7 +60,7 @@ const InvestorInfo = ({ formData, setFormData }) => {
           </h2>
           <form
             action=""
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col justify-center items-center space-y-6 mt-10 text-xl"
           >
             <div className="flex items-center font-bold m-2 relative">
@@ -61,7 +70,7 @@ const InvestorInfo = ({ formData, setFormData }) => {
                 type="text"
                 className="w-[400px] border-b-[2px] border-gray-400 focus:border-black  py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
                 placeholder="Legal Name"
-                value={legalName}
+                value={state.full_name}
                 onChange={handleLegalNameChange}
               />
             </div>
@@ -69,11 +78,12 @@ const InvestorInfo = ({ formData, setFormData }) => {
               {/* <label htmlFor="companyName" className='font-montserrat'>Company Name:</label> */}
               <IoCall className="w-6 h-6 absolute cursor-pointer" />
               <input
-                type="number"
+                type="text"
+                name="company"
                 className="w-[400px] border-b-[2px] border-gray-400 focus:border-black  py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
-                placeholder="Phone Number"
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
+                placeholder="Company Name"
+                value={companyName}
+                onChange={handleCompanyNameChange}
               />
             </div>
 
@@ -82,6 +92,7 @@ const InvestorInfo = ({ formData, setFormData }) => {
               <FaLocationDot className="w-6 h-6 absolute cursor-pointer" />
               <input
                 type="text"
+                name="address"
                 className="w-[400px] border-b-[2px] border-gray-400 focus:border-black py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
                 placeholder="Location"
                 value={location}
@@ -93,16 +104,24 @@ const InvestorInfo = ({ formData, setFormData }) => {
               {/* <label htmlFor="companywebsite" className='font-montserrat'>Company Website:</label> */}
               <RiSecurePaymentLine className="w-6 h-6 absolute cursor-pointer" />
               <input
-                type="number"
+                type="text"
                 className="w-[400px] border-b-[2px] border-gray-400 focus:border-black py-2 pl-8 pr-2 focus:outline-none placeholder:font-montserrat placeholder:font-normal"
                 placeholder="Pan Number"
+                name="pan"
                 value={panNumber}
+                {...register("pan", {
+                  required:"pan required",
+                  minLength:10,
+                })}
                 onChange={handlePanNumberChange}
               />
             </div>
-            <Link to="/welcome/income" state={{info:investorInfo}}>
-              Go to ProfileTwo
-            </Link>
+            <button
+              type="submit"
+              className="border-2 bg-blue-600 p-2 w-[20%] mt-7"
+            >
+              Next
+            </button>
           </form>
         </div>
 

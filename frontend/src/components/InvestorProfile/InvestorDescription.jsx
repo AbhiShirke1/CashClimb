@@ -4,10 +4,10 @@ import { FaInfoCircle } from "react-icons/fa";
 
 
 
-const category = ["Fundaraising", "Investment", "Online Auction", "Business"]
+
 
 const InvestorDescription = () => {
-
+  const [category,setCategory]=useState(JSON.parse(localStorage.getItem('user')).investing_category);
   const [readMore, setReadMore] = useState(false);
   return (
     <div>

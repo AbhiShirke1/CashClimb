@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import myImg from "../signup-Photoroom.png-Photoroom__1_-removebg-preview (1).png";
 
 import { PiHandWavingFill, PiNumberSquareFourDuotone } from "react-icons/pi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const InvestorPreferences = () => {
+  const { register, handleSubmit } = useForm();
+
   const investmentDomains = [
     "Technology",
     "Finance",
@@ -37,11 +40,10 @@ const InvestorPreferences = () => {
     "Human Resources",
     "Renewable Energy",
     "Social Services",
-  ];
+  ]; 
 
-  const location = useLocation();
-  const { income } = location.state;
-  console.log(income);
+  const { state } = useLocation();
+  console.log(state);
 
   const [loadMore, setLoadMore] = useState(false);
   const [selectedDomains, setSelectedDomains] = useState([]);
@@ -64,24 +66,30 @@ const InvestorPreferences = () => {
       setSelectedDomains([...selectedDomains, sector]);
     }
   };
-
+  const navigate=useNavigate();
   const data = {
-    ...income,
-    domains,
+    ...state,
+    investing_category:selectedDomains,
   };
   console.log(data);
-
+  const onSubmit = () => {
+    const path = "/welcome/createprofile";
+    navigate(path, { state: { ...data } });
+  };
   return (
     <>
       {" "}
-      <div className="flex w-full justify-between h-screen mb-[20px]">
-        <div className="w-[50%] items-center mt-[60px] flex flex-col space-y-6 ">
-          {" "}
-          <form className="grid md:grid-cols-3 grid-cols-2 gap-4 font-semibold">
+      <div className="flex w-full justify-between h-screen font-montserrat">
+        <div className="w-[50%] items-center mt-[20px] flex flex-col space-y-6 ">
+          <h2 className="text-3xl font-bold">What interests you?</h2>
+          <form
+            className="grid md:grid-cols-3 grid-cols-2 gap-4 font-semibold"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {loadMore
               ? investmentDomains.map((sector) => (
                   <button
-                    className={`m-1 p-1 text-[15px] border-[1px] rounded-md justify-center items-center flex whitespace-nowrap
+                    className={`m-1 p-1 text-[15px]  shadow-md border-[1px] border-gray-400 justify-center items-center flex whitespace-nowrap
                   ${
                     selectedDomains.includes(sector)
                       ? "bg-[#EEF5FF] border-black text-black"
@@ -98,7 +106,7 @@ const InvestorPreferences = () => {
                 ))
               : investmentDomains.slice(0, 11).map((sector) => (
                   <button
-                    className={`m-1 p-2 text-[18px] rounded-md justify-center items-center flex whitespace-nowrap
+                    className={`m-1 p-2 text-[18px] shadow-md border-[1px] border-gray-400 justify-center items-center flex whitespace-nowrap
                   ${
                     selectedDomains.includes(sector)
                       ? "bg-[#EEF5FF] border-black text-black"
@@ -122,9 +130,9 @@ const InvestorPreferences = () => {
             >
               {loadMore ? "...show less" : "...load more"}
             </button>
-            <Link to="/welcome/createprofile" state={{ data: data }}>
-              Submit
-            </Link>
+            <button type="submit" className="border-2 bg-blue-600 p-2 ">
+              Next
+            </button>
           </form>
         </div>
         <div className="bg-[#050029] w-[50%] h-full">

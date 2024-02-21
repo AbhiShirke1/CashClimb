@@ -72,9 +72,13 @@ const ReasonsToInvest = () => {
 
   const data = {
     ...state,
-    // domain:[domain],
+    domain:selectedDomains,
   };
   console.log(data);
+  const onSubmit = () => {
+    const path = "/welcome/createfounderprofile";
+    navigate(path, { state: { ...data } });
+  };
 
   return (
     <>
@@ -84,16 +88,7 @@ const ReasonsToInvest = () => {
           <h2 className="text-3xl font-bold">Your Domain</h2>
           <form
             className="grid md:grid-cols-3 grid-cols-2 gap-4 font-semibold"
-            onSubmit={handleSubmit(() => {
-              dispatch(
-                createUserAsync({
-                  ...data,
-                  posts: [], // Assuming 'posts' is part of createUserAsync payload
-                })
-              );
-              navigate("/");
-              console.log(data);
-            })}
+           onSubmit={handleSubmit(onSubmit)}
           >
             {loadMore
               ? investmentDomains.map((sector) => (

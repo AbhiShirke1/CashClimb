@@ -10,13 +10,11 @@ const PublicProfile = ({ onNextPage, setPage }) => {
   const dispatch=useDispatch();
   const [url, setUrl] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [bio, setBio] = useState("");
+  // const [bio, setBio] = useState("");
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
   };
-  const handleBioChange = (e) => {
-    setBio(e.target.value);
-  };
+
   const navigate=useNavigate();
   const {
     register,
@@ -25,26 +23,37 @@ const PublicProfile = ({ onNextPage, setPage }) => {
     formState: { errors },
   } = useForm();
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    // Handle the file as needed, e.g., set it to state
-    setProfileImage(file.name);
 
-    // You can also perform additional actions, such as uploading the file to a server
-    // For now, let's just log the file details
-    console.log("Selected file:", file);
-  };
 
   console.log(profileImage);
-  const location = useLocation();
-  const { data } = location.state;
-  console.log(data);
+  const {state} = useLocation();
+
+  console.log(state);
+  const handleImageUpload=(pics)=>
+  {
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "piyushproj");
+      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUrl(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+  }
 
   const dataToSubmit = {
-    ...data,
-    url,
-    profileImage,
-    bio,
+    ...state,
+    linkedin:url,
+    pic:profileImage,
   };
   console.log(dataToSubmit);
   return (
@@ -60,7 +69,6 @@ const PublicProfile = ({ onNextPage, setPage }) => {
             dispatch(
               createUserAsync({
                 ...dataToSubmit,
-                posts: [], // Assuming 'posts' is part of createUserAsync payload
               })
             );
             navigate('/');
@@ -77,8 +85,8 @@ const PublicProfile = ({ onNextPage, setPage }) => {
               <input
                 type="file"
                 className="hidden"
-                accept="image/*"
-                onChange={handleImageChange}
+                name="pic"
+                onChange={(e)=>handleImageUpload(e.target.files[0])}
               />
               <div className="text-sm md:text-base h-[198px] w-full text-center flex flex-col justify-center items-center cursor-pointer">
                 <p className="max-w-xs mx-auto text-center font-medium text-gray-900 cursor-pointer">
@@ -95,7 +103,7 @@ const PublicProfile = ({ onNextPage, setPage }) => {
             </label>
             <div>{profileImage}</div>
           </div>
-          <div className="w-full max-w-2xl  ">
+          {/* <div className="w-full max-w-2xl  ">
             <div className="flex flex-col-reverse">
               <textarea
                 id="bio"
@@ -112,7 +120,7 @@ const PublicProfile = ({ onNextPage, setPage }) => {
               </label>
               <span className=""></span>
             </div>
-          </div>
+          </div> */}
           <div className="w-full max-w-2xl">
             <div className=" ">
               <input
@@ -120,8 +128,9 @@ const PublicProfile = ({ onNextPage, setPage }) => {
                 placeholder="LinkedIn or personal website"
                 aria-invalid="false"
                 className=" min-h-[66px] w-full border border-coolgray-400 pl-8 md:pl-10 text-sm md:text-base "
-                name="home_url"
+                name="linkedin"
                 type="url"
+
                 aria-labelledby="home_url"
                 value={url}
                 onChange={handleUrlChange}

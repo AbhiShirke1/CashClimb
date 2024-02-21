@@ -5,16 +5,18 @@ import { BiSolidBusiness } from "react-icons/bi";
 import { Link, redirect } from "react-router-dom";
 import "./card.css";
 
-const RoomCard = ({ companyName, ask, percentage, startDate, endDate }) => {
+const RoomCard = ({meetingId ,roomData}) => {
+  console.log(roomData);
   const[name,setName]=useState(JSON.parse(localStorage.getItem('user')).company);
+  const[role,setRole]=useState(JSON.parse(localStorage.getItem('role')));
   const[roomId,setRoomId]=useState(JSON.parse(localStorage.getItem('user'))._id);
   console.log(name)
-  const meetingLink=`http://localhost:5173/room?id=${roomId}&name=${name}`
+  const meetingLink=`http://localhost:5173/room?id=${meetingId}&name=${name}&role=${role}`
   return (
     <>
-      <div className="flex font-montserrat">
-        {companyName || ask || percentage || startDate || endDate ? (
-          <div className="mt-10 w-[800px] flex flex-wrap space-x-10">
+      <div className="flex justify-center items-center font-montserrat">
+        
+          <div className="mt-10 w-[800px] flex flex-wrap space-x-10 ">
             <div className="card w-[400px] shadow-md">
               <div className="header">
                 <span className="icon">
@@ -30,17 +32,17 @@ const RoomCard = ({ companyName, ask, percentage, startDate, endDate }) => {
                     <BiSolidBusiness className="mr-2" />
                     Company Name :
                   </p>
-                  <span className="message ml-1">{companyName}</span>
+                  <span className="message ml-1">{name}</span>
                 </div>
 
                 <div className="flex space-x-6">
                   <div className="flex justify-center items-center p-2 text-[#1dc275]">
                     <p className="font-semibold">Ask :</p>
-                    <span className=" ml-1 text-[#1dc275]">Rs {ask}</span>
+                    <span className=" ml-1 text-[#1dc275]">Rs {roomData?.base_amount}</span>
                   </div>
                   <div className="flex justify-center items-center p-2 text-[#1dc275]">
                     <p className="font-semibold ">Percentage :</p>
-                    <span className="text-[#1dc275] ml-1">{percentage} %</span>
+                    <span className="text-[#1dc275] ml-1">{roomData?.base_percentage}</span>
                   </div>
                 </div>
               </div>
@@ -50,11 +52,7 @@ const RoomCard = ({ companyName, ask, percentage, startDate, endDate }) => {
               </div>
             </div>
           </div>
-        ) : (
-          <div className="mt-[100px] ">
-            <Warning />
-          </div>
-        )}
+  
       </div>
     </>
   );

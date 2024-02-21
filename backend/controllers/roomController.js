@@ -53,9 +53,10 @@ const createRoom2 = async (req, res) => {
     try {
         const newRoom = await Room.create({
             active: true,
+            roomId:id,
             company: id,
             base_amount: money,
-            base_percentage: percent
+            base_percentage: percent,
         });
 
         res.status(200).json(newRoom);
@@ -92,6 +93,27 @@ const registerRoom = async (req, res) => {
     }
 };
 
+const getAllRooms = async (req, res)=>{
+    try {
+        const allRooms = await Room.find({});
+
+        res.json(allRooms);
+    } catch (error) {
+        res.json(error);
+    }
+}
+const getFounderInfo = async (req, res) => {
+    const {id} = req.body;
+
+    try {
+        const founderData = await User.findOne({_id: id});
+
+        res.json(founderData);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
 const checkPermission = async (req, res) => {
     const id = req.params.id;
     const ownId = req.user._id;
@@ -111,7 +133,25 @@ const checkPermission = async (req, res) => {
     }
 
 }
+const checkRoomCreated = async(req, res)=>{
+    const id = req.user._id;
+    console.log(id);
 
+    try {
+        const exist = await Room.findOne({company: id});
+        console.log(exist);
+
+        if(exist){
+            return res.json(exist)
+        }
+
+        else{
+            return res.json("Room not created");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+}
 
 //not tested
 const dealAccept = async(req, res)=>{
@@ -183,4 +223,4 @@ const dealAccept = async(req, res)=>{
 
 
 
-module.exports = { createRoom, registerRoom, checkPermission, dealAccept ,createRoom2};
+module.exports = { createRoom, registerRoom, checkPermission,getFounderInfo, dealAccept ,createRoom2,getAllRooms,checkRoomCreated};

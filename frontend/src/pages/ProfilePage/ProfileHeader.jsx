@@ -63,7 +63,6 @@ const ProfileHeader = ({ editChange, setEditChange, handleEditChange }) => {
       website: inputWebsite,
       established_year: eyear,
       no_of_employees: csize,
-      pic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3UEhcHLRhkLeuIOdUzQT982hNPBlzxcpVXQKD6Ozfl0-aJDiDPYE4bmO07N793Oz9IZM&usqp=CAU",
     };
     setEditChange(!editChange);
     await dispatch(updateUserAsync(updatedUser));

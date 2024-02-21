@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
     const { role } = req.body;
 
     if (role === "Founder") {
-        const { email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
+        const { email, password, full_name,pic, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
         try {
             // console.log("test");
             const user = await User.create({
-                email, password, full_name, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
+                email, password, full_name,pic, company, cin, location, website, established_year, founders, description, domain, valuation, funding, no_of_employees, pitch_desc, links
             });
             // console.log("test");
             if (user) {
@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
     }
 
     else if (role === "Investor") {
-        const { name, email, password, company, invested_companies, investing_category, favourites, invested_data, amount_invested, auction_reg_companies } = req.body;
+        const { full_name, email, password, company, invested_companies, investing_category,linkedin,pic, favourites, invested_data,prefered_amount,annual_income, amount_invested, auction_reg_companies } = req.body;
 
         if (!email || !password) {
             res.status(400).json("Please enter all the fields");
@@ -59,13 +59,18 @@ const registerUser = async (req, res) => {
 
         try {
             const user = await Investor.create({
-                name,
+                full_name,
                 email,
                 password,
                 company,
                 invested_companies,
                 invested_data,
                 investing_category,
+                linkedin,
+                pic,
+                prefered_amount,
+                annual_income,
+
             });
 
             if (user) {
@@ -153,7 +158,7 @@ const getProfile = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
-    const { full_name, location, website, founders, description, domain,pic, sales,valuation, finances, funding, no_of_employees, pitch_desc, links, established_year, summary } = req.body;
+    const { full_name, location, website, founders, description, domain,pic, sales,valuation, finances, funding, no_of_employees, pitch_desc, links, established_year, summary,pitch } = req.body;
 
     const id = req.user._id;
 
@@ -161,7 +166,7 @@ const editProfile = async (req, res) => {
 
         const update = await User.updateOne({ _id: id }, {
             $set: {
-                full_name, location, website, founders, description, finances,pic, domain,sales, valuation, funding, no_of_employees, pitch_desc, links, established_year, summary
+                full_name,pitch, location, website, founders, description, finances,pic, domain,sales, valuation, funding, no_of_employees, pitch_desc, links, established_year, summary
             }
         });
         const user = await User.findOne({ _id: id });
