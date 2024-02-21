@@ -6,6 +6,10 @@ const roomSchema = mongoose.Schema(
             type: Boolean,
         },
 
+        roomId: {
+            type: String
+        },
+
         company: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"

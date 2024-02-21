@@ -148,7 +148,11 @@ const getOwnPosts = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
     try {
-        const allPosts = await Post.find({});
+        const allPosts = await Post.find({}).populate("creater", "company");
+
+        // for(let i=0; i<allPosts.length; i++){
+        //     console.log(allPosts[i]);
+        // }
 
         res.json(allPosts);
     } catch (error) {
@@ -157,4 +161,16 @@ const getAllPosts = async (req, res) => {
     }
 }
 
-module.exports = { createPost, getOwnPosts, getAllPosts };
+const getNameFromId = async (req, res)=>{
+    const {id} = req.body;
+
+    try {
+        const founder = await User.findOne({_id: id});
+
+        res.json(founder);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+module.exports = { createPost, getOwnPosts, getAllPosts, getNameFromId };

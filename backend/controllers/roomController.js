@@ -54,6 +54,7 @@ const createRoom2 = async (req, res) => {
     try {
         const newRoom = await Room.create({
             active: true,
+            roomId: id,
             company: id,
             base_amount: money,
             base_percentage: percent
@@ -67,31 +68,87 @@ const createRoom2 = async (req, res) => {
     }
 };
 
-const registerRoom = async (req, res) => {
-    const id = req.params.id;
-    // const {email} = req.body;
-    const investorID = req.user._id;
-
+const getAllRooms = async (req, res) => {
     try {
-        const registered = await Room.findById(id);
+        const allRooms = await Room.find({});
 
-        if (registered.active) {
-            let arr = registered.interested_investors;
-            if (arr.includes(investorID)) {
-                return res.json("You have already registed for the room");
-            }
-            registered.interested_investors.push(investorID);
-            const updatedData = await registered.save();
-
-            return res.json(updatedData);
-        } else {
-            return res.json("Room is not active");
-        }
+        res.json(allRooms);
     } catch (error) {
-        // console.log(error);
         res.json(error);
     }
-};
+}
+
+const getRegisteredRooms = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const registedRoom = await Room.find({ interested_investors: id });
+
+        res.json(registedRoom);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+const getFounderInfo = async (req, res) => {
+    const {id} = req.body;
+
+    try {
+        const founderData = await User.findOne({_id: id});
+
+        res.json(founderData);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+const checkRoomCreated = async(req, res)=>{
+    const id = req.user._id;
+    // console.log(id);
+
+    try {
+        let exist = await Room.findOne({company: id}).populate("interested_investors", "name");
+        // console.log(exist);
+
+        if(exist){
+            // exist = await exist.populate("company", "full_name");
+
+            console.log(exist);
+            return res.json(exist)
+        }
+
+        else{
+            return res.json("Room not created");
+        }
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+
+const registerRoom = async (req, res) => {
+    const id = req.params.id;
+    const investorID = req.user._id;
+    // console.log(typeof(investorID));
+    try {
+        const registered = await Room.findOne({ roomId: id });
+        console.log(registered);
+
+        let arr = registered.interested_investors;
+
+        // if (!arr.contains(investorID)) {
+        //     return res.json("You have already registered for the room");
+        // }
+
+        registered.interested_investors.push(investorID);
+        console.log(registered);
+        const updatedData = await registered.save();
+        console.log(updatedData);
+        res.json(updatedData);
+
+    } catch (error) {
+        res.json(error)
+    }
+}
 
 const checkPermission = async (req, res) => {
     const id = req.params.id;
@@ -115,7 +172,4 @@ const checkPermission = async (req, res) => {
 
 
 
-
-
-
-module.exports = { createRoom, registerRoom, checkPermission, createRoom2 };
+module.exports = { createRoom, registerRoom, checkPermission, createRoom2, getAllRooms, getRegisteredRooms, getFounderInfo, checkRoomCreated };
